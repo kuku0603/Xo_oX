@@ -1,0 +1,1546 @@
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b0b0e">
+    <meta name="author" content="Zeng Bin">
+    <meta name="description" content="曾彬 · 3D Designer Portfolio，专注 Blender、Unity、Three.js、WebGPU 与 AIGC 工作流。">
+    <meta name="keywords" content="3D Designer, Blender, Unity, Three.js, WebGPU, AIGC, ComfyUI, Shenzhen">
+
+    <meta property="og:title" content="ZENG BIN — 3D Designer Portfolio">
+    <meta property="og:description" content="16 年跨平台 3D 美术全链路经验作品集">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="zh_CN">
+    <meta property="og:image" content="./assets/og-cover.webp">
+
+    <title>ZENG BIN — 3D Designer Portfolio</title>
+
+    <link rel="icon" href="data:image/svg+xml,
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'>
+<rect width='32' height='32' fill='%230b0b0e'/>
+<text x='50%25' y='53%25' dominant-baseline='middle' text-anchor='middle'
+font-family='Arial' font-weight='700' font-size='18' fill='%23ff5a1f'>Z</text>
+</svg>">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #0b0b0e;
+            --bg2: #111116;
+            --surface: rgba(255, 255, 255, .045);
+            --surface2: rgba(255, 255, 255, .075);
+            --line: rgba(255, 255, 255, .11);
+            --line2: rgba(255, 255, 255, .24);
+            --text: #f4f3ef;
+            --muted: rgba(244, 243, 239, .62);
+            --dim: rgba(244, 243, 239, .34);
+            --orange: #ff5a1f;
+            --orange-dim: rgba(255, 90, 31, .15);
+            --teal: #00d4aa;
+            --mono: 'JetBrains Mono', monospace;
+            --sans: 'Inter', Arial, sans-serif;
+            --nav: 66px;
+            --ease: cubic-bezier(.16, 1, .3, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            background:
+                radial-gradient(ellipse 60% 40% at 15% 0%, rgba(255, 90, 31, .055), transparent 65%),
+                radial-gradient(ellipse 45% 40% at 90% 100%, rgba(0, 212, 170, .04), transparent 65%),
+                var(--bg);
+            color: var(--text);
+            font-family: var(--sans);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body:before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+            opacity: .25;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");
+        }
+
+        body.modal-open {
+            overflow: hidden
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        button {
+            font: inherit
+        }
+
+        img {
+            display: block;
+            max-width: 100%
+        }
+
+        ::selection {
+            background: var(--orange);
+            color: var(--bg)
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--orange);
+            outline-offset: 4px;
+        }
+
+        .progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 500;
+            height: 2px;
+            width: 0;
+            background: linear-gradient(90deg, var(--orange), var(--teal));
+        }
+
+        .start {
+            position: fixed;
+            inset: 0;
+            z-index: 400;
+            display: grid;
+            place-items: center;
+            background: var(--bg);
+            transition: opacity .7s var(--ease), visibility .7s;
+        }
+
+        .start.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .start canvas,
+        .hero canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .start-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .start-name {
+            font-size: clamp(3rem, 9vw, 7rem);
+            font-weight: 700;
+            letter-spacing: -.07em;
+        }
+
+        .start-role,
+        .kicker,
+        .label,
+        .date,
+        .nav a,
+        .btn,
+        .status,
+        .hero-sub {
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+
+        .start-role {
+            color: var(--dim);
+            margin-top: 15px;
+        }
+
+        .start-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 38px;
+        }
+
+        .btn {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 42px;
+            padding: 0 24px;
+            border: 1px solid var(--line2);
+            color: var(--text);
+            cursor: pointer;
+            transition: .25s var(--ease);
+        }
+
+        .btn:hover,
+        .btn.primary {
+            background: var(--orange);
+            border-color: var(--orange);
+            color: var(--bg);
+        }
+
+        .btn.secondary:hover {
+            border-color: var(--teal);
+            color: var(--teal)
+        }
+
+        .start-hint {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--dim);
+            white-space: nowrap;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 200;
+            height: var(--nav);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 32px;
+            background: rgba(11, 11, 14, .84);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--line);
+            transition: transform .4s var(--ease);
+        }
+
+        .nav.hide {
+            transform: translateY(-100%)
+        }
+
+        .logo {
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: .1em;
+        }
+
+        .logo b {
+            color: var(--orange);
+            margin-right: 7px
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px
+        }
+
+        .nav a {
+            color: var(--dim);
+            transition: .2s
+        }
+
+        .nav a:hover,
+        .nav a.active {
+            color: var(--text)
+        }
+
+        .menu {
+            display: none;
+            width: 42px;
+            height: 42px;
+            border: 1px solid var(--line);
+            background: none;
+            color: var(--text);
+            cursor: pointer;
+        }
+
+        .mobile {
+            position: fixed;
+            inset: 0;
+            z-index: 150;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 28px;
+            background: var(--bg);
+            opacity: 0;
+            pointer-events: none;
+            transition: .35s;
+        }
+
+        .mobile.open {
+            opacity: 1;
+            pointer-events: auto
+        }
+
+        .mobile a {
+            font-size: 2rem;
+            color: var(--muted)
+        }
+
+        main {
+            opacity: 0;
+            transition: opacity .7s var(--ease)
+        }
+
+        main.show {
+            opacity: 1
+        }
+
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-end;
+            padding: calc(var(--nav) + 80px) 32px 80px;
+            overflow: hidden;
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 1400px;
+            margin: auto;
+        }
+
+        .hero canvas {
+            opacity: .42
+        }
+
+        .hero .kicker {
+            color: var(--teal);
+            margin-bottom: 20px
+        }
+
+        .hero h1 {
+            font-size: clamp(4rem, 12vw, 10rem);
+            line-height: .86;
+            letter-spacing: -.09em;
+            font-weight: 700;
+        }
+
+        .hero-sub {
+            color: var(--orange);
+            margin-top: 26px
+        }
+
+        .hero-desc {
+            max-width: 560px;
+            margin-top: 22px;
+            color: var(--muted);
+            font-size: 1rem;
+            line-height: 1.75;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px
+        }
+
+        .stats {
+            display: flex;
+            gap: 50px;
+            margin-top: 50px;
+            padding-top: 24px;
+            border-top: 1px solid var(--line);
+        }
+
+        .stat-num {
+            font-size: 2rem;
+            font-weight: 300
+        }
+
+        .stat-label {
+            margin-top: 5px;
+            color: var(--dim)
+        }
+
+        .scroll {
+            position: absolute;
+            right: 32px;
+            bottom: 32px;
+            writing-mode: vertical-rl;
+            color: var(--dim);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            50% {
+                opacity: .35;
+                transform: translateY(6px)
+            }
+        }
+
+        .divider {
+            height: 1px;
+            background: var(--line)
+        }
+
+        .section {
+            max-width: 1400px;
+            margin: auto;
+            padding: 130px 32px;
+        }
+
+        .section-head {
+            display: flex;
+            align-items: baseline;
+            gap: 22px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--line);
+            margin-bottom: 48px;
+        }
+
+        .section-num {
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--orange)
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 400;
+            letter-spacing: -.06em
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 80px;
+        }
+
+        .about-text {
+            max-width: 750px;
+            font-size: clamp(1.1rem, 2vw, 1.5rem);
+            line-height: 1.75;
+            color: var(--muted);
+        }
+
+        .about-text strong {
+            color: var(--text);
+            font-weight: 500
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 13px 0;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .info-row span:first-child {
+            font-family: var(--mono);
+            font-size: 10px;
+            color: var(--dim)
+        }
+
+        .info-row span:last-child {
+            text-align: right;
+            font-size: 13px
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 145px 1fr;
+            gap: 32px;
+            padding: 30px 0;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .period,
+        .role {
+            font-family: var(--mono);
+            font-size: 10px;
+            color: var(--dim)
+        }
+
+        .company {
+            font-size: 1.35rem;
+            font-weight: 500
+        }
+
+        .role {
+            color: var(--orange);
+            margin-top: 7px
+        }
+
+        .timeline-desc {
+            color: var(--muted);
+            margin-top: 13px;
+            line-height: 1.7
+        }
+
+        .filter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 28px;
+        }
+
+        .filter button {
+            padding: 9px 14px;
+            border: 1px solid var(--line);
+            background: none;
+            color: var(--dim);
+            cursor: pointer;
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: .06em;
+        }
+
+        .filter button.active,
+        .filter button:hover {
+            border-color: var(--orange);
+            color: var(--orange);
+        }
+
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1px;
+            background: var(--line);
+            border: 1px solid var(--line);
+        }
+
+        .project {
+            position: relative;
+            grid-column: span 6;
+            min-height: 270px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            gap: 12px;
+            padding: 32px;
+            background: var(--bg);
+            overflow: hidden;
+            cursor: pointer;
+            transition: .3s var(--ease);
+        }
+
+        .project:nth-child(3n) {
+            grid-column: span 5
+        }
+
+        .project:nth-child(4n) {
+            grid-column: span 7
+        }
+
+        .project:hover {
+            background: var(--surface2)
+        }
+
+        .project:before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), var(--orange-dim), transparent 55%);
+            opacity: 0;
+            transition: .3s;
+        }
+
+        .project:hover:before {
+            opacity: 1
+        }
+
+        .project>* {
+            position: relative;
+            z-index: 1
+        }
+
+        .project-letter {
+            position: absolute;
+            top: 24px;
+            left: 30px;
+            font-size: 4rem;
+            line-height: 1;
+            font-weight: 700;
+            color: var(--dim);
+        }
+
+        .project-title {
+            font-size: 1.35rem;
+            font-weight: 500
+        }
+
+        .project-date {
+            color: var(--orange)
+        }
+
+        .project-desc {
+            max-width: 650px;
+            color: var(--muted);
+            line-height: 1.7
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px
+        }
+
+        .tag {
+            padding: 5px 9px;
+            border: 1px solid var(--line);
+            color: var(--dim);
+            font-family: var(--mono);
+            font-size: 10px;
+        }
+
+        .tag.orange {
+            color: var(--orange);
+            border-color: var(--orange-dim)
+        }
+
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .skill-group h3 {
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--line);
+            color: var(--orange);
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+
+        .skill-group:nth-child(2) h3 {
+            color: var(--teal)
+        }
+
+        .skill-item {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, .05);
+            color: var(--muted);
+        }
+
+        .education {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            padding: 35px;
+            border: 1px solid var(--line);
+            background: var(--surface);
+        }
+
+        .edu-icon {
+            width: 58px;
+            height: 58px;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--line2);
+            font-size: 25px;
+        }
+
+        .edu-school {
+            font-size: 1.25rem
+        }
+
+        .edu-major {
+            color: var(--muted);
+            margin-top: 5px
+        }
+
+        .edu-date {
+            font-family: var(--mono);
+            font-size: 10px;
+            color: var(--orange);
+            margin-top: 9px
+        }
+
+        .contact {
+            position: relative;
+            padding: 170px 32px;
+            text-align: center;
+            border-top: 1px solid var(--line);
+        }
+
+        .contact h2 {
+            max-width: 800px;
+            margin: 18px auto;
+            font-size: clamp(2.5rem, 7vw, 6rem);
+            line-height: .95;
+            letter-spacing: -.08em;
+        }
+
+        .contact h2 em {
+            color: var(--orange);
+            font-style: normal
+        }
+
+        .contact p {
+            max-width: 500px;
+            margin: 0 auto 30px;
+            color: var(--muted);
+            line-height: 1.7
+        }
+
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 28px 32px;
+            border-top: 1px solid var(--line);
+            color: var(--dim);
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 300;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            opacity: 0;
+            visibility: hidden;
+            transition: .35s;
+        }
+
+        .modal.open {
+            opacity: 1;
+            visibility: visible
+        }
+
+        .modal-bg {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, .82);
+            backdrop-filter: blur(12px);
+        }
+
+        .modal-box {
+            position: relative;
+            z-index: 1;
+            width: min(780px, 100%);
+            max-height: 90vh;
+            overflow: auto;
+            background: var(--bg2);
+            border: 1px solid var(--line2);
+            transform: translateY(30px) scale(.97);
+            transition: .45s var(--ease);
+        }
+
+        .modal.open .modal-box {
+            transform: none
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            z-index: 2;
+            width: 40px;
+            height: 40px;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            color: var(--text);
+            cursor: pointer;
+        }
+
+        .modal-img {
+            aspect-ratio: 16/9;
+            background: var(--surface);
+            overflow: hidden;
+        }
+
+        .modal-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
+        .modal-body {
+            padding: 40px
+        }
+
+        .modal-letter {
+            font-size: 4rem;
+            color: var(--orange);
+            font-weight: 700
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            margin: 7px 0
+        }
+
+        .modal-date {
+            color: var(--dim)
+        }
+
+        .modal-desc {
+            margin: 25px 0;
+            color: var(--muted);
+            line-height: 1.8
+        }
+
+        .modal-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .modal-meta div {
+            padding: 15px;
+            border: 1px solid var(--line);
+        }
+
+        .modal-meta span {
+            display: block;
+            font-family: var(--mono);
+            font-size: 10px;
+            color: var(--dim);
+            margin-bottom: 8px;
+        }
+
+        .modal-meta strong {
+            font-weight: 400;
+            color: var(--text)
+        }
+
+        .back {
+            position: fixed;
+            right: 28px;
+            bottom: 28px;
+            z-index: 100;
+            width: 44px;
+            height: 44px;
+            border: 1px solid var(--line);
+            background: rgba(18, 18, 22, .85);
+            color: var(--text);
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: .3s;
+        }
+
+        .back.visible {
+            opacity: 1;
+            visibility: visible
+        }
+
+        .back:hover {
+            background: var(--orange);
+            color: var(--bg)
+        }
+
+        .cursor {
+            position: fixed;
+            z-index: 1000;
+            width: 24px;
+            height: 24px;
+            border: 1px solid var(--orange);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+            transition: width .2s, height .2s, border-color .2s;
+        }
+
+        .cursor.active {
+            width: 42px;
+            height: 42px
+        }
+
+        .cursor-dot {
+            position: fixed;
+            z-index: 1001;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--orange);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(25px);
+            transition: .7s var(--ease);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: none
+        }
+
+        @media(max-width:800px) {
+            .nav {
+                padding: 0 20px
+            }
+
+            .nav-links {
+                display: none
+            }
+
+            .menu {
+                display: block
+            }
+
+            .hero {
+                padding: calc(var(--nav) + 60px) 22px 55px
+            }
+
+            .hero h1 {
+                font-size: clamp(4rem, 19vw, 7rem)
+            }
+
+            .hero-desc {
+                font-size: .9rem
+            }
+
+            .stats {
+                gap: 25px;
+                flex-wrap: wrap
+            }
+
+            .scroll {
+                display: none
+            }
+
+            .section {
+                padding: 85px 22px
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 40px
+            }
+
+            .timeline-item {
+                grid-template-columns: 1fr;
+                gap: 10px
+            }
+
+            .projects {
+                grid-template-columns: 1fr
+            }
+
+            .project,
+            .project:nth-child(n) {
+                grid-column: span 1;
+                min-height: 290px;
+                padding: 25px
+            }
+
+            .skills {
+                grid-template-columns: 1fr;
+                gap: 35px
+            }
+
+            .education {
+                align-items: flex-start;
+                flex-direction: column
+            }
+
+            .contact {
+                padding: 110px 22px
+            }
+
+            .footer {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+                padding: 25px 20px
+            }
+
+            .modal-body {
+                padding: 28px 22px
+            }
+
+            .modal-meta {
+                grid-template-columns: 1fr
+            }
+
+            .cursor,
+            .cursor-dot {
+                display: none
+            }
+        }
+
+        @media(prefers-reduced-motion:reduce) {
+
+            *,
+            *:before,
+            *:after {
+                animation: none !important;
+                transition-duration: .01ms !important;
+                scroll-behavior: auto !important;
+            }
+
+            .reveal {
+                opacity: 1;
+                transform: none
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="progress" id="progress"></div>
+
+    <div class="start" id="start">
+        <canvas id="startCanvas"></canvas>
+        <div class="start-content">
+            <div class="start-name">ZENG BIN</div>
+            <div class="start-role">3D Designer · Shenzhen</div>
+            <div class="start-actions">
+                <button class="btn primary" id="enter">Enter Portfolio</button>
+                <a class="btn secondary" href="./assets/resume.pdf" download>Download CV</a>
+            </div>
+            <div class="status" style="margin-top:24px;color:var(--teal)">
+                ● AVAILABLE FOR SELECTED PROJECTS
+            </div>
+        </div>
+        <div class="start-hint label">Move cursor to explore · Click to enter</div>
+    </div>
+
+    <div class="mobile" id="mobile">
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#education">Education</a>
+    </div>
+
+    <main id="main">
+
+        <nav class="nav" id="nav">
+            <a href="#hero" class="logo"><b>Z</b>ZENG BIN</a>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#experience">Experience</a>
+                <a href="#projects">Projects</a>
+                <a href="#skills">Skills</a>
+                <a href="#education">Education</a>
+            </div>
+            <button class="menu" id="menu" aria-label="打开菜单">☰</button>
+        </nav>
+
+        <section class="hero" id="hero">
+            <canvas id="heroCanvas"></canvas>
+            <div class="hero-inner">
+                <div class="kicker">AVAILABLE FOR 3D / WEB3D / AIGC PROJECTS</div>
+                <h1>ZENG<br>BIN</h1>
+                <div class="hero-sub">3D Designer · Real-time Art · Web3D · AIGC</div>
+                <p class="hero-desc">
+                    16 年跨平台 3D 美术全链路经验，专注建模、材质、灯光、
+                    Unity 实时渲染、Three.js / WebGPU 与 AIGC 工作流。
+                </p>
+                <div class="hero-actions">
+                    <a class="btn primary" href="#projects">View Selected Works</a>
+                    <a class="btn secondary" href="./assets/resume.pdf" download>Download CV</a>
+                </div>
+                <div class="stats">
+                    <div>
+                        <div class="stat-num">16+</div>
+                        <div class="stat-label label">Years Experience</div>
+                    </div>
+                    <div>
+                        <div class="stat-num">200+</div>
+                        <div class="stat-label label">Asset Library</div>
+                    </div>
+                    <div>
+                        <div class="stat-num">7</div>
+                        <div class="stat-label label">Companies</div>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll label">Scroll</div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section class="section" id="about">
+            <div class="section-head reveal">
+                <span class="section-num">01</span>
+                <h2 class="section-title">About</h2>
+            </div>
+            <div class="about-grid">
+                <div class="about-text reveal">
+                    具备优秀沟通协作能力和<strong>持续学习新技术</strong>的能力。
+                    拥有<strong>跨平台 3D 美术全链路</strong>实战经验，精通传统三维制作，
+                    同时落地 <strong>AIGC 美术工作流</strong>，可快速适配广告、引擎、
+                    <strong>Web3D</strong>、<strong>AR/VR</strong> 等多类型项目。
+                </div>
+                <div class="reveal">
+                    <div class="info-row"><span>Name</span><span>曾彬</span></div>
+                    <div class="info-row"><span>Age</span><span>38</span></div>
+                    <div class="info-row"><span>Role</span><span>3D Designer</span></div>
+                    <div class="info-row"><span>City</span><span>Shenzhen</span></div>
+                    <div class="info-row"><span>Email</span><span>kuku0603@163.com</span></div>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section class="section" id="experience">
+            <div class="section-head reveal">
+                <span class="section-num">02</span>
+                <h2 class="section-title">Experience</h2>
+            </div>
+            <div class="reveal">
+                <div class="timeline-item">
+                    <div class="period">2025.09 — NOW</div>
+                    <div>
+                        <div class="company">深圳嘉立创科技集团</div>
+                        <div class="role">3D Renderer</div>
+                        <div class="timeline-desc">WebGPU 渲染器美术工作，材质贴图制作，灯光与相机调校，渲染画面优化。</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="period">2022.03 — 2025.09</div>
+                    <div>
+                        <div class="company">深圳商汤科技（外包）</div>
+                        <div class="role">3D Designer</div>
+                        <div class="timeline-desc">Unity 项目建模动画、Three.js 自研引擎资源输出、ComfyUI AIGC 工作流搭建。</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="period">2017.03 — 2022.03</div>
+                    <div>
+                        <div class="company">深圳华语传奇广告</div>
+                        <div class="role">3D Designer</div>
+                        <div class="timeline-desc">吉祥物建模动画、立体海报、产品渲染、3D LOGO、AE 合成视频。</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section class="section" id="projects">
+            <div class="section-head reveal">
+                <span class="section-num">03</span>
+                <h2 class="section-title">Projects</h2>
+            </div>
+            <div class="filter reveal" id="filters"></div>
+            <div class="projects reveal" id="projectsGrid"></div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section class="section" id="skills">
+            <div class="section-head reveal">
+                <span class="section-num">04</span>
+                <h2 class="section-title">Skills</h2>
+            </div>
+            <div class="skills reveal">
+                <div class="skill-group">
+                    <h3>Software</h3>
+                    <div class="skill-item">Blender</div>
+                    <div class="skill-item">3ds Max</div>
+                    <div class="skill-item">ZBrush</div>
+                    <div class="skill-item">Substance Painter</div>
+                    <div class="skill-item">Cinema 4D</div>
+                </div>
+                <div class="skill-group">
+                    <h3>Engine & Render</h3>
+                    <div class="skill-item">Unity</div>
+                    <div class="skill-item">Three.js</div>
+                    <div class="skill-item">WebGPU</div>
+                    <div class="skill-item">PBR Pipeline</div>
+                </div>
+                <div class="skill-group">
+                    <h3>AI Tools</h3>
+                    <div class="skill-item">ComfyUI</div>
+                    <div class="skill-item">SD WebUI</div>
+                    <div class="skill-item">LoRA Training</div>
+                    <div class="skill-item">ControlNet</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section class="section" id="education">
+            <div class="section-head reveal">
+                <span class="section-num">05</span>
+                <h2 class="section-title">Education</h2>
+            </div>
+            <div class="education reveal">
+                <div class="edu-icon">🎓</div>
+                <div>
+                    <div class="edu-school">长沙职业技术学院</div>
+                    <div class="edu-major">计算机应用技术 · 大专</div>
+                    <div class="edu-date">2007 — 2010</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact">
+            <div class="kicker">GET IN TOUCH</div>
+            <h2>Let's Build Something <em>Together</em></h2>
+            <p>从传统三维制作到实时渲染和 AIGC 工作流，期待参与你的下一个项目。</p>
+            <a class="btn primary" href="mailto:kuku0603@163.com">kuku0603@163.com</a>
+        </section>
+
+        <footer class="footer">
+            <span>Zeng Bin · 3D Designer · 2026</span>
+            <a href="mailto:kuku0603@163.com">kuku0603@163.com</a>
+        </footer>
+
+    </main>
+
+    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-bg" id="modalBg"></div>
+        <div class="modal-box">
+            <button class="modal-close" id="modalClose" aria-label="关闭项目详情">×</button>
+            <div class="modal-img">
+                <img id="modalImg" src="" alt="">
+            </div>
+            <div class="modal-body">
+                <div class="modal-letter" id="modalLetter"></div>
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <div class="modal-date" id="modalDate"></div>
+                <p class="modal-desc" id="modalDesc"></p>
+                <div class="modal-meta">
+                    <div>
+                        <span>ROLE</span>
+                        <strong id="modalRole"></strong>
+                    </div>
+                    <div>
+                        <span>RESULT</span>
+                        <strong id="modalResult"></strong>
+                    </div>
+                </div>
+                <div class="tags" id="modalTags"></div>
+            </div>
+        </div>
+    </div>
+
+    <button class="back" id="back" aria-label="返回顶部">↑</button>
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-dot" id="cursorDot"></div>
+
+    <script>
+        const PROJECTS = [
+            {
+                id: 'comfyui',
+                letter: 'A',
+                title: 'ComfyUI 工作流搭建',
+                category: 'AIGC',
+                date: '2023.12 — NOW',
+                desc: '搭建文生图、图生图、风格迁移、LoRA 训练与标准化项目模板，服务视觉探索与生产流程。',
+                role: 'AIGC Pipeline Designer',
+                result: '提升视觉探索速度与团队资产复用效率。',
+                tags: ['ComfyUI', 'AIGC', 'LoRA', 'Pipeline'],
+                img: './assets/projects/comfyui.webp'
+            },
+            {
+                id: 'vps',
+                letter: 'B',
+                title: 'VPS 导航系统',
+                category: 'REAL-TIME',
+                date: '2022.03 — 2024.09',
+                desc: '构建 PBR 4K 贴图标准，建立 200+ 模型资源库，统一资产规范与外包管理流程。',
+                role: '3D Asset Supervisor',
+                result: '降低返工率，缩短资源制作周期。',
+                tags: ['Unity', 'PBR', 'Assets'],
+                img: './assets/projects/vps-nav.webp'
+            },
+            {
+                id: 'avatar',
+                letter: 'C',
+                title: '3D 会员卡 / 捏人 IP',
+                category: 'CHARACTER',
+                date: '2022.03 — 2023.10',
+                desc: '设计体型参数系统，实现角色换装、自定义捏脸与服饰自动匹配。',
+                role: 'Character Designer',
+                result: '降低移动端角色适配成本。',
+                tags: ['Blender', 'Mobile', 'IP'],
+                img: './assets/projects/avatar-ip.webp'
+            },
+            {
+                id: 'house',
+                letter: 'D',
+                title: '虚拟房地产手机端',
+                category: 'REAL-TIME',
+                date: '2022.08 — 2023.09',
+                desc: '完成室内高精度场景建模贴图、NPC 骨骼绑定动画以及 Unity 集成调试。',
+                role: '3D Environment Artist',
+                result: '实现视觉质量与移动端性能平衡。',
+                tags: ['Unity', 'Rigging', 'Hi-Poly'],
+                img: './assets/projects/vr-house.webp'
+            },
+            {
+                id: 'metaverse',
+                letter: 'E',
+                title: 'Web 端元宇宙',
+                category: 'WEB3D',
+                date: '2022.12 — 2023.05',
+                desc: '基于 Three.js 自研引擎构建 Web 端元宇宙场景，制作大场景 PBR 材质并优化性能。',
+                role: 'Web3D Artist',
+                result: '完成多浏览器兼容与 WebGL 性能控制。',
+                tags: ['Three.js', 'WebGL', 'Performance'],
+                img: './assets/projects/metaverse.webp'
+            },
+            {
+                id: 'jinxiaodi',
+                letter: 'F',
+                title: '金小地 IP 形象',
+                category: 'CHARACTER',
+                date: '2017.03 — 2022.03',
+                desc: '完成 IP 雕刻、服饰设计、角色绑定与表情动画，打造企业级 IP 资产体系。',
+                role: 'IP Character Designer',
+                result: '造型迭代复用率提升 60%。',
+                tags: ['ZBrush', 'C4D', 'Character'],
+                img: './assets/projects/jinxiaodi.webp'
+            }
+        ];
+
+        const $ = s => document.querySelector(s);
+        const $$ = s => [...document.querySelectorAll(s)];
+
+        const start = $('#start');
+        const main = $('#main');
+
+        $('#enter').addEventListener('click', () => {
+            start.classList.add('hidden');
+            setTimeout(() => main.classList.add('show'), 180);
+        });
+
+        $('#menu').addEventListener('click', () => $('#mobile').classList.toggle('open'));
+
+        $$('.mobile a').forEach(a => {
+            a.addEventListener('click', () => {
+                $('#mobile').classList.remove('open');
+            });
+        });
+
+        const filters = ['ALL', ...new Set(PROJECTS.map(p => p.category))];
+
+        filters.forEach((filter, i) => {
+            const b = document.createElement('button');
+            b.textContent = filter;
+            b.className = i === 0 ? 'active' : '';
+            b.addEventListener('click', () => {
+                $$('#filters button').forEach(x => x.classList.remove('active'));
+                b.classList.add('active');
+                renderProjects(filter);
+            });
+            $('#filters').appendChild(b);
+        });
+
+        function renderProjects(filter = 'ALL') {
+            const list = filter === 'ALL'
+                ? PROJECTS
+                : PROJECTS.filter(p => p.category === filter);
+
+            $('#projectsGrid').innerHTML = list.map(p => `
+    <article class="project" tabindex="0" data-id="${p.id}" aria-label="打开项目：${p.title}">
+      <div class="project-letter">${p.letter}</div>
+      <div class="project-title">${p.title}</div>
+      <div class="project-date date">${p.date}</div>
+      <div class="project-desc">${p.desc}</div>
+      <div class="tags">
+        ${p.tags.map(t => `<span class="tag ${t === 'AIGC' || t === 'Pipeline' ? 'orange' : ''}">${t}</span>`).join('')}
+      </div>
+    </article>
+  `).join('');
+
+            $$('#projectsGrid .project').forEach(card => {
+                card.addEventListener('click', () => openModal(card.dataset.id));
+                card.addEventListener('keydown', e => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        openModal(card.dataset.id);
+                    }
+                });
+                card.addEventListener('pointermove', e => {
+                    const r = card.getBoundingClientRect();
+                    card.style.setProperty('--x', `${((e.clientX - r.left) / r.width) * 100}%`);
+                    card.style.setProperty('--y', `${((e.clientY - r.top) / r.height) * 100}%`);
+                });
+            });
+        }
+
+        renderProjects();
+
+        function openModal(id) {
+            const p = PROJECTS.find(x => x.id === id);
+            if (!p) return;
+
+            $('#modalImg').src = p.img;
+            $('#modalImg').alt = p.title;
+            $('#modalLetter').textContent = p.letter;
+            $('#modalTitle').textContent = p.title;
+            $('#modalDate').textContent = p.date;
+            $('#modalDesc').textContent = p.desc;
+            $('#modalRole').textContent = p.role;
+            $('#modalResult').textContent = p.result;
+            $('#modalTags').innerHTML = p.tags.map(t => `<span class="tag">${t}</span>`).join('');
+
+            $('#modal').classList.add('open');
+            document.body.classList.add('modal-open');
+            $('#modalClose').focus();
+        }
+
+        function closeModal() {
+            $('#modal').classList.remove('open');
+            document.body.classList.remove('modal-open');
+        }
+
+        $('#modalClose').addEventListener('click', closeModal);
+        $('#modalBg').addEventListener('click', closeModal);
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        let lastY = 0;
+        window.addEventListener('scroll', () => {
+            const y = window.scrollY;
+            const doc = document.documentElement.scrollHeight - innerHeight;
+            $('#progress').style.width = (doc > 0 ? y / doc * 100 : 0) + '%';
+
+            if (y > lastY && y > 180) $('#nav').classList.add('hide');
+            else $('#nav').classList.remove('hide');
+            lastY = y;
+
+            $('#back').classList.toggle('visible', y > 500);
+        });
+
+        $('#back').addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        const revealObserver = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    revealObserver.unobserve(e.target);
+                }
+            });
+        }, { threshold: .12 });
+
+        $$('.reveal').forEach(el => revealObserver.observe(el));
+
+        if (matchMedia('(hover:hover) and (pointer:fine)').matches) {
+            const cursor = $('#cursor');
+            const dot = $('#cursorDot');
+
+            window.addEventListener('pointermove', e => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+                dot.style.left = e.clientX + 'px';
+                dot.style.top = e.clientY + 'px';
+
+                const interactive = e.target.closest('a,button,.project');
+                cursor.classList.toggle('active', !!interactive);
+            });
+        } else {
+            $('#cursor').remove();
+            $('#cursorDot').remove();
+        }
+
+        function particles(canvasId, color1, color2) {
+            const canvas = $(canvasId);
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let w, h, points = [], raf;
+
+            function resize() {
+                const dpr = devicePixelRatio || 1;
+                w = canvas.clientWidth;
+                h = canvas.clientHeight;
+                canvas.width = w * dpr;
+                canvas.height = h * dpr;
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                points = Array.from({ length: innerWidth < 700 ? 18 : 42 }, () => ({
+                    x: Math.random() * w,
+                    y: Math.random() * h,
+                    vx: (Math.random() - .5) * .25,
+                    vy: (Math.random() - .5) * .25,
+                    r: Math.random() * 1.5 + .5
+                }));
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, w, h);
+
+                points.forEach((p, i) => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if (p.x < 0 || p.x > w) p.vx *= -1;
+                    if (p.y < 0 || p.y > h) p.vy *= -1;
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = i % 4 === 0 ? color2 : color1;
+                    ctx.globalAlpha = .3;
+                    ctx.fill();
+                });
+
+                for (let i = 0; i < points.length; i++) {
+                    for (let j = i + 1; j < points.length; j++) {
+                        const a = points[i], b = points[j];
+                        const dx = a.x - b.x, dy = a.y - b.y;
+                        const d = Math.hypot(dx, dy);
+                        if (d < 120) {
+                            ctx.beginPath();
+                            ctx.moveTo(a.x, a.y);
+                            ctx.lineTo(b.x, b.y);
+                            ctx.strokeStyle = color1;
+                            ctx.globalAlpha = (1 - d / 120) * .18;
+                            ctx.lineWidth = .5;
+                            ctx.stroke();
+                        }
+                    }
+                }
+
+                ctx.globalAlpha = 1;
+                raf = requestAnimationFrame(draw);
+            }
+
+            addEventListener('resize', resize);
+            resize();
+            draw();
+
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    cancelAnimationFrame(raf);
+                } else {
+                    draw();
+                }
+            });
+        }
+
+        particles('#startCanvas', 'rgba(255,90,31,.8)', 'rgba(0,212,170,.8)');
+        particles('#heroCanvas', 'rgba(255,90,31,.8)', 'rgba(0,212,170,.8)');
+    </script>
+
+</body>
+
+</html>
+```
