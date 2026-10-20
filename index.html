@@ -2873,11 +2873,30 @@
 
         (function () {
             var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            var mouseNDC = { x: 0, y: 0 };
+            var mouseNDC = { x: 999, y: 999 }; // 默认离屏，手机点按不碰几何体
+            var touchActive = false, touchMoved = 0, lastTX = 0, lastTY = 0;
             window.addEventListener('pointermove', function (e) {
+                if (e.pointerType === 'touch') {
+                    if (!touchActive) return; // 没按下时不响应
+                    var dxm = e.clientX - lastTX, dym = e.clientY - lastTY;
+                    touchMoved += Math.sqrt(dxm * dxm + dym * dym);
+                    lastTX = e.clientX; lastTY = e.clientY;
+                    if (touchMoved < 12) { // 手指滑动超过 12px 才开始排斥，轻点屏幕不弹飞
+                        mouseNDC.x = 999; mouseNDC.y = 999; return;
+                    }
+                }
                 mouseNDC.x = (e.clientX / window.innerWidth) * 2 - 1;
                 mouseNDC.y = -(e.clientY / window.innerHeight) * 2 + 1;
             }, { passive: true });
+            window.addEventListener('pointerdown', function (e) {
+                if (e.pointerType !== 'touch') return;
+                touchActive = true; touchMoved = 0;
+                lastTX = e.clientX; lastTY = e.clientY;
+                mouseNDC.x = 999; mouseNDC.y = 999;
+            }, { passive: true });
+            function endTouch() { touchActive = false; mouseNDC.x = 999; mouseNDC.y = 999; }
+            window.addEventListener('pointerup', endTouch, { passive: true });
+            window.addEventListener('pointercancel', endTouch, { passive: true });
 
             function isMobile() { return window.innerWidth < 768; }
 
@@ -3048,7 +3067,9 @@
                         var cursorR = 20 / (window.innerWidth / 2);
                         var hitR = (s.radius / worldPerNdcx) + cursorR;
                         if (dist < hitR && dist > 0.0001) {
-                            var force = (1 - dist / hitR) * 0.12; // 力度
+                            // 手机手指滑动力度减半，电脑鼠标保持原力度
+                            var forceScale = touchActive ? 0.5 : 1.0;
+                            var force = (1 - dist / hitR) * 0.12 * forceScale; // 力度
                             s.vx += (dx / dist) * force * worldPerNdcx;
                             s.vy += (dy / dist) * force * worldPerNdcy;
                             // 被光标碰到时边推开边加速自转：沿排斥方向给一个旋转冲量，
