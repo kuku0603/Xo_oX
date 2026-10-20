@@ -3098,7 +3098,7 @@
                 function frame() { renderer.setAnimationLoop(update); }
                 function stop() { renderer.setAnimationLoop(null); }
 
-                scatter(); resize();
+                resize(); scatter(); layout(); // 先按真实宽高比算 halfW，再铺开几何体
                 if (reduced) { renderer.render(scene, camera); return; }
 
                 var sp = document.getElementById('startPage');
