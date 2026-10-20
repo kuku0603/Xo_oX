@@ -4,25 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#0b0b0e">
-    <meta name="author" content="Zeng Bin">
-    <meta name="description" content="Z · 3D Designer Portfolio，专注 Blender、Unity、Three.js、WebGPU 与 AIGC 工作流。">
-    <meta name="keywords" content="3D Designer, Blender, Unity, Three.js, WebGPU, AIGC, ComfyUI, Shenzhen">
-
-    <meta property="og:title" content="ZENG BIN — 3D Designer Portfolio">
-    <meta property="og:description" content="16 年跨平台 3D 美术全链路经验作品集">
-    <meta property="og:type" content="website">
-    <meta property="og:locale" content="zh_CN">
-    <meta property="og:image" content="./assets/og-cover.webp">
-
+    <meta name="theme-color" content="#E8EEFF">
     <title>ZENG BIN — 3D Designer Portfolio</title>
-
-    <link rel="icon" href="data:image/svg+xml,
-<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'>
-<rect width='32' height='32' fill='%230b0b0e'/>
-<text x='50%25' y='53%25' dominant-baseline='middle' text-anchor='middle'
-font-family='Arial' font-weight='700' font-size='18' fill='%23ff5a1f'>Z</text>
-</svg>">
+    <meta name="description"
+        content="曾彬 · 3D 设计师作品集：16 年跨平台 3D 美术全链路经验，精通 Blender / Unity / Three.js / WebGPU / AIGC 工作流。">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%234F7CFF'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Inter,sans-serif' font-weight='700' font-size='18' fill='%23ffffff'>Z</text></svg>">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,111 +19,422 @@ font-family='Arial' font-weight='700' font-size='18' fill='%23ff5a1f'>Z</text>
 
     <style>
         :root {
-            --bg: #0b0b0e;
-            --bg2: #111116;
-            --surface: rgba(255, 255, 255, .045);
-            --surface2: rgba(255, 255, 255, .075);
-            --line: rgba(255, 255, 255, .11);
-            --line2: rgba(255, 255, 255, .24);
-            --text: #f4f3ef;
-            --muted: rgba(244, 243, 239, .62);
-            --dim: rgba(244, 243, 239, .34);
-            --orange: #ff5a1f;
-            --orange-dim: rgba(255, 90, 31, .15);
-            --teal: #00d4aa;
-            --mono: 'JetBrains Mono', monospace;
-            --sans: 'Inter', Arial, sans-serif;
-            --nav: 66px;
-            --ease: cubic-bezier(.16, 1, .3, 1);
+            --bg: #dbe4f6;
+            --glass: rgba(255, 255, 255, 0.48);
+            --glass-hover: rgba(255, 255, 255, 0.60);
+            --glass-border: rgba(255, 255, 255, 0.65);
+            --glass-border-strong: rgba(255, 255, 255, 0.85);
+            --text-1: #1e2a47;
+            --text-2: rgba(30, 42, 71, 0.64);
+            --text-3: rgba(30, 42, 71, 0.40);
+            --accent: #4f7cff;
+            --accent-2: #2ecfab;
+            --accent-3: #9b8cff;
+            --accent-dim: rgba(79, 124, 255, 0.14);
+            --accent-glow: rgba(79, 124, 255, 0.30);
+            --focus: #4f7cff;
+            --shadow-sm: 0 2px 10px rgba(50, 80, 160, 0.06);
+            --shadow-md: 0 8px 32px rgba(50, 80, 160, 0.10);
+            --shadow-lg: 0 20px 60px rgba(50, 80, 160, 0.14);
+            --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.90);
+            --font-display: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-mono: 'JetBrains Mono', 'SF Mono', 'Consolas', monospace;
+            --h1-size: clamp(3.2rem, 8vw, 6.5rem);
+            --h1-weight: 700;
+            --h1-lh: 0.95;
+            --h1-ls: -0.045em;
+            --h2-size: clamp(1.8rem, 4vw, 3rem);
+            --h2-weight: 600;
+            --h2-lh: 1.1;
+            --h2-ls: -0.03em;
+            --body-size: 0.8125rem;
+            --body-lh: 1.65;
+            --label-size: 0.6875rem;
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+            --dur-fast: 180ms;
+            --dur-med: 420ms;
+            --dur-slow: 700ms;
+            --sp-1: 4px;
+            --sp-2: 8px;
+            --sp-3: 12px;
+            --sp-4: 16px;
+            --sp-6: 24px;
+            --sp-8: 32px;
+            --sp-10: 40px;
+            --sp-12: 48px;
+            --sp-16: 64px;
+            --sp-20: 80px;
+            --sp-24: 96px;
+            --sp-32: 128px;
+            --nav-h: 64px;
+            /* 降低模糊半径以提升性能，肉眼几乎看不出区别 */
+            --blur: 16px;
+            --blur-heavy: 20px;
         }
 
-        * {
-            box-sizing: border-box;
+        *,
+        *::before,
+        *::after {
             margin: 0;
-            padding: 0
+            padding: 0;
+            box-sizing: border-box;
         }
 
         html {
-            scroll-behavior: smooth
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         body {
-            background:
-                radial-gradient(ellipse 60% 40% at 15% 0%, rgba(255, 90, 31, .055), transparent 65%),
-                radial-gradient(ellipse 45% 40% at 90% 100%, rgba(0, 212, 170, .04), transparent 65%),
-                var(--bg);
-            color: var(--text);
-            font-family: var(--sans);
+            font-family: var(--font-body);
+            font-size: var(--body-size);
+            line-height: var(--body-lh);
+            color: var(--text-1);
+            background: var(--bg);
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
         }
 
-        body:before {
-            content: "";
+        /* 背景光斑 */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: -20%;
+            z-index: -2;
+            background:
+                radial-gradient(ellipse 45% 40% at 18% 12%, rgba(79, 124, 255, 0.42) 0%, transparent 62%),
+                radial-gradient(ellipse 40% 38% at 82% 18%, rgba(155, 140, 255, 0.38) 0%, transparent 62%),
+                radial-gradient(ellipse 50% 45% at 72% 88%, rgba(46, 207, 171, 0.32) 0%, transparent 65%),
+                linear-gradient(160deg, #e6edfb 0%, #dbe6f7 45%, #e4f2f0 100%);
+            filter: blur(20px);
+            pointer-events: none;
+            /* 移除动画以提升性能，改为静态渐变 */
+        }
+
+        body::before {
+            content: '';
             position: fixed;
             inset: 0;
-            z-index: 2;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.28'/%3E%3C/svg%3E");
             pointer-events: none;
-            opacity: .25;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");
+            z-index: -1;
+            opacity: 0.18;
+            /* 性能：去掉 mix-blend-mode: overlay——它会把整页拉进一个合成组，
+               每次滚动/重绘都强制整页重算混合，是桌面端卡顿主因之一；
+               改为普通低透明度噪点，质感损失极小 */
         }
 
-        body.modal-open {
-            overflow: hidden
+        ::selection {
+            background: var(--accent);
+            color: #fff;
         }
 
-        a {
-            color: inherit;
-            text-decoration: none
-        }
-
-        button {
-            font: inherit
+        :where(a, button, [role="button"], input, textarea, select, summary):focus-visible {
+            outline: 2px solid var(--focus);
+            outline-offset: 3px;
+            border-radius: 6px;
         }
 
         img {
             display: block;
-            max-width: 100%
+            max-width: 100%;
+            height: auto;
         }
 
-        ::selection {
-            background: var(--orange);
-            color: var(--bg)
+        a {
+            color: inherit;
+            text-decoration: none;
         }
 
-        :focus-visible {
-            outline: 2px solid var(--orange);
-            outline-offset: 4px;
+        ul,
+        ol {
+            list-style: none;
         }
 
-        .progress {
+        .glass {
+            background: var(--glass);
+            backdrop-filter: blur(var(--blur)) saturate(1.9);
+            -webkit-backdrop-filter: blur(var(--blur)) saturate(1.9);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-md), var(--shadow-inset);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+
+            .reveal-line,
+            .reveal-stagger,
+            .reveal-clip {
+                opacity: 1 !important;
+                transform: none !important;
+                clip-path: none !important;
+            }
+
+            .trail-canvas {
+                display: none;
+            }
+        }
+
+        .reveal-line {
+            opacity: 0;
+            transform: translateY(100%);
+            transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out);
+        }
+
+        .reveal-line.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-stagger>* {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity var(--dur-med) var(--ease-out), transform var(--dur-med) var(--ease-out);
+        }
+
+        .reveal-stagger.visible>*:nth-child(1) {
+            transition-delay: 0ms;
+        }
+
+        .reveal-stagger.visible>*:nth-child(2) {
+            transition-delay: 80ms;
+        }
+
+        .reveal-stagger.visible>*:nth-child(3) {
+            transition-delay: 160ms;
+        }
+
+        .reveal-stagger.visible>*:nth-child(4) {
+            transition-delay: 240ms;
+        }
+
+        .reveal-stagger.visible>*:nth-child(5) {
+            transition-delay: 320ms;
+        }
+
+        .reveal-stagger.visible>*:nth-child(6) {
+            transition-delay: 400ms;
+        }
+
+        .reveal-stagger.visible>* {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-clip {
+            clip-path: inset(0 100% 0 0);
+            transition: clip-path var(--dur-slow) var(--ease-out);
+        }
+
+        .reveal-clip.visible {
+            clip-path: inset(0 0% 0 0);
+        }
+
+        .progress-bar {
             position: fixed;
             top: 0;
             left: 0;
-            z-index: 500;
             height: 2px;
-            width: 0;
-            background: linear-gradient(90deg, var(--orange), var(--teal));
-        }
-
-        .start {
-            position: fixed;
-            inset: 0;
-            z-index: 400;
-            display: grid;
-            place-items: center;
-            background: var(--bg);
-            transition: opacity .7s var(--ease), visibility .7s;
-        }
-
-        .start.hidden {
-            opacity: 0;
-            visibility: hidden;
+            z-index: 200;
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            width: 0%;
+            transform-origin: left;
+            will-change: width;
             pointer-events: none;
         }
 
-        .start canvas,
-        .hero canvas {
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--nav-h);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 var(--sp-8);
+            z-index: 150;
+            background: var(--glass);
+            backdrop-filter: blur(var(--blur-heavy)) saturate(1.9);
+            -webkit-backdrop-filter: blur(var(--blur-heavy)) saturate(1.9);
+            border-bottom: 1px solid var(--glass-border);
+            box-shadow: 0 4px 24px rgba(50, 80, 160, 0.06);
+            transition: transform var(--dur-med) var(--ease-out), background var(--dur-med) ease;
+            will-change: transform;
+        }
+
+        .nav.hidden {
+            transform: translate3d(0, -100%, 0);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: var(--sp-2);
+            font-family: var(--font-mono);
+            font-size: var(--label-size);
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-1);
+            cursor: pointer;
+            transition: opacity var(--dur-fast) ease;
+            user-select: none;
+        }
+
+        .nav-logo:hover {
+            opacity: 0.7;
+        }
+
+        .nav-logo span {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-3));
+            color: #fff;
+            font-weight: 700;
+            letter-spacing: 0;
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--sp-8);
+        }
+
+        .nav-links a {
+            font-family: var(--font-mono);
+            font-size: var(--label-size);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-2);
+            transition: color var(--dur-fast) ease;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1.5px;
+            border-radius: 2px;
+            background: var(--accent);
+            transition: width var(--dur-med) var(--ease-out);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 44px;
+            height: 44px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-menu-btn svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--text-1);
+            stroke-width: 1.5;
+            fill: none;
+        }
+
+        .mobile-nav {
+            position: fixed;
+            inset: 0;
+            z-index: 140;
+            background: rgba(232, 238, 255, 0.82);
+            backdrop-filter: blur(var(--blur-heavy)) saturate(1.6);
+            -webkit-backdrop-filter: blur(var(--blur-heavy)) saturate(1.6);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: var(--sp-8);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity var(--dur-med) var(--ease-out);
+        }
+
+        .mobile-nav.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .mobile-nav a {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            color: var(--text-2);
+            transition: color var(--dur-fast) ease;
+        }
+
+        .mobile-nav a:hover {
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .nav-menu-btn {
+                display: flex;
+            }
+
+            :root {
+                --blur: 12px;
+                --blur-heavy: 16px;
+            }
+        }
+
+        .start-page {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: linear-gradient(160deg, #eaf1fd 0%, #dde8f8 50%, #e5f3f1 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out);
+        }
+
+        .start-page.hidden {
+            opacity: 0;
+            transform: scale(1.05);
+            pointer-events: none;
+        }
+
+        .start-canvas {
             position: absolute;
             inset: 0;
             width: 100%;
@@ -147,979 +445,1435 @@ font-family='Arial' font-weight='700' font-size='18' fill='%23ff5a1f'>Z</text>
             position: relative;
             z-index: 2;
             text-align: center;
-            padding: 0 20px;
-        }
-
-        .start-content::before {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 120%;
-            height: 120%;
-            transform: translate(-50%, -50%);
-            background: radial-gradient(circle at 50% 40%, rgba(255, 90, 31, .06), transparent 60%);
-            pointer-events: none;
-            z-index: -1;
         }
 
         .start-name {
-            font-size: clamp(3rem, 9vw, 7rem);
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 7vw, 5rem);
             font-weight: 700;
-            letter-spacing: -.07em;
-            text-shadow: 0 0 40px rgba(255, 90, 31, .15);
-        }
-
-        .start-role,
-        .kicker,
-        .label,
-        .date,
-        .nav a,
-        .btn,
-        .status,
-        .hero-sub {
-            font-family: var(--mono);
-            font-size: 10px;
-            letter-spacing: .1em;
-            text-transform: uppercase;
+            letter-spacing: -0.045em;
+            line-height: 1;
+            color: var(--text-1);
         }
 
         .start-role {
-            color: var(--dim);
-            margin-top: 15px;
-            transition: color .3s;
+            font-family: var(--font-mono);
+            font-size: var(--label-size);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-3);
+            margin-top: var(--sp-4);
         }
 
-        .start-role:hover {
-            color: var(--teal);
-        }
-
-        .start-actions {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 38px;
-        }
-
-        .btn {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 42px;
-            padding: 0 24px;
-            border: 1px solid var(--line2);
-            color: var(--text);
+        .start-enter {
+            margin-top: var(--sp-10);
+            padding: var(--sp-3) var(--sp-10);
+            background: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(16px) saturate(1.8);
+            -webkit-backdrop-filter: blur(16px) saturate(1.8);
+            border: 1px solid var(--glass-border-strong);
+            border-radius: 100px;
+            color: var(--accent);
+            font-family: var(--font-mono);
+            font-size: var(--label-size);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 500;
             cursor: pointer;
-            transition: .25s var(--ease);
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(79, 124, 255, 0.16), var(--shadow-inset);
+            transition: all var(--dur-fast) ease;
         }
 
-        .btn::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, .08) 50%, transparent 70%);
-            transform: translateX(-100%);
-            transition: transform .6s var(--ease);
-        }
-
-        .btn:hover::after {
-            transform: translateX(100%);
-        }
-
-        .btn:hover,
-        .btn.primary {
-            background: var(--orange);
-            border-color: var(--orange);
-            color: var(--bg);
-            box-shadow: 0 0 20px rgba(255, 90, 31, .25);
-        }
-
-        .btn.secondary:hover {
-            border-color: var(--teal);
-            color: var(--teal);
-            box-shadow: 0 0 20px rgba(0, 212, 170, .15);
+        .start-enter:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+            box-shadow: 0 12px 32px var(--accent-glow);
+            transform: translateY(-1px);
         }
 
         .start-hint {
             position: absolute;
-            bottom: 30px;
+            bottom: var(--sp-8);
             left: 50%;
             transform: translateX(-50%);
-            color: var(--dim);
-            white-space: nowrap;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--text-3);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            z-index: 2;
         }
 
-        .status {
-            position: relative;
-        }
-
-        .status::before {
-            content: "";
-            display: inline-block;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--teal);
-            margin-right: 8px;
-            vertical-align: middle;
-            animation: breath 2s infinite ease-in-out;
-        }
-
-        @keyframes breath {
-
-            0%,
-            100% {
-                opacity: .4;
-                transform: scale(.9);
-            }
-
-            50% {
-                opacity: 1;
-                transform: scale(1.2);
-            }
-        }
-
-        .nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 999;
-            height: var(--nav);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 32px;
-            background: rgba(11, 11, 14, .92);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border-bottom: 1px solid var(--line);
-        }
-
-        .nav.hide {
-            transform: none;
-        }
-
-        .logo {
-            font-family: var(--mono);
-            font-size: 11px;
-            letter-spacing: .1em;
-            cursor: pointer;
-            transition: transform .25s var(--ease), color .25s;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            user-select: none;
-        }
-
-        .logo:hover {
-            transform: scale(1.04);
-        }
-
-        .logo:hover b {
-            color: #fff;
-        }
-
-        .logo b {
-            color: var(--orange);
-            margin-right: 3px;
-            font-size: 1.6rem;
-            line-height: 1;
-            transition: color .25s;
-            font-weight: 700;
-        }
-
-        .logo span {
-            transition: color .25s;
-        }
-
-        .logo:hover span {
-            color: var(--orange);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 30px
-        }
-
-        .nav a {
-            color: var(--dim);
-            transition: .2s
-        }
-
-        .nav a:hover,
-        .nav a.active {
-            color: var(--text)
-        }
-
-        .menu {
-            display: none;
-            width: 42px;
-            height: 42px;
-            border: 1px solid var(--line);
-            background: none;
-            color: var(--text);
-            cursor: pointer;
-        }
-
-        .mobile {
-            position: fixed;
-            inset: 0;
-            z-index: 150;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 28px;
-            background: var(--bg);
+        .main-page {
             opacity: 0;
-            pointer-events: none;
-            transition: .35s;
+            transition: opacity var(--dur-slow) var(--ease-out);
         }
 
-        .mobile.open {
+        .main-page.show {
             opacity: 1;
-            pointer-events: auto
-        }
-
-        .mobile a {
-            font-size: 2rem;
-            color: var(--muted)
-        }
-
-        main {
-            opacity: 0;
-            transition: opacity .7s var(--ease);
-            padding-top: var(--nav);
-        }
-
-        main.show {
-            opacity: 1
         }
 
         .hero {
-            position: relative;
-            min-height: calc(100vh - var(--nav));
+            min-height: 100vh;
+            padding: calc(var(--nav-h) + var(--sp-16)) var(--sp-8) var(--sp-16);
             display: flex;
-            align-items: flex-end;
-            padding: 80px 32px;
-            overflow: hidden;
+            flex-direction: column;
+            justify-content: flex-end;
+            position: relative;
         }
 
-        .hero-inner {
+        .hero-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.55;
+        }
+
+        .hero-content {
             position: relative;
             z-index: 1;
-            width: 100%;
             max-width: 1400px;
-            margin: auto;
+            width: 100%;
+            margin: 0 auto;
+            will-change: transform;
         }
 
-        .hero canvas {
-            opacity: .42
+        .hero-name {
+            font-family: var(--font-display);
+            font-size: var(--h1-size);
+            font-weight: var(--h1-weight);
+            line-height: var(--h1-lh);
+            letter-spacing: var(--h1-ls);
+            color: var(--text-1);
+            overflow: hidden;
+            background: linear-gradient(135deg, #1e2a47 0%, #4f7cff 55%, #2ecfab 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .hero .kicker {
-            color: var(--teal);
-            margin-bottom: 20px
-        }
-
-        .hero h1 {
-            font-size: clamp(4rem, 12vw, 10rem);
-            line-height: .86;
-            letter-spacing: -.09em;
-            font-weight: 700;
+        .hero-name .line {
+            display: block;
         }
 
         .hero-sub {
-            color: var(--orange);
-            margin-top: 26px
+            font-family: var(--font-mono);
+            font-size: var(--label-size);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-top: var(--sp-6);
         }
 
-        .hero-desc {
-            max-width: 560px;
-            margin-top: 22px;
-            color: var(--muted);
-            font-size: 1rem;
-            line-height: 1.75;
-        }
-
-        .hero-actions {
+        .hero-stats {
             display: flex;
-            gap: 10px;
-            margin-top: 30px
+            gap: var(--sp-12);
+            margin-top: var(--sp-10);
+            padding-top: var(--sp-8);
+            border-top: 1px solid rgba(30, 42, 71, 0.10);
         }
 
-        .stats {
-            display: flex;
-            gap: 50px;
-            margin-top: 50px;
-            padding-top: 24px;
-            border-top: 1px solid var(--line);
+        .hero-stat-num {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            color: var(--text-1);
         }
 
-        .stat-num {
-            font-size: 2rem;
-            font-weight: 300
+        .hero-stat-label {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-3);
+            margin-top: var(--sp-1);
         }
 
-        .stat-label {
-            margin-top: 5px;
-            color: var(--dim)
-        }
-
-        .scroll {
+        .scroll-cue {
             position: absolute;
-            right: 32px;
-            bottom: 32px;
+            bottom: var(--sp-8);
+            right: var(--sp-8);
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--text-3);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
             writing-mode: vertical-rl;
-            color: var(--dim);
-            animation: pulse 2s infinite;
+            animation: pulse-down 2.5s ease infinite;
         }
 
-        @keyframes pulse {
+        @keyframes pulse-down {
+
+            0%,
+            100% {
+                opacity: 0.3;
+                transform: translateY(0);
+            }
+
             50% {
-                opacity: .35;
-                transform: translateY(6px)
+                opacity: 0.8;
+                transform: translateY(6px);
             }
         }
 
-        .divider {
-            height: 1px;
-            background: var(--line)
+        @media (max-width: 768px) {
+            .hero {
+                padding: calc(var(--nav-h) + var(--sp-10)) var(--sp-6) var(--sp-12);
+            }
+
+            .hero-stats {
+                gap: var(--sp-6);
+                flex-wrap: wrap;
+            }
+
+            .scroll-cue {
+                display: none;
+            }
+        }
+
+        .marquee-section {
+            padding: var(--sp-10) 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.5);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.22);
+            backdrop-filter: blur(16px) saturate(1.6);
+            -webkit-backdrop-filter: blur(16px) saturate(1.6);
+        }
+
+        /* 优化：使用 GPU 渲染，去除 will-change: transform 的频繁重绘 */
+        .marquee-viewport {
+            display: flex;
+            width: max-content;
+            animation: marquee-scroll 26s linear infinite;
+        }
+
+        .marquee-group {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .marquee-item {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            white-space: nowrap;
+            color: var(--text-3);
+            padding: 0 var(--sp-6);
+            transition: color var(--dur-fast) ease;
+        }
+
+        .marquee-item em {
+            font-style: normal;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .marquee-sep {
+            font-family: var(--font-mono);
+            font-size: var(--label-size);
+            color: var(--accent);
+            opacity: 0.45;
+        }
+
+        @keyframes marquee-scroll {
+            from {
+                transform: translate3d(0, 0, 0);
+            }
+
+            to {
+                transform: translate3d(-50%, 0, 0);
+            }
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            .marquee-section:hover .marquee-viewport {
+                animation-play-state: paused;
+            }
+        }
+
+        .carousel-section {
+            padding: var(--sp-16) 0;
+            position: relative;
+        }
+
+        .carousel-label {
+            font-family: var(--font-mono);
+            font-size: var(--label-size);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-3);
+            padding: 0 var(--sp-8);
+            margin-bottom: var(--sp-6);
+        }
+
+        /* 优化：去掉 padding，确保居中计算准确 */
+        .carousel-viewport {
+            width: 100%;
+            overflow: hidden;
+            cursor: grab;
+            touch-action: pan-y;
+            padding: var(--sp-4) 0;
+        }
+
+        .carousel-viewport:active {
+            cursor: grabbing;
+        }
+
+        /* 优化：使用 GPU 渲染 */
+        .carousel-track {
+            display: flex;
+            gap: var(--sp-6);
+            padding: 0 var(--sp-8);
+            width: max-content;
+            will-change: transform;
+        }
+
+        .p-card {
+            width: 360px;
+            flex-shrink: 0;
+            background: var(--glass);
+            backdrop-filter: blur(var(--blur)) saturate(1.9);
+            -webkit-backdrop-filter: blur(var(--blur)) saturate(1.9);
+            border: 1px solid var(--glass-border);
+            border-radius: 18px;
+            padding: var(--sp-6);
+            display: flex;
+            flex-direction: column;
+            gap: var(--sp-4);
+            box-shadow: var(--shadow-md), var(--shadow-inset);
+            transition: border-color var(--dur-fast) ease, background var(--dur-fast) ease, box-shadow var(--dur-med) ease;
+            user-select: none;
+            -webkit-user-select: none;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            .p-card:hover {
+                border-color: rgba(79, 124, 255, 0.45);
+                background: var(--glass-hover);
+                box-shadow: var(--shadow-lg), var(--shadow-inset);
+            }
+
+            .p-card:hover .p-card-img img {
+                transform: scale(1.04);
+            }
+
+            .p-card:hover .p-card-arrow {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .p-card-img {
+            width: calc(100% + var(--sp-6) * 2);
+            margin: calc(var(--sp-6) * -1) calc(var(--sp-6) * -1) 0;
+            aspect-ratio: 3 / 2;
+            overflow: hidden;
+            position: relative;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .p-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--dur-med) var(--ease-out);
+        }
+
+        .p-card-title {
+            font-family: var(--font-display);
+            font-size: 1.125rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            color: var(--text-1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .p-card-arrow {
+            font-family: var(--font-mono);
+            font-size: var(--label-size);
+            color: var(--accent);
+            opacity: 0;
+            transform: translateX(-8px);
+            transition: all var(--dur-fast) var(--ease-out);
+        }
+
+        .p-card-date {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 0.06em;
+            color: var(--accent);
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .p-card-desc {
+            font-size: var(--body-size);
+            color: var(--text-2);
+            line-height: var(--body-lh);
+        }
+
+        .p-card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--sp-2);
+        }
+
+        .p-tag {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 0.04em;
+            padding: var(--sp-1) var(--sp-3);
+            border-radius: 100px;
+            border: 1px solid rgba(30, 42, 71, 0.12);
+            background: rgba(255, 255, 255, 0.5);
+            color: var(--text-2);
+            transition: all var(--dur-fast) ease;
+        }
+
+        .p-tag.orange {
+            border-color: rgba(79, 124, 255, 0.30);
+            background: var(--accent-dim);
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .p-card {
+                width: 280px;
+                padding: var(--sp-4);
+                border-radius: 16px;
+            }
+
+            .p-card-img {
+                width: calc(100% + var(--sp-4) * 2);
+                margin: calc(var(--sp-4) * -1) calc(var(--sp-4) * -1) 0;
+            }
+
+            .carousel-track {
+                gap: var(--sp-4);
+                padding: 0 var(--sp-6);
+            }
+
+            .carousel-label {
+                padding: 0 var(--sp-6);
+            }
+        }
+
+        .gal-slide {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .p-card-img .gal-slide {
+            transition: opacity 0.6s var(--ease-out), transform var(--dur-med) var(--ease-out);
+        }
+
+        .modal-img .gal-slide {
+            transition: opacity 0.6s var(--ease-out);
+        }
+
+        .gal-dots {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 8px;
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            z-index: 4;
+        }
+
+        .gal-dot {
+            width: 20px;
+            height: 5px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.92);
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+            transition: background var(--dur-fast) ease, width var(--dur-med) var(--ease-out);
+        }
+
+        .gal-dot.active {
+            background: var(--accent);
+            width: 36px;
+        }
+
+        .tilt-card .p-card-img::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: radial-gradient(220px 220px at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, 0.55), transparent 70%);
+            opacity: 0;
+            transition: opacity var(--dur-fast) ease;
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            .tilt-card .p-card-img:hover::after {
+                opacity: 1;
+            }
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: var(--sp-2);
+            padding: var(--sp-6) var(--sp-8) 0;
+        }
+
+        .carousel-dot {
+            width: 24px;
+            height: 4px;
+            border-radius: 2px;
+            background: rgba(30, 42, 71, 0.16);
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            transition: background var(--dur-fast) ease, width var(--dur-med) var(--ease-out);
+        }
+
+        .carousel-dot.active {
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            width: 48px;
         }
 
         .section {
+            padding: var(--sp-24) var(--sp-8);
             max-width: 1400px;
-            margin: auto;
-            padding: 130px 32px;
+            margin: 0 auto;
+            position: relative;
         }
 
-        .section-head {
+        .section::before {
+            content: attr(data-index);
+            position: absolute;
+            top: var(--sp-8);
+            right: var(--sp-8);
+            font-family: var(--font-display);
+            font-size: clamp(6rem, 18vw, 16rem);
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: -0.05em;
+            color: var(--text-1);
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 0;
+            user-select: none;
+        }
+
+        .section>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-header {
             display: flex;
             align-items: baseline;
-            gap: 22px;
-            padding-bottom: 24px;
-            border-bottom: 1px solid var(--line);
-            margin-bottom: 48px;
+            gap: var(--sp-6);
+            padding-bottom: var(--sp-6);
+            border-bottom: 1px solid rgba(30, 42, 71, 0.10);
+            margin-bottom: var(--sp-12);
         }
 
         .section-num {
-            font-family: var(--mono);
-            font-size: 11px;
-            color: var(--orange)
+            font-family: var(--font-mono);
+            font-size: var(--label-size);
+            color: var(--accent);
+            letter-spacing: 0.08em;
+            font-weight: 500;
         }
 
         .section-title {
-            font-size: clamp(2rem, 5vw, 4rem);
-            font-weight: 400;
-            letter-spacing: -.06em
+            font-family: var(--font-display);
+            font-size: var(--h2-size);
+            font-weight: var(--h2-weight);
+            letter-spacing: var(--h2-ls);
+            line-height: var(--h2-lh);
+            color: var(--text-1);
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: var(--sp-16) var(--sp-6);
+            }
+
+            .section-header {
+                flex-direction: column;
+                gap: var(--sp-2);
+            }
         }
 
         .about-grid {
             display: grid;
             grid-template-columns: 2fr 1fr;
-            gap: 80px;
+            gap: var(--sp-8);
         }
 
         .about-text {
-            max-width: 750px;
-            font-size: clamp(1.1rem, 2vw, 1.5rem);
-            line-height: 1.75;
-            color: var(--muted);
+            font-size: clamp(1rem, 1.8vw, 1.25rem);
+            line-height: 1.7;
+            color: var(--text-2);
+            padding: var(--sp-8);
+            border-radius: 20px;
+            background: var(--glass);
+            backdrop-filter: blur(var(--blur)) saturate(1.9);
+            -webkit-backdrop-filter: blur(var(--blur)) saturate(1.9);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-md), var(--shadow-inset);
         }
 
         .about-text strong {
-            color: var(--text);
-            font-weight: 500
+            color: var(--accent);
+            font-weight: 600;
         }
 
-        .info-row {
+        .about-info {
+            display: flex;
+            flex-direction: column;
+            gap: var(--sp-1);
+            padding: var(--sp-6);
+            border-radius: 20px;
+            background: var(--glass);
+            backdrop-filter: blur(var(--blur)) saturate(1.9);
+            -webkit-backdrop-filter: blur(var(--blur)) saturate(1.9);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-md), var(--shadow-inset);
+        }
+
+        .about-row {
             display: flex;
             justify-content: space-between;
-            gap: 20px;
-            padding: 13px 0;
-            border-bottom: 1px solid var(--line);
+            align-items: baseline;
+            padding: var(--sp-3) 0;
+            border-bottom: 1px solid rgba(30, 42, 71, 0.06);
+            font-size: var(--body-size);
         }
 
-        .info-row span:first-child {
-            font-family: var(--mono);
+        .about-row:last-child {
+            border-bottom: none;
+        }
+
+        .about-row-label {
+            color: var(--text-3);
+            font-family: var(--font-mono);
             font-size: 10px;
-            color: var(--dim)
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
         }
 
-        .info-row span:last-child {
+        .about-row-value {
+            color: var(--text-1);
+            font-weight: 500;
             text-align: right;
-            font-size: 13px
+        }
+
+        @media (max-width: 768px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: var(--sp-6);
+            }
+
+            .about-text {
+                padding: var(--sp-6);
+            }
+        }
+
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: var(--sp-4);
         }
 
         .timeline-item {
             display: grid;
-            grid-template-columns: 145px 1fr;
-            gap: 32px;
-            padding: 30px 0;
-            border-bottom: 1px solid var(--line);
+            grid-template-columns: 160px 1fr;
+            gap: var(--sp-8);
+            padding: var(--sp-6) var(--sp-8);
+            border-radius: 16px;
+            background: var(--glass);
+            backdrop-filter: blur(var(--blur)) saturate(1.9);
+            -webkit-backdrop-filter: blur(var(--blur)) saturate(1.9);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-sm), var(--shadow-inset);
+            transition: all var(--dur-fast) ease;
         }
 
-        .period,
-        .role {
-            font-family: var(--mono);
-            font-size: 10px;
-            color: var(--dim)
+        @media (hover: hover) and (pointer: fine) {
+            .timeline-item:hover {
+                background: var(--glass-hover);
+                border-color: rgba(79, 124, 255, 0.3);
+                box-shadow: var(--shadow-md), var(--shadow-inset);
+                transform: translateY(-2px);
+            }
+
+            .timeline-item:hover .tl-company {
+                color: var(--accent);
+            }
         }
 
-        .company {
-            font-size: 1.35rem;
-            font-weight: 500
+        .tl-period {
+            font-family: var(--font-mono);
+            font-size: var(--label-size);
+            color: var(--text-3);
+            letter-spacing: 0.04em;
+            padding-top: var(--sp-1);
+            font-weight: 500;
         }
 
-        .role {
-            color: var(--orange);
-            margin-top: 7px
-        }
-
-        .timeline-desc {
-            color: var(--muted);
-            margin-top: 13px;
-            line-height: 1.7
-        }
-
-        .filter {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 28px;
-        }
-
-        .filter button {
-            padding: 9px 14px;
-            border: 1px solid var(--line);
-            background: none;
-            color: var(--dim);
-            cursor: pointer;
-            font-family: var(--mono);
-            font-size: 10px;
-            letter-spacing: .06em;
-        }
-
-        .filter button.active,
-        .filter button:hover {
-            border-color: var(--orange);
-            color: var(--orange);
-        }
-
-        .projects {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 1px;
-            background: var(--line);
-            border: 1px solid var(--line);
-        }
-
-        .project {
-            position: relative;
-            grid-column: span 6;
-            min-height: 270px;
+        .tl-body {
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
-            gap: 12px;
-            padding: 32px;
-            background: var(--bg);
-            overflow: hidden;
-            cursor: pointer;
-            transition: .3s var(--ease);
+            gap: var(--sp-2);
         }
 
-        .project:nth-child(3n) {
-            grid-column: span 5
+        .tl-company {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            color: var(--text-1);
+            transition: color var(--dur-fast) ease;
         }
 
-        .project:nth-child(4n) {
-            grid-column: span 7
+        .tl-role {
+            font-family: var(--font-mono);
+            font-size: var(--label-size);
+            color: var(--accent);
+            letter-spacing: 0.04em;
+            font-weight: 500;
         }
 
-        .project:hover {
-            background: var(--surface2)
+        .tl-desc {
+            font-size: var(--body-size);
+            color: var(--text-2);
+            line-height: var(--body-lh);
+            margin-top: var(--sp-2);
         }
 
-        .project:before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), var(--orange-dim), transparent 55%);
-            opacity: 0;
-            transition: .3s;
+        @media (max-width: 768px) {
+            .timeline-item {
+                grid-template-columns: 1fr;
+                gap: var(--sp-2);
+                padding: var(--sp-4) var(--sp-6);
+            }
+
+            .tl-period {
+                padding-top: 0;
+            }
         }
 
-        .project:hover:before {
-            opacity: 1
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: var(--sp-4);
         }
 
-        .project>* {
-            position: relative;
-            z-index: 1
-        }
-
-        .project-letter {
-            position: absolute;
-            top: 24px;
-            left: 30px;
-            font-size: 4rem;
-            line-height: 1;
-            font-weight: 700;
-            color: var(--dim);
-        }
-
-        .project-title {
-            font-size: 1.35rem;
-            font-weight: 500
-        }
-
-        .project-date {
-            color: var(--orange)
-        }
-
-        .project-desc {
-            max-width: 650px;
-            color: var(--muted);
-            line-height: 1.7
-        }
-
-        .tags {
+        .proj-detail {
+            background: var(--glass);
+            backdrop-filter: blur(var(--blur)) saturate(1.9);
+            -webkit-backdrop-filter: blur(var(--blur)) saturate(1.9);
+            border: 1px solid var(--glass-border);
+            border-radius: 18px;
+            padding: var(--sp-8);
             display: flex;
-            flex-wrap: wrap;
-            gap: 7px
+            flex-direction: column;
+            gap: var(--sp-3);
+            scroll-margin-top: calc(var(--nav-h) + var(--sp-6));
+            box-shadow: var(--shadow-sm), var(--shadow-inset);
+            transition: all var(--dur-fast) ease;
+            cursor: pointer;
         }
 
-        .tag {
-            padding: 5px 9px;
-            border: 1px solid var(--line);
-            color: var(--dim);
-            font-family: var(--mono);
+        @media (hover: hover) and (pointer: fine) {
+            .proj-detail:hover {
+                background: var(--glass-hover);
+                border-color: rgba(79, 124, 255, 0.35);
+                box-shadow: var(--shadow-md), var(--shadow-inset);
+                transform: translateY(-2px);
+            }
+
+            .proj-detail:hover .proj-letter {
+                color: var(--accent);
+            }
+        }
+
+        .proj-detail:nth-child(1) {
+            grid-column: span 7;
+        }
+
+        .proj-detail:nth-child(2) {
+            grid-column: span 5;
+        }
+
+        .proj-detail:nth-child(3) {
+            grid-column: span 5;
+        }
+
+        .proj-detail:nth-child(4) {
+            grid-column: span 7;
+        }
+
+        .proj-detail:nth-child(5) {
+            grid-column: span 12;
+        }
+
+        .proj-detail:nth-child(6) {
+            grid-column: span 12;
+        }
+
+        .proj-letter {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            background: linear-gradient(135deg, var(--accent-3), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: all var(--dur-fast) ease;
+            width: fit-content;
+        }
+
+        .proj-title {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-1);
+        }
+
+        .proj-date {
+            font-family: var(--font-mono);
             font-size: 10px;
+            letter-spacing: 0.06em;
+            color: var(--accent);
+            text-transform: uppercase;
+            font-weight: 500;
         }
 
-        .tag.orange {
-            color: var(--orange);
-            border-color: var(--orange-dim)
+        .proj-desc {
+            font-size: var(--body-size);
+            color: var(--text-2);
+            line-height: var(--body-lh);
         }
 
-        .skills {
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .proj-detail:nth-child(n) {
+                grid-column: span 1;
+            }
+
+            .proj-detail {
+                padding: var(--sp-6);
+            }
+        }
+
+        .skills-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
+            gap: var(--sp-6);
+        }
+
+        .skill-group {
+            padding: var(--sp-6);
+            border-radius: 18px;
+            background: var(--glass);
+            backdrop-filter: blur(var(--blur)) saturate(1.9);
+            -webkit-backdrop-filter: blur(var(--blur)) saturate(1.9);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-sm), var(--shadow-inset);
+            transition: all var(--dur-fast) ease;
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            .skill-group:hover {
+                background: var(--glass-hover);
+                box-shadow: var(--shadow-md), var(--shadow-inset);
+                transform: translateY(-2px);
+            }
         }
 
         .skill-group h3 {
-            padding-bottom: 14px;
-            border-bottom: 1px solid var(--line);
-            color: var(--orange);
-            font-family: var(--mono);
-            font-size: 11px;
-            letter-spacing: .1em;
+            font-family: var(--font-mono);
+            font-size: var(--label-size);
+            letter-spacing: 0.1em;
             text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: var(--sp-4);
+            padding-bottom: var(--sp-3);
+            border-bottom: 1px solid rgba(30, 42, 71, 0.08);
+            font-weight: 600;
         }
 
         .skill-group:nth-child(2) h3 {
-            color: var(--teal)
+            color: var(--accent-2);
+        }
+
+        .skill-group:nth-child(3) h3 {
+            color: var(--accent-3);
+        }
+
+        .skill-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--sp-2);
         }
 
         .skill-item {
-            padding: 12px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, .05);
-            color: var(--muted);
+            font-size: var(--body-size);
+            color: var(--text-2);
+            padding: var(--sp-2) 0;
+            border-bottom: 1px solid rgba(30, 42, 71, 0.04);
+            transition: color var(--dur-fast) ease, padding-left var(--dur-fast) var(--ease-out);
         }
 
-        .education {
+        .skill-item:last-child {
+            border-bottom: none;
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            .skill-item:hover {
+                color: var(--text-1);
+                padding-left: var(--sp-3);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .skills-grid {
+                grid-template-columns: 1fr;
+                gap: var(--sp-4);
+            }
+        }
+
+        .edu-card {
             display: flex;
             align-items: center;
-            gap: 25px;
-            padding: 35px;
-            border: 1px solid var(--line);
-            background: var(--surface);
+            gap: var(--sp-8);
+            padding: var(--sp-10);
+            border-radius: 20px;
+            background: var(--glass);
+            backdrop-filter: blur(var(--blur)) saturate(1.9);
+            -webkit-backdrop-filter: blur(var(--blur)) saturate(1.9);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-md), var(--shadow-inset);
         }
 
         .edu-icon {
-            width: 58px;
-            height: 58px;
-            display: grid;
-            place-items: center;
-            border: 1px solid var(--line2);
-            font-size: 25px;
+            width: 64px;
+            height: 64px;
+            flex-shrink: 0;
+            border-radius: 18px;
+            background: linear-gradient(135deg, rgba(79, 124, 255, 0.20), rgba(46, 207, 171, 0.20));
+            border: 1px solid var(--glass-border-strong);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            box-shadow: var(--shadow-inset);
         }
 
         .edu-school {
-            font-size: 1.25rem
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-1);
         }
 
         .edu-major {
-            color: var(--muted);
-            margin-top: 5px
+            font-size: var(--body-size);
+            color: var(--text-2);
+            margin-top: var(--sp-1);
         }
 
-        .edu-date {
-            font-family: var(--mono);
+        .edu-period {
+            font-family: var(--font-mono);
             font-size: 10px;
-            color: var(--orange);
-            margin-top: 9px
+            letter-spacing: 0.06em;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-top: var(--sp-2);
+            font-weight: 500;
         }
 
-        .contact {
-            position: relative;
-            padding: 170px 32px;
+        @media (max-width: 768px) {
+            .edu-card {
+                flex-direction: column;
+                text-align: center;
+                padding: var(--sp-8);
+            }
+        }
+
+        .contact-section {
+            padding: var(--sp-32) var(--sp-8);
             text-align: center;
-            border-top: 1px solid var(--line);
+            border-top: 1px solid rgba(255, 255, 255, 0.5);
+            margin-top: var(--sp-12);
         }
 
-        .contact h2 {
-            max-width: 800px;
-            margin: 18px auto;
-            font-size: clamp(2.5rem, 7vw, 6rem);
-            line-height: .95;
-            letter-spacing: -.08em;
+        .contact-label {
+            font-family: var(--font-mono);
+            font-size: var(--label-size);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: var(--sp-6);
+            font-weight: 500;
         }
 
-        .contact h2 em {
-            color: var(--orange);
-            font-style: normal
+        .contact-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            color: var(--text-1);
+            margin-bottom: var(--sp-6);
         }
 
-        .contact p {
-            max-width: 500px;
-            margin: 0 auto 30px;
-            color: var(--muted);
-            line-height: 1.7
+        .contact-title em {
+            font-style: normal;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .contact-desc {
+            font-size: var(--body-size);
+            color: var(--text-2);
+            line-height: var(--body-lh);
+            max-width: 480px;
+            margin: 0 auto var(--sp-10);
+        }
+
+        .contact-email {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--sp-3);
+            padding: var(--sp-4) var(--sp-10);
+            border-radius: 100px;
+            background: var(--glass-strong);
+            backdrop-filter: blur(var(--blur)) saturate(1.9);
+            -webkit-backdrop-filter: blur(var(--blur)) saturate(1.9);
+            border: 1px solid var(--glass-border-strong);
+            color: var(--accent);
+            font-family: var(--font-mono);
+            font-size: var(--label-size);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-weight: 500;
+            box-shadow: 0 8px 24px rgba(79, 124, 255, 0.16), var(--shadow-inset);
+            transition: all var(--dur-fast) ease;
+        }
+
+        .contact-email:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+            box-shadow: 0 12px 32px var(--accent-glow);
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 768px) {
+            .contact-section {
+                padding: var(--sp-20) var(--sp-6);
+            }
         }
 
         .footer {
+            padding: var(--sp-8) var(--sp-8);
+            border-top: 1px solid rgba(255, 255, 255, 0.5);
             display: flex;
             justify-content: space-between;
-            padding: 28px 32px;
-            border-top: 1px solid var(--line);
-            color: var(--dim);
-            font-family: var(--mono);
+            align-items: center;
+            font-family: var(--font-mono);
             font-size: 10px;
-            letter-spacing: .08em;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
+            color: var(--text-3);
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(12px) saturate(1.5);
+            -webkit-backdrop-filter: blur(12px) saturate(1.5);
         }
 
-        .modal {
+        .footer a {
+            transition: color var(--dur-fast) ease;
+        }
+
+        .footer a:hover {
+            color: var(--accent);
+        }
+
+        .footer-status {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--sp-2);
+            color: var(--text-2);
+        }
+
+        .footer-status i {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--accent-2);
+            box-shadow: 0 0 8px var(--accent-2);
+            animation: status-pulse 2.2s ease infinite;
+        }
+
+        @keyframes status-pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.35;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer {
+                flex-direction: column;
+                gap: var(--sp-4);
+                text-align: center;
+                padding: var(--sp-6);
+            }
+        }
+
+        .trail-canvas {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10000;
+            pointer-events: none;
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            body.cursor-active {
+                cursor: none;
+            }
+
+            body.cursor-active a,
+            body.cursor-active button,
+            body.cursor-active .p-card {
+                cursor: none;
+            }
+        }
+
+        .project-modal {
             position: fixed;
             inset: 0;
             z-index: 300;
-            display: grid;
-            place-items: center;
-            padding: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--sp-8);
             opacity: 0;
             visibility: hidden;
-            transition: .35s;
+            transition: opacity var(--dur-med) var(--ease-out), visibility var(--dur-med);
         }
 
-        .modal.open {
+        .project-modal.open {
             opacity: 1;
-            visibility: visible
+            visibility: visible;
         }
 
-        .modal-bg {
+        .modal-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(0, 0, 0, .82);
-            backdrop-filter: blur(12px);
+            background: rgba(30, 42, 71, 0.28);
+            backdrop-filter: blur(8px) saturate(1.4);
+            -webkit-backdrop-filter: blur(8px) saturate(1.4);
         }
 
-        .modal-box {
+        .modal-content {
             position: relative;
-            z-index: 1;
-            width: min(780px, 100%);
-            max-height: 90vh;
-            overflow: auto;
-            background: var(--bg2);
-            border: 1px solid var(--line2);
-            transform: translateY(30px) scale(.97);
-            transition: .45s var(--ease);
+            background: rgba(255, 255, 255, 0.78);
+            backdrop-filter: blur(var(--blur-heavy)) saturate(1.9);
+            -webkit-backdrop-filter: blur(var(--blur-heavy)) saturate(1.9);
+            border: 1px solid var(--glass-border-strong);
+            border-radius: 22px;
+            max-width: 720px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            transform: translateY(24px) scale(0.98);
+            transition: transform var(--dur-med) var(--ease-out);
+            box-shadow: var(--shadow-lg), var(--shadow-inset);
         }
 
-        .modal.open .modal-box {
-            transform: none
+        .project-modal.open .modal-content {
+            transform: translateY(0) scale(1);
         }
 
         .modal-close {
             position: absolute;
-            top: 15px;
-            right: 15px;
-            z-index: 2;
+            top: var(--sp-4);
+            right: var(--sp-4);
             width: 40px;
             height: 40px;
-            background: var(--surface);
-            border: 1px solid var(--line);
-            color: var(--text);
+            background: rgba(255, 255, 255, 0.72);
+            backdrop-filter: blur(12px) saturate(1.6);
+            -webkit-backdrop-filter: blur(12px) saturate(1.6);
+            border: 1px solid var(--glass-border-strong);
+            border-radius: 12px;
+            color: var(--text-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
+            z-index: 10;
+            transition: all var(--dur-fast) ease;
+            font-family: var(--font-mono);
+            font-size: 16px;
+        }
+
+        .modal-close:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
         }
 
         .modal-img {
+            width: 100%;
             aspect-ratio: 16/9;
-            background: var(--surface);
             overflow: hidden;
+            border-bottom: 1px solid var(--glass-border);
+            position: relative;
+            touch-action: pan-y; /* 横滑交给 JS 切图，纵滑仍可滚动 */
+            cursor: grab;
         }
+        .modal-img:active { cursor: grabbing; }
 
         .modal-img img {
             width: 100%;
             height: 100%;
-            object-fit: cover
+            object-fit: cover;
+            -webkit-user-drag: none;
+            user-select: none;
+            pointer-events: none; /* 拖拽/点击都交给容器，避免浏览器原生图片拖拽 */
         }
 
         .modal-body {
-            padding: 40px
+            padding: var(--sp-10);
         }
 
         .modal-letter {
-            font-size: 4rem;
-            color: var(--orange);
-            font-weight: 700
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            background: linear-gradient(135deg, var(--accent-3), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: var(--sp-4);
+            width: fit-content;
         }
 
         .modal-title {
-            font-size: 1.8rem;
-            margin: 7px 0
+            font-family: var(--font-display);
+            font-size: clamp(1.3rem, 3vw, 1.75rem);
+            font-weight: 600;
+            color: var(--text-1);
+            margin-bottom: var(--sp-2);
         }
 
         .modal-date {
-            color: var(--dim)
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 0.08em;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: var(--sp-6);
+            font-weight: 500;
         }
 
         .modal-desc {
-            margin: 25px 0;
-            color: var(--muted);
-            line-height: 1.8
+            font-size: var(--body-size);
+            color: var(--text-2);
+            line-height: var(--body-lh);
+            margin-bottom: var(--sp-8);
         }
 
-        .modal-meta {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 18px;
-            margin-bottom: 25px;
+        .modal-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--sp-2);
         }
 
-        .modal-meta div {
-            padding: 15px;
-            border: 1px solid var(--line);
+        @media (max-width: 768px) {
+            .modal-body {
+                padding: var(--sp-8) var(--sp-6);
+            }
+
+            .project-modal {
+                padding: var(--sp-4);
+            }
         }
 
-        .modal-meta span {
-            display: block;
-            font-family: var(--mono);
-            font-size: 10px;
-            color: var(--dim);
-            margin-bottom: 8px;
-        }
-
-        .modal-meta strong {
-            font-weight: 400;
-            color: var(--text)
-        }
-
-        .back {
+        .back-to-top {
             position: fixed;
-            right: 28px;
-            bottom: 28px;
-            z-index: 100;
-            width: 44px;
-            height: 44px;
-            border: 1px solid var(--line);
-            background: rgba(18, 18, 22, .85);
-            color: var(--text);
+            bottom: var(--sp-8);
+            right: var(--sp-8);
+            width: 46px;
+            height: 46px;
+            border-radius: 14px;
+            background: var(--glass-strong);
+            backdrop-filter: blur(var(--blur)) saturate(1.9);
+            -webkit-backdrop-filter: blur(var(--blur)) saturate(1.9);
+            border: 1px solid var(--glass-border-strong);
+            color: var(--text-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 150;
             cursor: pointer;
             opacity: 0;
             visibility: hidden;
-            transition: .3s;
+            transform: translateY(12px);
+            transition: all var(--dur-med) var(--ease-out);
+            font-family: var(--font-mono);
+            font-size: 14px;
+            box-shadow: var(--shadow-md), var(--shadow-inset);
         }
 
-        .back.visible {
+        .back-to-top.visible {
             opacity: 1;
-            visibility: visible
+            visibility: visible;
+            transform: translateY(0);
         }
 
-        .back:hover {
-            background: var(--orange);
-            color: var(--bg)
+        .back-to-top:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+            box-shadow: 0 12px 32px var(--accent-glow);
         }
 
-        /* ========== 光标系统 ========== */
-        .cursor {
-            position: fixed;
-            left: 0;
-            top: 0;
-            z-index: 1000;
-            width: 26px;
-            height: 26px;
-            border: 1.5px solid var(--orange);
-            border-radius: 50%;
-            pointer-events: none;
-            transform: translate3d(-50%, -50%, 0);
-            transition: width .22s var(--ease), height .22s var(--ease),
-                border-color .22s var(--ease), background .22s var(--ease);
-            will-change: transform;
-            backface-visibility: hidden;
+        @media (max-width: 768px) {
+            .back-to-top {
+                bottom: var(--sp-6);
+                right: var(--sp-6);
+                width: 42px;
+                height: 42px;
+            }
         }
 
-        .cursor.active {
-            width: 46px;
-            height: 46px;
-            border-color: var(--teal);
-            background: rgba(0, 212, 170, .08);
+        [id] {
+            scroll-margin-top: calc(var(--nav-h) + var(--sp-6));
         }
 
-        .cursor-dot {
-            position: fixed;
-            left: 0;
-            top: 0;
-            z-index: 1001;
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            background: var(--orange);
-            pointer-events: none;
-            transform: translate3d(-50%, -50%, 0);
-            will-change: transform;
-            backface-visibility: hidden;
-        }
-
-        #trailCanvas {
-            position: fixed;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 900;
-            opacity: .9;
-        }
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(25px);
-            transition: .7s var(--ease);
-        }
-
-        .reveal.visible {
-            opacity: 1;
-            transform: none
-        }
-
-        @media(max-width:800px) {
+        @media (max-width: 1024px) and (min-width: 769px) {
             .nav {
-                padding: 0 20px
+                padding: 0 var(--sp-6);
             }
 
             .nav-links {
-                display: none
-            }
-
-            .menu {
-                display: block
+                gap: var(--sp-6);
             }
 
             .hero {
-                padding: calc(var(--nav) + 40px) 22px 55px;
-                min-height: 100vh;
-            }
-
-            .hero h1 {
-                font-size: clamp(4rem, 19vw, 7rem)
-            }
-
-            .hero-desc {
-                font-size: .9rem
-            }
-
-            .stats {
-                gap: 25px;
-                flex-wrap: wrap
-            }
-
-            .scroll {
-                display: none
+                padding: calc(var(--nav-h) + var(--sp-12)) var(--sp-6) var(--sp-12);
             }
 
             .section {
-                padding: 85px 22px
+                padding: var(--sp-20) var(--sp-6);
             }
 
-            .about-grid {
-                grid-template-columns: 1fr;
-                gap: 40px
+            .projects-grid {
+                grid-template-columns: repeat(6, 1fr);
             }
 
-            .timeline-item {
-                grid-template-columns: 1fr;
-                gap: 10px
+            .proj-detail:nth-child(n) {
+                grid-column: span 6;
             }
 
-            .projects {
-                grid-template-columns: 1fr
-            }
-
-            .project,
-            .project:nth-child(n) {
-                grid-column: span 1;
-                min-height: 290px;
-                padding: 25px
-            }
-
-            .skills {
-                grid-template-columns: 1fr;
-                gap: 35px
-            }
-
-            .education {
-                align-items: flex-start;
-                flex-direction: column
-            }
-
-            .contact {
-                padding: 110px 22px
-            }
-
-            .footer {
-                flex-direction: column;
-                gap: 12px;
-                text-align: center;
-                padding: 25px 20px
-            }
-
-            .modal-body {
-                padding: 28px 22px
-            }
-
-            .modal-meta {
-                grid-template-columns: 1fr
-            }
-
-            .cursor,
-            .cursor-dot,
-            #trailCanvas {
-                display: none;
-            }
-
-            .logo b {
-                font-size: 1.3rem;
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
-        @media(prefers-reduced-motion:reduce) {
-
-            *,
-            *:before,
-            *:after {
-                animation: none !important;
-                transition-duration: .01ms !important;
-                scroll-behavior: auto !important;
+        @media (max-width: 480px) {
+            .hero-stat-num {
+                font-size: 1.25rem;
             }
 
-            .reveal {
-                opacity: 1;
-                transform: none
+            .hero-stats {
+                gap: var(--sp-4);
+            }
+
+            .p-card {
+                width: 260px;
+            }
+
+            .proj-letter {
+                font-size: 1.75rem;
+            }
+
+            .contact-email {
+                padding: var(--sp-3) var(--sp-6);
+                font-size: 10px;
+            }
+        }
+
+        @media (max-height: 500px) and (orientation: landscape) {
+            .start-page {
+                padding-top: 5vh;
+            }
+
+            .start-name {
+                font-size: 2.5rem;
+            }
+
+            .start-enter {
+                margin-top: var(--sp-6);
+            }
+
+            .hero {
+                min-height: auto;
+                padding: calc(var(--nav-h) + var(--sp-8)) var(--sp-6) var(--sp-8);
+            }
+
+            .scroll-cue {
+                display: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .marquee-viewport {
+                animation: none;
+            }
+
+            .footer-status i {
+                animation: none;
+            }
+
+            .tilt-card .p-card-img::after {
+                opacity: 0 !important;
             }
         }
     </style>
@@ -1127,655 +1881,1358 @@ font-family='Arial' font-weight='700' font-size='18' fill='%23ff5a1f'>Z</text>
 
 <body>
 
-    <div class="progress" id="progress"></div>
+    <div class="progress-bar" id="progressBar"></div>
+    <canvas class="trail-canvas" id="cursorCanvas"></canvas>
 
-    <div class="start" id="start">
-        <canvas id="startCanvas"></canvas>
+    <div class="start-page" id="startPage">
+        <canvas class="start-canvas" id="startCanvas"></canvas>
         <div class="start-content">
             <div class="start-name">ZENG BIN</div>
             <div class="start-role">3D Designer · Shenzhen</div>
-            <div class="start-actions">
-                <button class="btn primary" id="enter">Enter Portfolio</button>
-            </div>
-            <div class="status" style="margin-top:24px;color:var(--teal)">
-                AVAILABLE FOR SELECTED PROJECTS
-            </div>
+            <button class="start-enter" id="enterBtn">Enter Portfolio</button>
         </div>
-        <div class="start-hint label">Move cursor to explore · Click to enter</div>
+        <div class="start-hint">Move cursor to explore · Click to enter</div>
     </div>
 
-    <div class="mobile" id="mobile">
-        <a href="#about">About</a>
-        <a href="#experience">Experience</a>
-        <a href="#projects">Projects</a>
-        <a href="#skills">Skills</a>
-        <a href="#education">Education</a>
+    <div class="mobile-nav" id="mobileNav">
+        <a href="#about" data-mobile-link>About</a>
+        <a href="#experience" data-mobile-link>Experience</a>
+        <a href="#projects" data-mobile-link>Projects</a>
+        <a href="#skills" data-mobile-link>Skills</a>
+        <a href="#education" data-mobile-link>Education</a>
     </div>
 
-    <main id="main">
-
-        <nav class="nav" id="nav">
-            <a href="#" class="logo" id="logoHome">
-                <b>Z</b><span>ZENG BIN</span>
-            </a>
+    <div class="main-page" id="mainPage">
+        <nav class="nav" id="mainNav">
+            <div class="nav-logo"><span>Z</span>ZENG BIN</div>
             <div class="nav-links">
-                <a href="#about">About</a>
-                <a href="#experience">Experience</a>
-                <a href="#projects">Projects</a>
-                <a href="#skills">Skills</a>
-                <a href="#education">Education</a>
+                <a href="#about" data-nav>About</a>
+                <a href="#experience" data-nav>Experience</a>
+                <a href="#projects" data-nav>Projects</a>
+                <a href="#skills" data-nav>Skills</a>
+                <a href="#education" data-nav>Education</a>
             </div>
-            <button class="menu" id="menu" aria-label="打开菜单">☰</button>
+            <button class="nav-menu-btn" id="menuBtn" aria-label="Toggle menu">
+                <svg viewBox="0 0 24 24">
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                    <line x1="3" y1="12" x2="21" y2="12" />
+                    <line x1="3" y1="18" x2="21" y2="18" />
+                </svg>
+            </button>
         </nav>
 
         <section class="hero" id="hero">
-            <canvas id="heroCanvas"></canvas>
-            <div class="hero-inner">
-                <div class="kicker">AVAILABLE FOR 3D / WEB3D / AIGC PROJECTS</div>
-                <h1>ZENG<br>BIN</h1>
-                <div class="hero-sub">3D Designer · Real-time Art · Web3D · AIGC</div>
-                <p class="hero-desc">
-                    16 年跨平台 3D 美术全链路经验，专注建模、材质、灯光、
-                    Unity 实时渲染、Three.js / WebGPU 与 AIGC 工作流。
-                </p>
-                <div class="hero-actions">
-                    <a class="btn primary" href="#projects">View Selected Works</a>
-                    <a class="btn secondary" href="./assets/resume.pdf" download>Download CV</a>
-                </div>
-                <div class="stats">
+            <canvas class="hero-canvas" id="heroCanvas"></canvas>
+            <div class="hero-content">
+                <h1 class="hero-name reveal-line"><span class="line">ZENG BIN</span></h1>
+                <div class="hero-sub reveal-line">3D Designer · 16 Years · Shenzhen</div>
+                <div class="hero-stats reveal-stagger">
                     <div>
-                        <div class="stat-num">16+</div>
-                        <div class="stat-label label">Years Experience</div>
+                        <div class="hero-stat-num">16+</div>
+                        <div class="hero-stat-label">Years Experience</div>
                     </div>
                     <div>
-                        <div class="stat-num">200+</div>
-                        <div class="stat-label label">Asset Library</div>
+                        <div class="hero-stat-num">200+</div>
+                        <div class="hero-stat-label">Asset Library</div>
                     </div>
                     <div>
-                        <div class="stat-num">7</div>
-                        <div class="stat-label label">Companies</div>
+                        <div class="hero-stat-num">7</div>
+                        <div class="hero-stat-label">Companies</div>
                     </div>
                 </div>
             </div>
-            <div class="scroll label">Scroll</div>
+            <div class="scroll-cue">Scroll</div>
         </section>
 
-        <div class="divider"></div>
+        <section class="carousel-section">
+            <div class="carousel-label reveal-line">Selected Works — Drag to Explore</div>
+            <div class="carousel-viewport" id="carouselViewport">
+                <div class="carousel-track" id="carouselTrack"></div>
+            </div>
+            <div class="carousel-dots" id="carouselDots"></div>
+        </section>
 
-        <section class="section" id="about">
-            <div class="section-head reveal">
-                <span class="section-num">01</span>
+        <section class="section" id="about" data-index="01">
+            <div class="section-header reveal-line"><span class="section-num">01</span>
                 <h2 class="section-title">About</h2>
             </div>
             <div class="about-grid">
-                <div class="about-text reveal">
-                    具备优秀沟通协作能力和<strong>持续学习新技术</strong>的能力。
-                    拥有<strong>跨平台 3D 美术全链路</strong>实战经验，精通传统三维制作，
-                    同时落地 <strong>AIGC 美术工作流</strong>，可快速适配广告、引擎、
-                    <strong>Web3D</strong>、<strong>AR/VR</strong> 等多类型项目。
+                <div class="about-text reveal-line">
+                    <p>具备优秀沟通协作能力和<strong>持续学习新技术</strong>的能力。拥有<strong>跨平台 3D 美术全链路</strong>实战经验，精通传统三维制作同时落地
+                        <strong>AIGC
+                            美术工作流</strong>。可快速适配广告、引擎、<strong>Web3D</strong>、<strong>AR/VR</strong> 等多类型项目。
+                    </p>
                 </div>
-                <div class="reveal">
-                    <div class="info-row"><span>Name</span><span>zzz</span></div>
-                    <div class="info-row"><span>Age</span><span>38</span></div>
-                    <div class="info-row"><span>Role</span><span>3D Designer</span></div>
-                    <div class="info-row"><span>City</span><span>Shenzhen</span></div>
-                    <div class="info-row"><span>Email</span><span>kuku0603@163.com</span></div>
+                <div class="about-info reveal-stagger">
+                    <div class="about-row"><span class="about-row-label">Name</span><span
+                            class="about-row-value">曾彬</span></div>
+                    <div class="about-row"><span class="about-row-label">Age</span><span
+                            class="about-row-value">38</span></div>
+                    <div class="about-row"><span class="about-row-label">Role</span><span class="about-row-value">3D
+                            Designer</span></div>
+                    <div class="about-row"><span class="about-row-label">City</span><span
+                            class="about-row-value">Shenzhen</span></div>
+                    <div class="about-row"><span class="about-row-label">Email</span><span
+                            class="about-row-value">kuku0603@163.com</span></div>
                 </div>
             </div>
         </section>
 
-        <div class="divider"></div>
-
-        <section class="section" id="experience">
-            <div class="section-head reveal">
-                <span class="section-num">02</span>
+        <section class="section" id="experience" data-index="02">
+            <div class="section-header reveal-line"><span class="section-num">02</span>
                 <h2 class="section-title">Experience</h2>
             </div>
-            <div class="reveal">
+            <div class="timeline reveal-stagger">
                 <div class="timeline-item">
-                    <div class="period">2025.09 — NOW</div>
-                    <div>
-                        <div class="company">深圳嘉立创科技集团</div>
-                        <div class="role">3D Renderer</div>
-                        <div class="timeline-desc">WebGPU 渲染器美术工作，材质贴图制作，灯光与相机调校，渲染画面优化。</div>
+                    <div class="tl-period">2025.09 — Now</div>
+                    <div class="tl-body">
+                        <div class="tl-company">深圳嘉立创科技集团</div>
+                        <div class="tl-role">3D Renderer</div>
+                        <div class="tl-desc">WebGPU 渲染器美术工作，材质贴图制作，灯光/相机调校，渲染画面优化。</div>
                     </div>
                 </div>
                 <div class="timeline-item">
-                    <div class="period">2022.03 — 2025.09</div>
-                    <div>
-                        <div class="company">深圳商汤科技（外包）</div>
-                        <div class="role">3D Designer</div>
-                        <div class="timeline-desc">Unity 项目建模动画、Three.js 自研引擎资源输出、ComfyUI AIGC 工作流搭建。</div>
+                    <div class="tl-period">2022.03 — 2025.09</div>
+                    <div class="tl-body">
+                        <div class="tl-company">深圳商汤科技（外包）</div>
+                        <div class="tl-role">3D Designer</div>
+                        <div class="tl-desc">Unity 项目建模动画、Three.js 自研引擎资源输出、ComfyUI AIGC 工作流搭建。</div>
                     </div>
                 </div>
                 <div class="timeline-item">
-                    <div class="period">2017.03 — 2022.03</div>
-                    <div>
-                        <div class="company">深圳华语传奇广告</div>
-                        <div class="role">3D Designer</div>
-                        <div class="timeline-desc">吉祥物建模动画、立体海报、产品渲染、3D LOGO、AE 合成视频。</div>
+                    <div class="tl-period">2017.03 — 2022.03</div>
+                    <div class="tl-body">
+                        <div class="tl-company">深圳华语传奇广告</div>
+                        <div class="tl-role">3D Designer</div>
+                        <div class="tl-desc">吉祥物建模动画、立体海报、产品渲染、3D LOGO、AE 合成视频。</div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <div class="divider"></div>
-
-        <section class="section" id="projects">
-            <div class="section-head reveal">
-                <span class="section-num">03</span>
+        <section class="section" id="projects" data-index="03">
+            <div class="section-header reveal-line"><span class="section-num">03</span>
                 <h2 class="section-title">Projects</h2>
             </div>
-            <div class="filter reveal" id="filters"></div>
-            <div class="projects reveal" id="projectsGrid"></div>
+            <div class="projects-grid reveal-stagger" id="projectsGrid"></div>
         </section>
 
-        <div class="divider"></div>
-
-        <section class="section" id="skills">
-            <div class="section-head reveal">
-                <span class="section-num">04</span>
+        <section class="section" id="skills" data-index="04">
+            <div class="section-header reveal-line"><span class="section-num">04</span>
                 <h2 class="section-title">Skills</h2>
             </div>
-            <div class="skills reveal">
+            <div class="skills-grid reveal-stagger">
                 <div class="skill-group">
                     <h3>Software</h3>
-                    <div class="skill-item">Blender</div>
-                    <div class="skill-item">3ds Max</div>
-                    <div class="skill-item">ZBrush</div>
-                    <div class="skill-item">Substance Painter</div>
-                    <div class="skill-item">Cinema 4D</div>
+                    <div class="skill-list">
+                        <div class="skill-item">Blender</div>
+                        <div class="skill-item">3ds Max</div>
+                        <div class="skill-item">ZBrush</div>
+                        <div class="skill-item">Substance Painter</div>
+                        <div class="skill-item">Cinema 4D</div>
+                    </div>
                 </div>
                 <div class="skill-group">
                     <h3>Engine & Render</h3>
-                    <div class="skill-item">Unity</div>
-                    <div class="skill-item">Three.js</div>
-                    <div class="skill-item">WebGPU</div>
-                    <div class="skill-item">PBR Pipeline</div>
+                    <div class="skill-list">
+                        <div class="skill-item">Unity</div>
+                        <div class="skill-item">Three.js</div>
+                        <div class="skill-item">WebGPU</div>
+                        <div class="skill-item">PBR Pipeline</div>
+                    </div>
                 </div>
                 <div class="skill-group">
                     <h3>AI Tools</h3>
-                    <div class="skill-item">ComfyUI</div>
-                    <div class="skill-item">SD WebUI</div>
-                    <div class="skill-item">LoRA Training</div>
-                    <div class="skill-item">ControlNet</div>
+                    <div class="skill-list">
+                        <div class="skill-item">ComfyUI</div>
+                        <div class="skill-item">SD WebUI</div>
+                        <div class="skill-item">LoRA Training</div>
+                        <div class="skill-item">ControlNet</div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <div class="divider"></div>
-
-        <section class="section" id="education">
-            <div class="section-head reveal">
-                <span class="section-num">05</span>
+        <section class="section" id="education" data-index="05">
+            <div class="section-header reveal-line"><span class="section-num">05</span>
                 <h2 class="section-title">Education</h2>
             </div>
-            <div class="education reveal">
+            <div class="edu-card reveal-line">
                 <div class="edu-icon">🎓</div>
                 <div>
                     <div class="edu-school">长沙职业技术学院</div>
                     <div class="edu-major">计算机应用技术 · 大专</div>
-                    <div class="edu-date">2007 — 2010</div>
+                    <div class="edu-period">2007 — 2010</div>
                 </div>
             </div>
         </section>
 
-        <section class="contact">
-            <div class="kicker">GET IN TOUCH</div>
-            <h2>Let's Build Something <em>Together</em></h2>
-            <p>从传统三维制作到实时渲染和 AIGC 工作流，期待参与你的下一个项目。</p>
-            <a class="btn primary" href="mailto:kuku0603@163.com">kuku0603@163.com</a>
+        <section class="contact-section" id="contact">
+            <div class="contact-label reveal-line">Get In Touch</div>
+            <h2 class="contact-title reveal-line">Let's Build Something <em>Together</em></h2>
+            <p class="contact-desc reveal-line">16 years of cross-platform 3D art experience. From traditional pipelines
+                to AIGC workflows — ready to take on your next project.</p>
+            <a href="mailto:kuku0603@163.com" class="contact-email reveal-line">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                    <polyline points="22,6 12,13 2,6" />
+                </svg>
+                kuku0603@163.com
+            </a>
         </section>
 
         <footer class="footer">
-            <span>Zeng Bin · 3D Designer · 2026</span>
+            <span class="footer-status"><i></i>Open to Work · Zeng Bin · 2026</span>
             <a href="mailto:kuku0603@163.com">kuku0603@163.com</a>
         </footer>
+    </div>
 
-    </main>
-
-    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-        <div class="modal-bg" id="modalBg"></div>
-        <div class="modal-box">
-            <button class="modal-close" id="modalClose" aria-label="关闭项目详情">×</button>
-            <div class="modal-img">
-                <img id="modalImg" src="" alt="">
-            </div>
+    <div class="project-modal" id="projectModal" role="dialog" aria-modal="true">
+        <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+            <div class="modal-img" id="modalImg"></div>
             <div class="modal-body">
                 <div class="modal-letter" id="modalLetter"></div>
-                <h2 class="modal-title" id="modalTitle"></h2>
+                <div class="modal-title" id="modalTitle"></div>
                 <div class="modal-date" id="modalDate"></div>
                 <p class="modal-desc" id="modalDesc"></p>
-                <div class="modal-meta">
-                    <div>
-                        <span>ROLE</span>
-                        <strong id="modalRole"></strong>
-                    </div>
-                    <div>
-                        <span>RESULT</span>
-                        <strong id="modalResult"></strong>
-                    </div>
-                </div>
-                <div class="tags" id="modalTags"></div>
+                <div class="modal-tags" id="modalTags"></div>
             </div>
         </div>
     </div>
 
-    <button class="back" id="back" aria-label="返回顶部">↑</button>
-    <canvas id="trailCanvas"></canvas>
-    <div class="cursor" id="cursor"></div>
-    <div class="cursor-dot" id="cursorDot"></div>
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
 
     <script>
-        const PROJECTS = [
-            {
-                id: 'comfyui',
-                letter: 'A',
-                title: 'ComfyUI 工作流搭建',
-                category: 'AIGC',
-                date: '2023.12 — NOW',
-                desc: '搭建文生图、图生图、风格迁移、LoRA 训练与标准化项目模板，服务视觉探索与生产流程。',
-                role: 'AIGC Pipeline Designer',
-                result: '提升视觉探索速度与团队资产复用效率。',
-                tags: ['ComfyUI', 'AIGC', 'LoRA', 'Pipeline'],
-                img: './assets/projects/Krea2_turbo_00103_.png'
-            },
-            {
-                id: 'vps',
-                letter: 'B',
-                title: 'VPS 导航系统',
-                category: 'REAL-TIME',
-                date: '2022.03 — 2024.09',
-                desc: '构建 PBR 4K 贴图标准，建立 200+ 模型资源库，统一资产规范与外包管理流程。',
-                role: '3D Asset Supervisor',
-                result: '降低返工率，缩短资源制作周期。',
-                tags: ['Unity', 'PBR', 'Assets'],
-                img: './assets/projects/Krea2_turbo_00112_.png'
-            },
-            {
-                id: 'avatar',
-                letter: 'C',
-                title: '3D 会员卡 / 捏人 IP',
-                category: 'CHARACTER',
-                date: '2022.03 — 2023.10',
-                desc: '设计体型参数系统，实现角色换装、自定义捏脸与服饰自动匹配。',
-                role: 'Character Designer',
-                result: '降低移动端角色适配成本。',
-                tags: ['Blender', 'Mobile', 'IP'],
-                img: './assets/projects/Krea2_turbo_00118_.png'
-            },
-            {
-                id: 'house',
-                letter: 'D',
-                title: '虚拟房地产手机端',
-                category: 'REAL-TIME',
-                date: '2022.08 — 2023.09',
-                desc: '完成室内高精度场景建模贴图、NPC 骨骼绑定动画以及 Unity 集成调试。',
-                role: '3D Environment Artist',
-                result: '实现视觉质量与移动端性能平衡。',
-                tags: ['Unity', 'Rigging', 'Hi-Poly'],
-                img: './assets/projects/vr-house.webp'
-            },
-            {
-                id: 'metaverse',
-                letter: 'E',
-                title: 'Web 端元宇宙',
-                category: 'WEB3D',
-                date: '2022.12 — 2023.05',
-                desc: '基于 Three.js 自研引擎构建 Web 端元宇宙场景，制作大场景 PBR 材质并优化性能。',
-                role: 'Web3D Artist',
-                result: '完成多浏览器兼容与 WebGL 性能控制。',
-                tags: ['Three.js', 'WebGL', 'Performance'],
-                img: './assets/projects/metaverse.webp'
-            },
-            {
-                id: 'jinxiaodi',
-                letter: 'F',
-                title: '金小地 IP 形象',
-                category: 'CHARACTER',
-                date: '2017.03 — 2022.03',
-                desc: '完成 IP 雕刻、服饰设计、角色绑定与表情动画，打造企业级 IP 资产体系。',
-                role: 'IP Character Designer',
-                result: '造型迭代复用率提升 60%。',
-                tags: ['ZBrush', 'C4D', 'Character'],
-                img: './assets/projects/jinxiaodi.webp'
-            }
+        // ================================================================
+        // DATA
+        // ================================================================
+        // captions：与 imgs 一一对应，点开弹窗后随图片轮播逐张替换标题/描述；
+        // 单图项目（B / E）无需填写，弹窗显示项目默认文案。以下逐图文案为草稿，可直接改。
+        var PROJECTS = [
+            { id: 'proj-a', letter: 'A', title: 'ComfyUI 工作流搭建', date: '2023.12 — Now', desc: '搭建全套 AI 美术流程：文生图、图生图、风格迁移、LoRA 训练。输出标准化 AI 模板，赋能项目生产效率提升。', tags: ['ComfyUI', 'AIGC', 'Pipeline'], imgs: ['https://picsum.photos/seed/comfyui/600/400', 'https://picsum.photos/seed/comfyui-2/600/400'], captions: [
+                { title: '文生图 / 图生图主流程', desc: '节点化工作流：提示词编排、采样器切换、高清修复，一天完成整组海报批量出图。' },
+                { title: 'LoRA 训练与风格迁移', desc: '自建角色 / 风格 LoRA 训练管线，配合 ControlNet 锁定构图与结构，风格一致性显著提升。' }
+            ] },
+            { id: 'proj-b', letter: 'B', title: 'VPS 导航系统', date: '2022.03 — 2024.09', desc: '构建 PBR 4K 贴图标准，建立 200+ 模型资源库。统一资产规范，外包管理标准化，大幅降低返工率与制作周期。', tags: ['Unity', 'PBR', 'Assets'], imgs: ['https://picsum.photos/seed/vps-nav/600/400'] },
+            { id: 'proj-c', letter: 'C', title: '3D 会员卡 / 捏人 IP', date: '2022.03 — 2023.10', desc: '设计 30+ 体型参数系统，实现角色换装与自定义捏脸。服饰自动匹配系统降低适配成本，移动端面数严格控制。', tags: ['Blender', 'Mobile', 'IP'], imgs: ['https://picsum.photos/seed/avatar-ip/600/400', 'https://picsum.photos/seed/avatar-ip-2/600/400', 'https://picsum.photos/seed/avatar-ip-3/600/400'], captions: [
+                { title: '30+ 体型参数系统', desc: '可调体型参数实时驱动骨骼与网格，换型即时预览，省去手工刷权重。' },
+                { title: '换装与服饰自动匹配', desc: '多套服饰共享同一套骨骼权重，自动解算贴附，新服装接入成本大幅下降。' },
+                { title: '移动端性能预算', desc: '端上面数与贴图尺寸严格分级，中低端机型也能流畅实时捏脸。' }
+            ] },
+            { id: 'proj-d', letter: 'D', title: '虚拟房地产手机端', date: '2022.08 — 2023.09', desc: '室内高精度场景建模贴图，NPC 骨骼绑定动画，Unity 引擎集成调试，确保移动端流畅运行与视觉品质平衡。', tags: ['Unity', 'Rigging', 'Hi-Poly'], imgs: ['https://picsum.photos/seed/vr-house/600/400', 'https://picsum.photos/seed/vr-house-2/600/400'], captions: [
+                { title: '高精度室内场景', desc: 'PBR 材质 + 烘焙光照，小屏上仍能看清木纹、大理石等材质细节。' },
+                { title: 'NPC 骨骼绑定与交互', desc: 'NPC 行为树驱动漫游与讲解，点击热点触发剧情与户型交互。' }
+            ] },
+            { id: 'proj-e', letter: 'E', title: 'Web 端元宇宙', date: '2022.12 — 2023.05', desc: '基于 Three.js 自研引擎构建 Web 端元宇宙场景，大场景 PBR 材质，WebGL 性能严格控制，多浏览器兼容。', tags: ['Three.js', 'WebGL', 'Perf'], imgs: ['https://picsum.photos/seed/metaverse/600/400'] },
+            { id: 'proj-f', letter: 'F', title: '金小地 IP 形象', date: '2017.03 — 2022.03', desc: 'IP 全流程雕刻，8 套风格服饰设计，角色绑定表情动画，造型迭代复用率提升 60%，打造企业级 IP 资产体系。', tags: ['ZBrush', 'C4D', 'Character'], imgs: ['https://picsum.photos/seed/jinxiaodi/600/400', 'https://picsum.photos/seed/jinxiaodi-2/600/400'], captions: [
+                { title: 'IP 全流程雕刻', desc: 'ZBrush 高模雕刻 → 拓扑 → UV → 贴图全流程独立完成，多轮造型迭代定型企业级 IP。' },
+                { title: '8 套服饰与表情绑定', desc: '表情系统 + 8 套风格服饰复用同一套绑定，造型迭代复用率提升 60%。' }
+            ] }
         ];
 
-        const $ = s => document.querySelector(s);
-        const $$ = s => [...document.querySelectorAll(s)];
-
-        const start = $('#start');
-        const main = $('#main');
-
-        $('#enter').addEventListener('click', () => {
-            start.classList.add('hidden');
-            setTimeout(() => main.classList.add('show'), 180);
-        });
-
-        $('#logoHome').addEventListener('click', (e) => {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            main.classList.remove('show');
-            start.classList.remove('hidden');
-            $('#mobile').classList.remove('open');
-        });
-
-        $('#menu').addEventListener('click', () => $('#mobile').classList.toggle('open'));
-
-        $$('.mobile a').forEach(a => {
-            a.addEventListener('click', () => {
-                $('#mobile').classList.remove('open');
-            });
-        });
-
-        const filters = ['ALL', ...new Set(PROJECTS.map(p => p.category))];
-
-        filters.forEach((filter, i) => {
-            const b = document.createElement('button');
-            b.textContent = filter;
-            b.className = i === 0 ? 'active' : '';
-            b.addEventListener('click', () => {
-                $$('#filters button').forEach(x => x.classList.remove('active'));
-                b.classList.add('active');
-                renderProjects(filter);
-            });
-            $('#filters').appendChild(b);
-        });
-
-        function renderProjects(filter = 'ALL') {
-            const list = filter === 'ALL'
-                ? PROJECTS
-                : PROJECTS.filter(p => p.category === filter);
-
-            $('#projectsGrid').innerHTML = list.map(p => `
-    <article class="project" tabindex="0" data-id="${p.id}" aria-label="打开项目：${p.title}">
-      <div class="project-letter">${p.letter}</div>
-      <div class="project-title">${p.title}</div>
-      <div class="project-date date">${p.date}</div>
-      <div class="project-desc">${p.desc}</div>
-      <div class="tags">
-        ${p.tags.map(t => `<span class="tag ${t === 'AIGC' || t === 'Pipeline' ? 'orange' : ''}">${t}</span>`).join('')}
-      </div>
-    </article>
-  `).join('');
-
-            $$('#projectsGrid .project').forEach(card => {
-                card.addEventListener('click', () => openModal(card.dataset.id));
-                card.addEventListener('keydown', e => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        openModal(card.dataset.id);
-                    }
-                });
-                card.addEventListener('pointermove', e => {
-                    const r = card.getBoundingClientRect();
-                    card.style.setProperty('--x', `${((e.clientX - r.left) / r.width) * 100}%`);
-                    card.style.setProperty('--y', `${((e.clientY - r.top) / r.height) * 100}%`);
-                });
-            });
-        }
-
-        renderProjects();
-
-        function openModal(id) {
-            const p = PROJECTS.find(x => x.id === id);
-            if (!p) return;
-
-            $('#modalImg').src = p.img;
-            $('#modalImg').alt = p.title;
-            $('#modalLetter').textContent = p.letter;
-            $('#modalTitle').textContent = p.title;
-            $('#modalDate').textContent = p.date;
-            $('#modalDesc').textContent = p.desc;
-            $('#modalRole').textContent = p.role;
-            $('#modalResult').textContent = p.result;
-            $('#modalTags').innerHTML = p.tags.map(t => `<span class="tag">${t}</span>`).join('');
-
-            $('#modal').classList.add('open');
-            document.body.classList.add('modal-open');
-            $('#modalClose').focus();
-        }
-
-        function closeModal() {
-            $('#modal').classList.remove('open');
-            document.body.classList.remove('modal-open');
-        }
-
-        $('#modalClose').addEventListener('click', closeModal);
-        $('#modalBg').addEventListener('click', closeModal);
-        document.addEventListener('keydown', e => {
-            if (e.key === 'Escape') closeModal();
-        });
-
-        let lastY = 0;
-        window.addEventListener('scroll', () => {
-            const y = window.scrollY;
-            const doc = document.documentElement.scrollHeight - innerHeight;
-            $('#progress').style.width = (doc > 0 ? y / doc * 100 : 0) + '%';
-            $('#back').classList.toggle('visible', y > 500);
-            lastY = y;
-        });
-
-        $('#back').addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        const revealObserver = new IntersectionObserver(entries => {
-            entries.forEach(e => {
-                if (e.isIntersecting) {
-                    e.target.classList.add('visible');
-                    revealObserver.unobserve(e.target);
-                }
-            });
-        }, { threshold: .12 });
-
-        $$('.reveal').forEach(el => revealObserver.observe(el));
-
-        // ==================== 光标 + 拖尾 ====================
-        const cursor = $('#cursor');
-        const cursorDot = $('#cursorDot');
-        const trailCanvas = document.getElementById('trailCanvas');
-        const ctxTrail = trailCanvas.getContext('2d', { alpha: true });
-
-        let trailW = 0, trailH = 0;
-        const trailPoints = [];
-        const MAX_TRAIL_POINTS = 28;
-
-        let mouseX = window.innerWidth / 2;
-        let mouseY = window.innerHeight / 2;
-        let cursorX = mouseX;
-        let cursorY = mouseY;
-        let dotX = mouseX;
-        let dotY = mouseY;
-        let lastMoveX = mouseX;
-        let lastMoveY = mouseY;
-
-        function resizeTrail() {
-            const dpr = Math.min(window.devicePixelRatio || 1, 2);
-            trailW = window.innerWidth;
-            trailH = window.innerHeight;
-            trailCanvas.width = Math.floor(trailW * dpr);
-            trailCanvas.height = Math.floor(trailH * dpr);
-            trailCanvas.style.width = trailW + 'px';
-            trailCanvas.style.height = trailH + 'px';
-            ctxTrail.setTransform(dpr, 0, 0, dpr, 0, 0);
-        }
-        window.addEventListener('resize', resizeTrail);
-        resizeTrail();
-
-        const hasFinePointer = matchMedia('(hover:hover) and (pointer:fine)').matches;
-
-        if (hasFinePointer) {
-            window.addEventListener('pointermove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-
-                const dx = mouseX - lastMoveX;
-                const dy = mouseY - lastMoveY;
-                const speed = Math.min(Math.hypot(dx, dy), 40);
-                lastMoveX = mouseX;
-                lastMoveY = mouseY;
-
-                trailPoints.push({ x: mouseX, y: mouseY, life: 1, speed });
-                if (trailPoints.length > MAX_TRAIL_POINTS) trailPoints.shift();
-
-                const interactive = e.target.closest('a, button, .project, .filter button');
-                cursor.classList.toggle('active', !!interactive);
-            }, { passive: true });
-
-            function tick() {
-                cursorX += (mouseX - cursorX) * 0.18;
-                cursorY += (mouseY - cursorY) * 0.18;
-                cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
-
-                dotX += (mouseX - dotX) * 0.55;
-                dotY += (mouseY - dotY) * 0.55;
-                cursorDot.style.transform = `translate3d(${dotX}px, ${dotY}px, 0) translate(-50%, -50%)`;
-
-                ctxTrail.clearRect(0, 0, trailW, trailH);
-
-                for (let i = trailPoints.length - 1; i >= 0; i--) {
-                    trailPoints[i].life -= 0.028;
-                    if (trailPoints[i].life <= 0) trailPoints.splice(i, 1);
-                }
-
-                if (trailPoints.length > 1) {
-                    for (let i = 0; i < trailPoints.length - 1; i++) {
-                        const p1 = trailPoints[i];
-                        const p2 = trailPoints[i + 1];
-                        const life = Math.min(p1.life, p2.life);
-                        if (life <= 0) continue;
-
-                        const t = i / (trailPoints.length - 1);
-                        const r = Math.round(255 * (1 - t) + 0 * t);
-                        const g = Math.round(90 * (1 - t) + 212 * t);
-                        const b = Math.round(31 * (1 - t) + 170 * t);
-
-                        const speedFactor = Math.min(p1.speed, 20) / 20;
-                        const lineWidth = Math.max(0.5, 2.4 * life * (0.5 + speedFactor));
-
-                        ctxTrail.beginPath();
-                        ctxTrail.moveTo(p1.x, p1.y);
-                        ctxTrail.lineTo(p2.x, p2.y);
-                        ctxTrail.strokeStyle = `rgba(${r}, ${g}, ${b}, ${life * 0.85})`;
-                        ctxTrail.lineWidth = lineWidth;
-                        ctxTrail.lineCap = 'round';
-                        ctxTrail.stroke();
-                    }
-
-                    const head = trailPoints[trailPoints.length - 1];
-                    if (head && head.life > 0.15) {
-                        const grad = ctxTrail.createRadialGradient(
-                            head.x, head.y, 0,
-                            head.x, head.y, 16
-                        );
-                        grad.addColorStop(0, `rgba(255, 130, 70, ${head.life * 0.55})`);
-                        grad.addColorStop(1, 'rgba(255, 90, 31, 0)');
-                        ctxTrail.beginPath();
-                        ctxTrail.arc(head.x, head.y, 16, 0, Math.PI * 2);
-                        ctxTrail.fillStyle = grad;
-                        ctxTrail.fill();
-                    }
-                }
-
-                requestAnimationFrame(tick);
+        // onSlide(i)：可选回调，切图时（自动轮播或点 dot）把当前图索引告诉调用方，
+        // 用于让弹窗文字随图片一起切换
+        function buildGallery(holder, imgs, onSlide) {
+            var list = (imgs && imgs.length) ? imgs.slice() : [];
+            if (list.length === 0) { holder.innerHTML = ''; return null; }
+            if (list.length === 1) { holder.innerHTML = '<img class="gal-slide" src="' + list[0] + '" alt="" loading="lazy">'; return null; }
+            var slidesHtml = '', dotsHtml = '';
+            for (var i = 0; i < list.length; i++) {
+                slidesHtml += '<img class="gal-slide" src="' + list[i] + '" alt="" loading="lazy" style="opacity:' + (i ? 0 : 1) + '">';
+                dotsHtml += '<button class="gal-dot' + (i ? '' : ' active') + '" aria-label="图 ' + (i + 1) + '"></button>';
             }
-            tick();
-        } else {
-            cursor.remove();
-            cursorDot.remove();
-            trailCanvas.remove();
+            holder.innerHTML = slidesHtml + '<div class="gal-dots">' + dotsHtml + '</div>';
+
+            var slides = holder.querySelectorAll('.gal-slide');
+            var dots = holder.querySelectorAll('.gal-dot');
+            var n = list.length, idx = 0;
+            var rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            function go(i) {
+                idx = ((i % n) + n) % n;
+                for (var k = 0; k < n; k++) slides[k].style.opacity = (k === idx) ? '1' : '0';
+                for (var d = 0; d < n; d++) dots[d].classList.toggle('active', d === idx);
+                if (onSlide) onSlide(idx);
+            }
+            function stop() { if (holder._gt) { clearInterval(holder._gt); holder._gt = null; } }
+            function start() { stop(); if (!rm && n > 1) holder._gt = setInterval(function () { go(idx + 1); }, 2800); }
+
+            for (var j = 0; j < n; j++) {
+                (function (j) {
+                    dots[j].addEventListener('mousedown', function (e) { e.stopPropagation(); });
+                    dots[j].addEventListener('touchstart', function (e) { e.stopPropagation(); }, { passive: true });
+                    dots[j].addEventListener('click', function (e) { e.stopPropagation(); go(j); start(); });
+                })(j);
+            }
+            // 左右滑动 / 鼠标拖拽切图：自动轮播照常跑，手动切完重置计时，
+            // 不会出现刚滑完下一张、立刻又被自动轮播切走
+            var sx = 0, sy = 0, dragging = false;
+            function dragStart(x, y) { sx = x; sy = y; dragging = true; }
+            function dragEnd(x, y) {
+                if (!dragging) return; dragging = false;
+                var dx = x - sx, dy = y - sy;
+                if (Math.abs(dx) > 24 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+                    go(idx + (dx < 0 ? 1 : -1));
+                    start();
+                }
+            }
+            holder.addEventListener('touchstart', function (e) {
+                dragStart(e.touches[0].clientX, e.touches[0].clientY);
+            }, { passive: true });
+            holder.addEventListener('touchend', function (e) {
+                dragEnd(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
+            }, { passive: true });
+            holder.addEventListener('mousedown', function (e) { e.preventDefault(); dragStart(e.clientX, e.clientY); });
+            window.addEventListener('mouseup', function (e) { if (dragging) dragEnd(e.clientX, e.clientY); });
+
+            start();
+            return { start: start, stop: stop, go: go };
         }
 
-        // ==================== 粒子背景 ====================
-        function particles(canvasId, color1, color2) {
-            const canvas = $(canvasId);
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            let w, h, points = [], raf;
-            let time = 0;
-            let running = true;
+        // ================================================================
+        // PAGE TRANSITIONS
+        // ================================================================
+        document.getElementById('enterBtn').addEventListener('click', function () {
+            document.getElementById('startPage').classList.add('hidden');
+            setTimeout(function () { document.getElementById('mainPage').classList.add('show'); }, 100);
+        });
+
+        document.querySelector('.nav-logo').addEventListener('click', function () {
+            document.getElementById('mainPage').classList.remove('show');
+            setTimeout(function () {
+                document.getElementById('startPage').classList.remove('hidden');
+                window.scrollTo(0, 0);
+            }, 100);
+        });
+
+        // ================================================================
+        // CAROUSEL（已修复动态宽度计算和居中问题）
+        // ================================================================
+        (function () {
+            var track = document.getElementById('carouselTrack');
+            var vp = document.getElementById('carouselViewport');
+            var len = PROJECTS.length, CLONE = len, idx = CLONE;
+            var autoTimer = null, paused = false, dragging = false, startX = 0, dragOff = 0, hasDragged = false, resetLock = false, gals = [];
+
+            // 修复：动态读取 DOM 真实宽度，不再是硬编码
+            function unit() {
+                var card = track.querySelector('.p-card');
+                var cw = card ? card.getBoundingClientRect().width : 360; // fallback 360
+                var style = window.getComputedStyle(track);
+                var gap = parseFloat(style.gap) || 24;
+                return { cw: cw, g: gap, u: cw + gap };
+            }
+
+            function makeCard(p, clone) {
+                var d = document.createElement('div'); d.className = 'p-card';
+                if (!clone) d.dataset.pid = p.id;
+                if (clone) d.setAttribute('aria-hidden', 'true');
+                var holder = document.createElement('div'); holder.className = 'p-card-img';
+                d.appendChild(holder);
+                d.insertAdjacentHTML('beforeend',
+                    '<div class="p-card-title">' + p.title + '<span class="p-card-arrow">→</span></div>' +
+                    '<div class="p-card-date">' + p.date + '</div>' +
+                    '<div class="p-card-desc">' + p.desc + '</div>' +
+                    '<div class="p-card-tags">' + p.tags.map(function (t) { return '<span class="p-tag' + (t === 'AIGC' || t === 'Pipeline' ? ' orange' : '') + '">' + t + '</span>'; }).join('') + '</div>');
+                var gal = buildGallery(holder, p.imgs);
+                if (gal) {
+                    gals.push(gal);
+                    (function (g) {
+                        d.addEventListener('mouseenter', function () { g.stop(); });
+                        d.addEventListener('mouseleave', function () { g.start(); });
+                    })(gal);
+                }
+                return d;
+            }
+
+            function renderDetail() {
+                var grid = document.getElementById('projectsGrid'); grid.innerHTML = '';
+                PROJECTS.forEach(function (p) {
+                    var d = document.createElement('div'); d.className = 'proj-detail'; d.id = p.id;
+                    d.innerHTML = '<div class="proj-letter">' + p.letter + '</div><div class="proj-title">' + p.title + '</div><div class="proj-date">' + p.date + '</div><div class="proj-desc">' + p.desc + '</div>';
+                    grid.appendChild(d);
+                });
+            }
+
+            // 修复：使用 getBoundingClientRect().width 确保在滚动条出现时计算准确
+            var trackPadL = 0;
+            function measureTrackPad() {
+                // 读取轨道自身的左 padding（桌面 32px / 手机 24px）：
+                // 不扣除它，激活卡片会被 padding 整体向右顶偏，
+                // 手机端表现为左右留白不均、卡片不居中视口
+                trackPadL = parseFloat(window.getComputedStyle(track).paddingLeft) || 0;
+            }
+            function offset(i, drag) {
+                var u = unit();
+                var vw = vp.getBoundingClientRect().width;
+                return -(i * u.u) + (vw - u.cw) / 2 - trackPadL + (drag || 0);
+            }
+
+            function setPos(i, anim) {
+                track.style.transition = anim ? 'transform 0.5s cubic-bezier(0.16,1,0.3,1)' : 'none';
+                track.style.transform = 'translate3d(' + offset(i, dragOff) + 'px, 0, 0)'; // 使用 translate3d 触发 GPU 加速
+                var dots = document.querySelectorAll('.carousel-dot');
+                var realIdx = ((i - CLONE) % len + len) % len;
+                dots.forEach(function (d, di) { d.classList.toggle('active', di === realIdx); });
+            }
+
+            function initDots() {
+                var container = document.getElementById('carouselDots');
+                if (!container) return;
+                container.innerHTML = '';
+                for (var i = 0; i < len; i++) {
+                    var dot = document.createElement('button');
+                    dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+                    dot.setAttribute('aria-label', 'Go to project ' + (i + 1));
+                    (function (targetIdx) {
+                        dot.addEventListener('click', function () {
+                            // 修复：直接基于 CLONE 计算目标位置，不修改外层 idx 变量
+                            var target = CLONE + targetIdx;
+                            setPos(target, true);
+                        });
+                    })(i);
+                    container.appendChild(dot);
+                }
+            }
+
+            function init() {
+                track.innerHTML = '';
+                for (var i = 0; i < CLONE; i++)track.appendChild(makeCard(PROJECTS[i], true));
+                for (var i = 0; i < len; i++)track.appendChild(makeCard(PROJECTS[i], false));
+                for (var i = 0; i < CLONE; i++)track.appendChild(makeCard(PROJECTS[i], true));
+                initDots();
+                // 等 DOM 渲染完再测量 padding 并设置位置
+                requestAnimationFrame(function () { measureTrackPad(); setPos(idx, false); });
+            }
+
+            track.addEventListener('transitionend', function (e) {
+                if (e.target !== track || resetLock) return;
+                if (idx >= CLONE + len) { resetLock = true; idx = CLONE; setPos(idx, false); requestAnimationFrame(function () { resetLock = false; }); }
+                else if (idx < CLONE) { resetLock = true; idx = CLONE + len - 1; setPos(idx, false); requestAnimationFrame(function () { resetLock = false; }); }
+            });
+
+            function startAuto() { stopAuto(); autoTimer = setInterval(function () { if (paused || dragging || resetLock) return; idx++; setPos(idx, true); }, 3500); }
+            function stopAuto() { if (autoTimer) { clearInterval(autoTimer); autoTimer = null; } }
+
+            vp.addEventListener('mouseenter', function () { paused = true; });
+            vp.addEventListener('mouseleave', function () { paused = false; });
+
+            function gx(e) { return e.touches ? e.touches[0].clientX : e.clientX; }
+            function ds(e) { dragging = true; hasDragged = false; startX = gx(e); dragOff = 0; track.style.transition = 'none'; gals.forEach(function (g) { g.stop(); }); }
+            function dm(e) { if (!dragging) return; dragOff = gx(e) - startX; if (Math.abs(dragOff) > 5) hasDragged = true; track.style.transform = 'translate3d(' + offset(idx, dragOff) + 'px, 0, 0)'; }
+            function de() { if (!dragging) return; dragging = false; var u = unit(); if (dragOff < -u.u * 0.2) idx++; else if (dragOff > u.u * 0.2) idx--; dragOff = 0; setPos(idx, true); gals.forEach(function (g) { g.start(); }); }
+
+            vp.addEventListener('mousedown', ds); window.addEventListener('mousemove', dm); window.addEventListener('mouseup', de);
+            vp.addEventListener('touchstart', ds, { passive: true }); vp.addEventListener('touchmove', dm, { passive: true }); vp.addEventListener('touchend', de);
+
+            vp.addEventListener('click', function (e) {
+                if (hasDragged) return;
+                var card = e.target.closest('.p-card');
+                if (card && card.dataset.pid) {
+                    var t = document.getElementById(card.dataset.pid);
+                    if (t) { t.scrollIntoView({ behavior: 'smooth', block: 'start' }); t.style.borderColor = 'var(--accent)'; setTimeout(function () { t.style.borderColor = ''; }, 1200); }
+                }
+            });
+
+            // 修复：resize 时重新测量 padding 并计算位置
+            window.addEventListener('resize', function () { measureTrackPad(); idx = Math.max(CLONE, Math.min(idx, CLONE + len - 1)); dragOff = 0; setPos(idx, false); });
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'ArrowLeft') { idx--; setPos(idx, true); }
+                else if (e.key === 'ArrowRight') { idx++; setPos(idx, true); }
+            });
+
+            new MutationObserver(function () {
+                var mp = document.getElementById('mainPage');
+                if (mp.classList.contains('show')) { init(); requestAnimationFrame(function () { idx++; setPos(idx, true); }); startAuto(); } else { stopAuto(); }
+            }).observe(document.getElementById('mainPage'), { attributes: true, attributeFilter: ['class'] });
+
+            renderDetail();
+        })();
+
+        // ================================================================
+        // SCROLL PROGRESS + NAV
+        // ================================================================
+        (function () {
+            var bar = document.getElementById('progressBar');
+            var nav = document.getElementById('mainNav');
+            var lastY = 0, ticking = false;
+            var sections = ['about', 'experience', 'projects', 'skills', 'education'];
+            var navLinks = document.querySelectorAll('[data-nav]');
+
+            function update() {
+                var sy = window.scrollY;
+                var docH = document.documentElement.scrollHeight - window.innerHeight;
+                bar.style.width = (docH > 0 ? (sy / docH) * 100 : 0) + '%';
+
+                if (sy > lastY && sy > 200) nav.classList.add('hidden');
+                else nav.classList.remove('hidden');
+                lastY = sy;
+
+                var current = '';
+                sections.forEach(function (id) {
+                    var el = document.getElementById(id);
+                    if (el && el.getBoundingClientRect().top < window.innerHeight * 0.4) current = id;
+                });
+                navLinks.forEach(function (a) {
+                    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+                });
+                ticking = false;
+            }
+
+            window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+        })();
+
+        document.querySelectorAll('[data-nav],[data-mobile-link]').forEach(function (a) {
+            a.addEventListener('click', function (e) {
+                e.preventDefault();
+                var t = document.querySelector(this.getAttribute('href'));
+                if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                document.getElementById('mobileNav').classList.remove('open');
+            });
+        });
+
+        document.getElementById('menuBtn').addEventListener('click', function () {
+            document.getElementById('mobileNav').classList.toggle('open');
+        });
+
+        // ================================================================
+        // REVEAL OBSERVER
+        // ================================================================
+        (function () {
+            var obs = new IntersectionObserver(function (entries) {
+                entries.forEach(function (e) { if (e.isIntersecting) e.target.classList.add('visible'); });
+            }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+            new MutationObserver(function () {
+                var mp = document.getElementById('mainPage');
+                if (mp.classList.contains('show')) {
+                    document.querySelectorAll('.reveal-line,.reveal-stagger,.reveal-clip').forEach(function (el) { obs.observe(el); });
+                }
+            }).observe(document.getElementById('mainPage'), { attributes: true, attributeFilter: ['class'] });
+        })();
+
+        // ================================================================
+        // FUNCTIONAL CURSOR
+        // ================================================================
+        (function () {
+            if (!window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+
+            var c = document.getElementById('cursorCanvas'), ctx = c.getContext('2d');
+            var w, h, dpr;
+
+            var mx = -100, my = -100, cx = -100, cy = -100;
+            var vx = 0, vy = 0, lastMx = -100, lastMy = -100;
+            var speed = 0, smoothedSpeed = 0;
+            var angle = 0;
+
+            var label = '', pressed = false;
+            var lastTime = performance.now();
+
+            var K = 30;
+            var LEAD = 0.05;
+
+            var GHOST_K = 14;
+            var GHOST_LEAD = 0.03;
+            var gx = -100, gy = -100;
+
+            var ringRadius = 12, ringRadiusTarget = 12;
+            var ringRotation = 0, ringRotationSpeed = 0.5;
+            var ringArc = Math.PI * 1.5;
+            var ringAlpha = 0.75;
+            var dotRadius = 3;
+
+            var trailHistory = [];
+            var TRAIL_MAX = 25;
+
+            var ripples = [];
+
+            var smoke = [];
+            var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            var smallScreen = Math.min(window.innerWidth, window.innerHeight) < 768;
+            var PUFF_CAP = reducedMotion ? 0 : (smallScreen ? 26 : 48);
+            var EMIT_MAX = reducedMotion ? 0 : (smallScreen ? 2 : 3);
+            var smokeSprite = (function () {
+                var s = 64, cv = document.createElement('canvas'); cv.width = cv.height = s;
+                var g = cv.getContext('2d');
+                var rg = g.createRadialGradient(s / 2, s / 2, 0, s / 2, s / 2, s / 2);
+                rg.addColorStop(0, 'rgba(79,124,255,1)');
+                rg.addColorStop(0.6, 'rgba(120,160,255,0.7)');
+                rg.addColorStop(1, 'rgba(79,124,255,0)');
+                g.fillStyle = rg; g.fillRect(0, 0, s, s);
+                return cv;
+            })();
 
             function resize() {
-                const dpr = Math.min(window.devicePixelRatio || 1, 2);
-                w = canvas.clientWidth;
-                h = canvas.clientHeight;
-                canvas.width = Math.floor(w * dpr);
-                canvas.height = Math.floor(h * dpr);
+                dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+                w = window.innerWidth; h = window.innerHeight;
+                c.width = w * dpr; c.height = h * dpr;
+                c.style.width = w + 'px'; c.style.height = h + 'px';
                 ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-                points = Array.from({ length: innerWidth < 700 ? 18 : 42 }, () => ({
-                    x: Math.random() * w,
-                    y: Math.random() * h,
-                    vx: (Math.random() - .5) * .25,
-                    vy: (Math.random() - .5) * .25,
-                    r: Math.random() * 1.5 + .5,
-                    phase: Math.random() * Math.PI * 2
-                }));
             }
 
-            function draw() {
-                if (!running) return;
+            function detectLabel(el) {
+                if (!el) return '';
+                if (el.closest('.carousel-viewport')) return 'DRAG';
+                if (el.closest('.p-card') || el.closest('.proj-detail')) return 'OPEN';
+                if (el.closest('a') || el.closest('button')) return '';
+                return '';
+            }
+
+            function addRipple(x, y) {
+                ripples.push({ x: x, y: y, life: 1, maxLife: 0.6, maxRadius: 45 });
+                if (ripples.length > 8) ripples.shift();
+            }
+
+            function draw(now) {
+                var dt = Math.min((now - lastTime) / 16.67, 3);
+                var dtSec = Math.max(0, Math.min((now - lastTime) / 1000, 0.1));
+                lastTime = now;
+
+                vx = mx - lastMx; vy = my - lastMy;
+                lastMx = mx; lastMy = my;
+                speed = Math.sqrt(vx * vx + vy * vy);
+                smoothedSpeed += (speed - smoothedSpeed) * 0.15;
+                if (speed > 1) angle = Math.atan2(vy, vx);
+
+                var follow = 1 - Math.exp(-K * dt / 60);
+                var leadX = vx * LEAD, leadY = vy * LEAD;
+                cx += (mx + leadX - cx) * follow;
+                cy += (my + leadY - cy) * follow;
+
+                var speedFactor = Math.min(smoothedSpeed / 25, 1);
+                if (label) {
+                    ringRadiusTarget = 22;
+                    ringRotationSpeed = 2.5;
+                    ringArc = Math.PI * 1.2;
+                } else if (pressed) {
+                    ringRadiusTarget = 8;
+                    ringRotationSpeed = 1.0;
+                    ringArc = Math.PI * 1.8;
+                } else {
+                    ringRadiusTarget = 12 + speedFactor * 4;
+                    ringRotationSpeed = 0.5 + speedFactor * 1.5;
+                    ringArc = Math.PI * 1.5;
+                }
+
+                ringRadius += (ringRadiusTarget - ringRadius) * 0.15 * dt;
+                var targetRot = angle - ringArc / 2;
+                var rdiff = targetRot - ringRotation;
+                while (rdiff > Math.PI) rdiff -= Math.PI * 2;
+                while (rdiff < -Math.PI) rdiff += Math.PI * 2;
+                ringRotation += rdiff * Math.min(1, 0.18 * dt);
+
+                trailHistory.unshift({ x: cx, y: cy });
+                if (trailHistory.length > TRAIL_MAX) trailHistory.pop();
+
                 ctx.clearRect(0, 0, w, h);
-                time += 0.01;
 
-                points.forEach((p, i) => {
-                    p.x += p.vx;
-                    p.y += p.vy;
-                    if (p.x < 0 || p.x > w) p.vx *= -1;
-                    if (p.y < 0 || p.y > h) p.vy *= -1;
+                var emitCount = Math.min(EMIT_MAX, Math.floor(smoothedSpeed / 6));
+                for (var e = 0; e < emitCount; e++) {
+                    var bx = cx - vx * LEAD * (e + 1) * 0.6;
+                    var by = cy - vy * LEAD * (e + 1) * 0.6;
+                    smoke.push({
+                        x: bx + (Math.random() - 0.5) * 4, y: by + (Math.random() - 0.5) * 4,
+                        vx: (Math.random() - 0.5) * 0.12 - vx * 0.02, vy: (Math.random() - 0.5) * 0.12 - 0.03,
+                        age: 0, life: 0.5 + Math.random() * 0.5, size: 2 + Math.random() * 3, seed: Math.random() * Math.PI * 2
+                    });
+                }
+                if (smoke.length > PUFF_CAP) smoke.splice(0, smoke.length - PUFF_CAP);
 
-                    const breathe = Math.sin(time * 2 + p.phase) * 0.3 + 0.7;
-                    const currentR = p.r * breathe;
+                for (var i = smoke.length - 1; i >= 0; i--) {
+                    var p = smoke[i];
+                    p.age += dtSec;
+                    if (p.age >= p.life) { smoke.splice(i, 1); continue; }
+                    var k = p.age / p.life;
+                    p.x += p.vx * dt; p.y += p.vy * dt;
+                    p.vy -= 0.004 * dt;
+                    p.x += Math.sin(p.age * 6 + p.seed) * 0.2;
+                    var rad = p.size * (1 + k * 2.0);
+                    var fade = k < 0.7 ? 1 : (1 - (k - 0.7) / 0.3);
+                    ctx.globalAlpha = fade * 0.35 * Math.min(smoothedSpeed / 12, 1);
+                    ctx.drawImage(smokeSprite, p.x - rad, p.y - rad, rad * 2, rad * 2);
+                }
+                ctx.globalAlpha = 1.0;
 
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, currentR, 0, Math.PI * 2);
-                    ctx.fillStyle = i % 4 === 0 ? color2 : color1;
-                    ctx.globalAlpha = 0.25 + 0.15 * Math.sin(time + p.phase);
-                    ctx.fill();
-                });
-
-                for (let i = 0; i < points.length; i++) {
-                    for (let j = i + 1; j < points.length; j++) {
-                        const a = points[i], b = points[j];
-                        const dx = a.x - b.x, dy = a.y - b.y;
-                        const d = Math.hypot(dx, dy);
-                        const threshold = 120 + Math.sin(time + a.phase) * 10;
-                        if (d < threshold) {
-                            ctx.beginPath();
-                            ctx.moveTo(a.x, a.y);
-                            ctx.lineTo(b.x, b.y);
-                            ctx.strokeStyle = color1;
-                            ctx.globalAlpha = (1 - d / threshold) * 0.15;
-                            ctx.lineWidth = .5;
-                            ctx.stroke();
-                        }
+                for (var i = ripples.length - 1; i >= 0; i--) {
+                    var rp = ripples[i];
+                    rp.life -= dtSec;
+                    if (rp.life <= 0) { ripples.splice(i, 1); continue; }
+                    var rt = 1 - rp.life / rp.maxLife;
+                    var rippleRadius = rt * rp.maxRadius;
+                    var rippleAlpha = rp.life / rp.maxLife * 0.4;
+                    if (rippleRadius > 0) {
+                        ctx.beginPath();
+                        ctx.arc(rp.x, rp.y, rippleRadius, 0, Math.PI * 2);
+                        ctx.strokeStyle = 'rgba(79,124,255,' + rippleAlpha + ')';
+                        ctx.lineWidth = 2 * (1 - rt) + 0.5;
+                        ctx.stroke();
                     }
                 }
 
-                ctx.globalAlpha = 1;
-                raf = requestAnimationFrame(draw);
+                gx += (mx + vx * GHOST_LEAD - gx) * (1 - Math.exp(-GHOST_K * dt / 60));
+                gy += (my + vy * GHOST_LEAD - gy) * (1 - Math.exp(-GHOST_K * dt / 60));
+                if (gx > -10) {
+                    ctx.beginPath();
+                    ctx.arc(gx, gy, ringRadius + 8, 0, Math.PI * 2);
+                    ctx.strokeStyle = 'rgba(30,42,71,0.18)';
+                    ctx.lineWidth = 1;
+                    ctx.setLineDash([3, 6]);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                }
+
+                ctx.save();
+                ctx.translate(cx, cy);
+                ctx.beginPath();
+                ctx.arc(0, 0, ringRadius, ringRotation, ringRotation + ringArc);
+                ctx.strokeStyle = 'rgba(30,42,71,' + ringAlpha + ')';
+                ctx.lineWidth = 1.2;
+                ctx.stroke();
+                ctx.restore();
+
+                ctx.save();
+                ctx.translate(cx, cy);
+                var dotSize = pressed ? 1.5 : dotRadius;
+                ctx.beginPath();
+                ctx.arc(0, 0, dotSize, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(79,124,255,0.9)';
+                ctx.fill();
+
+                if (label) {
+                    ctx.font = '600 9px "JetBrains Mono",monospace';
+                    ctx.fillStyle = 'rgba(30,42,71,0.85)';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(label, 0, 0);
+                }
+
+                ctx.restore();
+
+                // 性能：鼠标静止超过 1.4s 且没有残余烟雾/涟漪时，暂停整屏 canvas 绘制循环；
+                // 鼠标一动立即唤醒，避免桌面端后台空跑占满一整颗 CPU 核心
+                var idleFor = now - lastMoveAt;
+                if (idleFor > 1400 && smoke.length === 0 && ripples.length === 0) {
+                    cursorRunning = false;
+                    return;
+                }
+                requestAnimationFrame(draw);
             }
 
-            addEventListener('resize', resize);
-            resize();
-            draw();
-
-            document.addEventListener('visibilitychange', () => {
-                if (document.hidden) {
-                    running = false;
-                    cancelAnimationFrame(raf);
-                } else {
-                    running = true;
-                    draw();
+            var lastMoveAt = performance.now(), cursorRunning = true;
+            window.addEventListener('mousemove', function (e) {
+                mx = e.clientX; my = e.clientY;
+                lastMoveAt = performance.now();
+                if (!cursorRunning) {
+                    cursorRunning = true;
+                    lastTime = performance.now();
+                    requestAnimationFrame(draw);
                 }
+                var l = detectLabel(e.target);
+                if (l !== label) { label = l; }
             });
-        }
+            window.addEventListener('mousedown', function (e) {
+                pressed = true;
+                lastMoveAt = performance.now();
+                if (!cursorRunning) { cursorRunning = true; lastTime = performance.now(); requestAnimationFrame(draw); }
+                addRipple(e.clientX, e.clientY);
+            });
+            window.addEventListener('mouseup', function () { pressed = false; });
+            window.addEventListener('mouseleave', function () {
+                mx = -100; my = -100; lastMx = -100; lastMy = -100;
+                gx = -100; gy = -100;
+                trailHistory = []; ripples = []; smoke = [];
+            });
 
-        particles('#startCanvas', 'rgba(255,90,31,.8)', 'rgba(0,212,170,.8)');
-        particles('#heroCanvas', 'rgba(255,90,31,.8)', 'rgba(0,212,170,.8)');
+            document.body.classList.add('cursor-active');
+            window.addEventListener('resize', resize); resize();
+            lastTime = performance.now();
+            requestAnimationFrame(draw);
+        })();
+
+        // ================================================================
+        // PROJECT MODAL
+        // ================================================================
+        (function () {
+            var modal = document.getElementById('projectModal');
+            var overlay = document.getElementById('modalOverlay');
+            var closeBtn = document.getElementById('modalClose');
+            if (!modal) return;
+
+            var titleEl = document.getElementById('modalTitle');
+            var descEl = document.getElementById('modalDesc');
+
+            function openModal(pid) {
+                var p = PROJECTS.find(function (x) { return x.id === pid; });
+                if (!p) return;
+                // 随图片轮播切换下方文字：有 captions 用逐图文案，没有则回退项目默认标题/描述
+                function applySlide(i) {
+                    var c = p.captions && p.captions[i];
+                    titleEl.textContent = c ? c.title : p.title;
+                    descEl.textContent = c ? c.desc : p.desc;
+                }
+                buildGallery(document.getElementById('modalImg'), p.imgs, applySlide);
+                document.getElementById('modalLetter').textContent = p.letter;
+                document.getElementById('modalDate').textContent = p.date;
+                document.getElementById('modalTags').innerHTML = p.tags.map(function (t) {
+                    return '<span class="p-tag' + (t === 'AIGC' || t === 'Pipeline' ? ' orange' : '') + '">' + t + '</span>';
+                }).join('');
+                applySlide(0);
+                modal.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeModal() {
+                modal.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+
+            document.addEventListener('click', function (e) {
+                var card = e.target.closest('.proj-detail');
+                if (card && card.id) { openModal(card.id); }
+            });
+
+            closeBtn.addEventListener('click', closeModal);
+            overlay.addEventListener('click', closeModal);
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+            });
+        })();
+
+        // ================================================================
+        // BACK TO TOP
+        // ================================================================
+        (function () {
+            var btn = document.getElementById('backToTop');
+            if (!btn) return;
+            var ticking = false;
+            window.addEventListener('scroll', function () {
+                if (!ticking) {
+                    ticking = true;
+                    requestAnimationFrame(function () {
+                        btn.classList.toggle('visible', window.scrollY > 400);
+                        ticking = false;
+                    });
+                }
+            }, { passive: true });
+            btn.addEventListener('click', function () {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        })();
+
+        // ================================================================
+        // STAT NUMBER COUNTER
+        // ================================================================
+        (function () {
+            var nums = document.querySelectorAll('.hero-stat-num');
+            if (!nums.length) return;
+
+            function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+
+            function animate(el) {
+                var text = el.textContent;
+                var match = text.match(/(\d+)/);
+                if (!match) return;
+                var target = parseInt(match[1], 10);
+                var suffix = text.replace(match[1], '');
+                var duration = 1500, start = null;
+                function step(ts) {
+                    if (!start) start = ts;
+                    var p = Math.min((ts - start) / duration, 1);
+                    el.textContent = Math.round(easeOutCubic(p) * target) + suffix;
+                    if (p < 1) requestAnimationFrame(step);
+                }
+                requestAnimationFrame(step);
+            }
+
+            var obs = new IntersectionObserver(function (entries) {
+                entries.forEach(function (e) {
+                    if (e.isIntersecting) { animate(e.target); obs.unobserve(e.target); }
+                });
+            }, { threshold: 0.5 });
+
+            new MutationObserver(function () {
+                var mp = document.getElementById('mainPage');
+                if (mp.classList.contains('show')) {
+                    nums.forEach(function (n) { obs.observe(n); });
+                }
+            }).observe(document.getElementById('mainPage'), { attributes: true, attributeFilter: ['class'] });
+        })();
     </script>
 
+    <script>
+        /* ============================================================
+           统一 rAF 循环：视差 / 卡片倾斜（性能优化版）
+           ============================================================ */
+        (function () {
+            var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+            var heroCanvas = document.getElementById('heroCanvas');
+            var heroContent = document.querySelector('.hero-content');
+            var HERO_CANVAS_K = 0.18;
+            var HERO_CONTENT_K = 0.05;
+
+            var tiltCards = [];
+            document.querySelectorAll('.carousel-viewport .p-card').forEach(function (card) {
+                card.classList.add('tilt-card');
+                tiltCards.push({ el: card, rx: 0, ry: 0, rxT: 0, ryT: 0 });
+            });
+            var TILT_K = 16;
+            var TILT_MAX = 8;
+
+            var scrollY = 0, scrollVel = 0, lastScroll = 0, skew = 0;
+            window.addEventListener('scroll', function () {
+                var sy = window.scrollY;
+                scrollVel = sy - lastScroll;
+                lastScroll = sy;
+                scrollY = sy;
+            }, { passive: true });
+
+            // 优化：使用节流，减少极高频率的 DOM 写入
+            var lastMoveTime = 0;
+            function onPointerMove(e) {
+                var now = performance.now();
+                if (now - lastMoveTime < 16) return; // 约 60fps
+                lastMoveTime = now;
+
+                var cx = e.clientX, cy = e.clientY;
+                tiltCards.forEach(function (t) {
+                    var r = t.el.getBoundingClientRect();
+                    if (r.width === 0) return;
+                    var px = Math.max(0, Math.min(1, (cx - r.left) / r.width));
+                    var py = Math.max(0, Math.min(1, (cy - r.top) / r.height));
+                    t.rxT = (0.5 - py) * TILT_MAX;
+                    t.ryT = (px - 0.5) * TILT_MAX;
+                    t.el.style.setProperty('--mx', (px * 100).toFixed(1) + '%');
+                    t.el.style.setProperty('--my', (py * 100).toFixed(1) + '%');
+                });
+            }
+
+            if (finePointer && !reduced) {
+                document.addEventListener('mousemove', onPointerMove, { passive: true });
+            }
+
+            function follow(v, t, k, dtSec) { return v + (t - v) * (1 - Math.exp(-k * dtSec)); }
+
+            var running = false, last = 0;
+            // 性能：标题列表是静态的，启动时查询一次即可，不要每帧 querySelectorAll
+            var sectionTitles = document.querySelectorAll('.section-title');
+            function tick(now) {
+                var dtSec = Math.min(0.05, (now - (last || now)) / 1000);
+                last = now;
+
+                if (heroCanvas) heroCanvas.style.transform = 'translate3d(0, ' + (scrollY * HERO_CANVAS_K).toFixed(1) + 'px, 0)';
+                if (heroContent) heroContent.style.transform = 'translate3d(0, ' + (scrollY * HERO_CONTENT_K).toFixed(1) + 'px, 0)';
+
+                var skewT = Math.max(-2, Math.min(2, scrollVel * 0.05));
+                skew = follow(skew, skewT, 8, dtSec);
+                // 倾斜量稳定在阈值内时跳过 DOM 写入
+                if (Math.abs(skew) > 0.05) {
+                    var skewCss = 'skewY(' + skew.toFixed(2) + 'deg)';
+                    sectionTitles.forEach(function (t) { t.style.transform = skewCss; });
+                } else if (skew !== 0) {
+                    skew = 0;
+                    sectionTitles.forEach(function (t) { t.style.transform = ''; });
+                }
+
+                if (finePointer) {
+                    tiltCards.forEach(function (t) {
+                        t.rx = follow(t.rx, t.rxT, TILT_K, dtSec);
+                        t.ry = follow(t.ry, t.ryT, TILT_K, dtSec);
+                        // 只在实际有倾斜时重绘
+                        if (Math.abs(t.rx) > 0.05 || Math.abs(t.ry) > 0.05) {
+                            t.el.style.transform = 'perspective(900px) rotateX(' + t.rx.toFixed(2) + 'deg) rotateY(' + t.ry.toFixed(2) + 'deg)';
+                        } else if (t.el.style.transform !== '') {
+                            t.el.style.transform = '';
+                        }
+                    });
+                }
+
+                if (running) requestAnimationFrame(tick);
+            }
+
+            if (!reduced) {
+                running = true;
+                requestAnimationFrame(tick);
+            }
+        })();
+    </script>
+
+    <script type="importmap">
+{ "imports": { "three": "https://unpkg.com/three@0.164.1/build/three.module.js" } }
+</script>
+    <script type="module">
+        /* ============================================================
+           THREE.JS — 启动页多样化几何体 + Hero 粒子星座
+           ============================================================ */
+        import * as THREE from 'three';
+
+        (function () {
+            var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            var mouseNDC = { x: 0, y: 0 };
+            window.addEventListener('pointermove', function (e) {
+                mouseNDC.x = (e.clientX / window.innerWidth) * 2 - 1;
+                mouseNDC.y = -(e.clientY / window.innerHeight) * 2 + 1;
+            }, { passive: true });
+
+            function isMobile() { return window.innerWidth < 768; }
+
+            function softDotTexture(color) {
+                var s = 64, cv = document.createElement('canvas');
+                cv.width = cv.height = s;
+                var g = cv.getContext('2d');
+                var grd = g.createRadialGradient(s / 2, s / 2, 0, s / 2, s / 2, s / 2);
+                grd.addColorStop(0, 'rgba(' + color + ',1)');
+                grd.addColorStop(0.35, 'rgba(' + color + ',0.85)');
+                grd.addColorStop(1, 'rgba(' + color + ',0)');
+                g.fillStyle = grd; g.fillRect(0, 0, s, s);
+                return new THREE.CanvasTexture(cv);
+            }
+
+            function makeRenderer(canvas, opaque) {
+                var r = new THREE.WebGLRenderer({ canvas: canvas, alpha: !opaque, antialias: true, powerPreference: 'high-performance' });
+                if (opaque) r.setClearColor(new THREE.Color('#eaf1fd'), 1);
+                else r.setClearColor(0x000000, 0);
+                // 性能：高分屏 dpr=2/3 时全屏 WebGL 按 1.25 上限渲染即可，
+                // 粒子/线框视觉几乎无损，GPU 填充率压力大降
+                r.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.25));
+                return r;
+            }
+
+            /* ============ 场景 A — 启动页多样化几何体 ============ */
+            function initStart() {
+                var canvas = document.getElementById('startCanvas');
+                if (!canvas) return;
+                var renderer, scene, camera, shapes = [];
+                try { renderer = makeRenderer(canvas, true); }
+                catch (e) { canvas.style.display = 'none'; return; }
+                scene = new THREE.Scene();
+                camera = new THREE.PerspectiveCamera(55, 1, 1, 500);
+                camera.position.set(0, 0, 70);
+                camera.lookAt(0, 0, 0);
+
+                var COLORS = [0x4f7cff, 0x2ecfab, 0x9b8cff];
+                // 几何体工厂：s 为单位尺寸，每个工厂返回一种线框造型
+                // 正多面体 / 锥 / 柱 / 环 / 环面纽结 / 经纬球，统一线框视觉语言
+                var builders = [
+                    function (s) { return new THREE.BoxGeometry(s, s, s); },                            // 立方体
+                    function (s) { return new THREE.TetrahedronGeometry(s * 1.05, 0); },                 // 正四面体
+                    function (s) { return new THREE.OctahedronGeometry(s * 1.05, 0); },                 // 正八面体
+                    function (s) { return new THREE.IcosahedronGeometry(s * 0.95, 0); },                 // 正二十面体
+                    function (s) { return new THREE.DodecahedronGeometry(s * 0.95, 0); },               // 正十二面体
+                    function (s) { return new THREE.ConeGeometry(s * 0.8, s * 1.5, 6); },               // 六棱锥
+                    function (s) { return new THREE.CylinderGeometry(s * 0.7, s * 0.7, s * 1.5, 8); },  // 八棱柱
+                    function (s) { return new THREE.TorusGeometry(s * 0.66, s * 0.28, 6, 14); },         // 圆环
+                    function (s) { return new THREE.SphereGeometry(s * 0.9, 10, 7); }                    // 经纬线框球
+                ];
+                // 每种几何体的真实外接半径（单位尺寸 s=1 时），与 builders 顺序一一对应。
+                // 之前统一用 2.2*sc 偏大，导致碰撞/间距都虚大；用真实值后排斥区紧贴视觉轮廓。
+                var extents = [0.5, 1.05, 1.05, 0.95, 0.95, 0.8, 0.75, 0.94, 0.9];
+
+                var halfH = 34, halfW = 34;
+
+                function resize() {
+                    var w = canvas.offsetWidth || 1, h = canvas.offsetHeight || 1;
+                    camera.aspect = w / h; camera.updateProjectionMatrix();
+                    renderer.setSize(w, h, false);
+                    halfW = halfH * (w / h);
+                }
+
+                function layout() {
+                    for (var i = 0; i < shapes.length; i++) {
+                        var s = shapes[i];
+                        var placed = false;
+                        // 增大随机尝试次数，铺开范围也加大，避免几何体挤在中间
+                        for (var attempt = 0; attempt < 150 && !placed; attempt++) {
+                            s.depth = (Math.random() * 2 - 1) * 14;
+                            s.px = (Math.random() * 2 - 1) * halfW * 0.72;
+                            s.py = (Math.random() * 2 - 1) * halfH * 0.72;
+                            var ok = true;
+                            for (var j = 0; j < i; j++) {
+                                var o = shapes[j];
+                                var ddx = s.px - o.px, ddy = s.py - o.py;
+                                // 线框视觉占位半径 + 14 间距余量
+                                var minD = s.radius + o.radius + 14;
+                                // 不再区分深度差：屏幕上看到的就是二维投影，
+                                // 只要投影重叠就算重叠，从根上消除抱团
+                                if (ddx * ddx + ddy * ddy < minD * minD) { ok = false; break; }
+                            }
+                            if (ok) placed = true;
+                        }
+                        s.wx = s.px; s.wy = s.py; s.wz = s.depth;
+                        s.vx = 0; s.vy = 0;
+                        s.obj.position.set(s.px, s.py, s.depth);
+                        s.mat.opacity = s.aBase;
+                    }
+                }
+
+                function scatter() {
+                    shapes.forEach(function (s) { scene.remove(s.obj); s.obj.geometry.dispose(); s.obj.material.dispose(); });
+                    shapes = [];
+                    var N = isMobile() ? 10 : 18; // 略微增加数量
+                    for (var i = 0; i < N; i++) {
+                        var geo = builders[i % builders.length](1);
+                        // thresholdAngle=8°：只显示棱线夹角大于 8° 的边，
+                        // 球/环/纽结不会退化成密密麻麻的经纬线，保持线框简洁
+                        var edges = new THREE.EdgesGeometry(geo, 8); geo.dispose();
+                        var mat = new THREE.LineBasicMaterial({ color: COLORS[i % COLORS.length], transparent: true, opacity: 0.65, depthWrite: false });
+                        var line = new THREE.LineSegments(edges, mat); edges.dispose();
+                        var sc = 2.2 + Math.random() * 2.2;
+                        line.scale.setScalar(sc);
+                        line.frustumCulled = false;
+                        scene.add(line);
+                        shapes.push({
+                            obj: line, mat: mat, wx: 0, wy: 0, wz: 0, px: 0, py: 0, depth: 0, vx: 0, vy: 0,
+                            aBase: 0.35 + Math.random() * 0.25,
+                            rx: Math.random() * Math.PI * 2, ry: Math.random() * Math.PI * 2, rz: Math.random() * Math.PI * 2,
+                            rsx: (Math.random() - 0.5) * 0.008, rsy: (Math.random() - 0.5) * 0.010, rsz: (Math.random() - 0.5) * 0.006,
+                            phase: Math.random() * Math.PI * 2, fs: 0.2 + Math.random() * 0.3, fr: 2 + Math.random() * 5,
+                            radius: extents[i % extents.length] * sc
+                        });
+                    }
+                    layout();
+                }
+
+                var tmp = new THREE.Vector3(), lastT = 0;
+
+                function update(now) {
+                    if (lastT === 0) lastT = now;
+                    var dt = Math.min((now - lastT) / 16.67, 3); lastT = now;
+                    var t = now;
+
+                    camera.position.x += (mouseNDC.x * 4 - camera.position.x) * 0.04;
+                    camera.position.y += (mouseNDC.y * 4 - camera.position.y) * 0.04;
+                    camera.lookAt(0, 0, 0);
+
+                    // 形状间实时轻推：投影一旦重叠就互相推开一点，
+                    // 彻底消除抱团（18 个形状只有 153 对，性能开销可忽略）
+                    for (var a = 0; a < shapes.length; a++) {
+                        for (var b = a + 1; b < shapes.length; b++) {
+                            var A = shapes[a], B = shapes[b];
+                            var rdx = B.wx - A.wx, rdy = B.wy - A.wy;
+                            var minD = (A.radius + B.radius) * 1.3;
+                            var r2 = rdx * rdx + rdy * rdy;
+                            if (r2 < minD * minD && r2 > 0.0001) {
+                                var rd = Math.sqrt(r2);
+                                var push = (minD - rd) * 0.08;
+                                A.vx -= (rdx / rd) * push; A.vy -= (rdy / rd) * push;
+                                B.vx += (rdx / rd) * push; B.vy += (rdy / rd) * push;
+                            }
+                        }
+                    }
+
+                    for (var i = 0; i < shapes.length; i++) {
+                        var s = shapes[i];
+                        var fx = Math.sin(t * 0.001 * s.fs + s.phase) * s.fr * 0.35;
+                        var fy = Math.cos(t * 0.001 * s.fs * 0.7 + s.phase) * s.fr * 0.25;
+
+                        s.rx += s.rsx * dt; s.ry += s.rsy * dt; s.rz += s.rsz * dt;
+
+                        // 使用正确的世界坐标计算排斥
+                        tmp.set(s.wx, s.wy, s.depth).project(camera);
+                        var dx = tmp.x - mouseNDC.x, dy = tmp.y - mouseNDC.y;
+                        var dist = Math.sqrt(dx * dx + dy * dy);
+
+                        // 碰撞 = 光标圆环边缘碰到几何体边缘：
+                        // 触发距离 = 几何体投影半径 + 光标圆环半径（约 20px 直径 40px 的环），
+                        // 两个圆边刚相碰就推开，不需要光标中心钻进几何体
+                        var depthNow = camera.position.z - s.depth;
+                        var worldPerNdcy = depthNow * Math.tan(camera.fov * Math.PI / 360);
+                        // 宽屏横向视野更宽：每 NDC-x 对应的世界单位 = 竖直值 × aspect（之前误写成 ÷ aspect，
+                        // 导致碰撞半径虚大 ~aspect 倍，离老远就触发）
+                        var worldPerNdcx = worldPerNdcy * camera.aspect;
+                        var cursorR = 20 / (window.innerWidth / 2);
+                        var hitR = (s.radius / worldPerNdcx) + cursorR;
+                        if (dist < hitR && dist > 0.0001) {
+                            var force = (1 - dist / hitR) * 0.12; // 力度
+                            s.vx += (dx / dist) * force * worldPerNdcx;
+                            s.vy += (dy / dist) * force * worldPerNdcy;
+                            // 被光标碰到时边推开边加速自转：沿排斥方向给一个旋转冲量，
+                            // 手离开后靠原有阻尼自然停回慢转
+                            s.rx += (dy / dist) * force * 0.18;
+                            s.ry += (dx / dist) * force * 0.18;
+                        }
+
+                        s.vx *= 0.92; s.vy *= 0.92;
+                        s.wx += (s.px + fx - s.wx) * 0.02 + s.vx;
+                        s.wy += (s.py + fy - s.wy) * 0.02 + s.vy;
+                        var clx = halfW * 0.8, cly = halfH * 0.8;
+                        if (s.wx < -clx) { s.wx = -clx; s.vx = Math.abs(s.vx) * 0.4; }
+                        if (s.wx > clx) { s.wx = clx; s.vx = -Math.abs(s.vx) * 0.4; }
+                        if (s.wy < -cly) { s.wy = -cly; s.vy = Math.abs(s.vy) * 0.4; }
+                        if (s.wy > cly) { s.wy = cly; s.vy = -Math.abs(s.vy) * 0.4; }
+
+                        s.obj.position.set(s.wx, s.wy, s.depth);
+                        s.obj.rotation.set(s.rx, s.ry, s.rz);
+                        s.mat.opacity = s.aBase;
+                    }
+
+                    renderer.render(scene, camera);
+                }
+
+                function frame() { renderer.setAnimationLoop(update); }
+                function stop() { renderer.setAnimationLoop(null); }
+
+                scatter(); resize();
+                if (reduced) { renderer.render(scene, camera); return; }
+
+                var sp = document.getElementById('startPage');
+                if (sp) {
+                    new MutationObserver(function () {
+                        if (sp.classList.contains('hidden')) stop(); else frame();
+                    }).observe(sp, { attributes: true, attributeFilter: ['class'] });
+                }
+                frame();
+                window.addEventListener('resize', function () { resize(); layout(); });
+
+                document.addEventListener('visibilitychange', function () {
+                    if (document.hidden) stop();
+                    else if (!sp || !sp.classList.contains('hidden')) frame();
+                });
+            }
+
+            /* ============ 场景 B — Hero 粒子星座（浅色适配） ============ */
+            function initHero() {
+                var canvas = document.getElementById('heroCanvas');
+                if (!canvas) return;
+                var renderer, scene, camera, pts = null, ptsGeo, ptsMat, conn = null, connGeo;
+                try { renderer = makeRenderer(canvas, false); }
+                catch (e) { canvas.style.display = 'none'; return; }
+                scene = new THREE.Scene();
+                camera = new THREE.PerspectiveCamera(60, 1, 1, 200);
+                camera.position.set(0, 0, 30);
+                camera.lookAt(0, 0, 0);
+
+                var dotTex = softDotTexture('79,124,255');
+                var halfH = 17, halfW = 17;
+
+                function resize() {
+                    var w = canvas.offsetWidth || 1, h = canvas.offsetHeight || 1;
+                    camera.aspect = w / h; camera.updateProjectionMatrix();
+                    renderer.setSize(w, h, false);
+                    halfW = halfH * (w / h);
+                }
+
+                function buildConn(n) {
+                    if (conn) { scene.remove(conn); connGeo.dispose(); }
+                    var maxP = Math.min(60, Math.floor(n * n / 2));
+                    connGeo = new THREE.BufferGeometry();
+                    var pa = new Float32Array(maxP * 6);
+                    var ca = new Float32Array(maxP * 6);
+                    connGeo.setAttribute('position', new THREE.BufferAttribute(pa, 3));
+                    connGeo.setAttribute('color', new THREE.BufferAttribute(ca, 3));
+                    connGeo.setDrawRange(0, 0);
+                    var m = new THREE.LineBasicMaterial({ vertexColors: true, transparent: true, opacity: 0.5, depthWrite: false });
+                    conn = new THREE.LineSegments(connGeo, m);
+                    conn.frustumCulled = false;
+                    scene.add(conn);
+                }
+
+                function rebuild() {
+                    if (pts) { scene.remove(pts); ptsGeo.dispose(); }
+                    var n = isMobile() ? 50 : 90;
+                    var pos = new Float32Array(n * 3);
+                    var col = new Float32Array(n * 3);
+                    var v = new Float32Array(n * 2);
+                    for (var i = 0; i < n; i++) {
+                        pos[i * 3] = (Math.random() * 2 - 1) * halfW;
+                        pos[i * 3 + 1] = (Math.random() * 2 - 1) * halfH;
+                        pos[i * 3 + 2] = (Math.random() * 2 - 1) * 6;
+                        var c = Math.random() < 0.6 ? [0.31, 0.49, 1] : (Math.random() < 0.5 ? [0.18, 0.81, 0.67] : [0.61, 0.55, 1]);
+                        col[i * 3] = c[0]; col[i * 3 + 1] = c[1]; col[i * 3 + 2] = c[2];
+                        v[i * 2] = (Math.random() - 0.5) * 0.05;
+                        v[i * 2 + 1] = (Math.random() - 0.5) * 0.05;
+                    }
+                    ptsGeo = new THREE.BufferGeometry();
+                    ptsGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+                    ptsGeo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+                    ptsMat = new THREE.PointsMaterial({ size: 0.22, map: dotTex, vertexColors: true, transparent: true, opacity: 0.85, depthWrite: false, sizeAttenuation: true });
+                    pts = new THREE.Points(ptsGeo, ptsMat);
+                    pts.userData.n = n;
+                    pts.userData.v = v;
+                    scene.add(pts);
+                    buildConn(n);
+                }
+
+                function update(now) {
+                    camera.position.x += (mouseNDC.x * 1.5 - camera.position.x) * 0.04;
+                    camera.position.y += (mouseNDC.y * 1.0 - camera.position.y) * 0.04;
+                    camera.lookAt(0, 0, 0);
+
+                    var pa = ptsGeo.attributes.position;
+                    var pos = pa.array, n = pts.userData.n, v = pts.userData.v;
+                    for (var i = 0; i < n; i++) {
+                        pos[i * 3] += v[i * 2];
+                        pos[i * 3 + 1] += v[i * 2 + 1];
+                        if (pos[i * 3] < -halfW) pos[i * 3] = halfW;
+                        if (pos[i * 3] > halfW) pos[i * 3] = -halfW;
+                        if (pos[i * 3 + 1] < -halfH) pos[i * 3 + 1] = halfH;
+                        if (pos[i * 3 + 1] > halfH) pos[i * 3 + 1] = -halfH;
+                    }
+                    pa.needsUpdate = true;
+
+                    if (Math.floor(now / 67) % 8 === 0) {
+                        var cpos = connGeo.attributes.position.array;
+                        var ccol = connGeo.attributes.color.array;
+                        var k = 0, maxP = cpos.length / 6;
+                        for (var i = 0; i < n && k < maxP; i++) {
+                            for (var j = i + 1; j < n && k < maxP; j++) {
+                                var dx = pos[i * 3] - pos[j * 3], dy = pos[i * 3 + 1] - pos[j * 3 + 1];
+                                var d2 = dx * dx + dy * dy;
+                                if (d2 < 8) {
+                                    var d = Math.sqrt(d2);
+                                    var w = 0.35 + 0.65 * (1 - d / 2.83) * 0.9;
+                                    var o = k * 6;
+                                    cpos[o] = pos[i * 3]; cpos[o + 1] = pos[i * 3 + 1]; cpos[o + 2] = pos[i * 3 + 2];
+                                    cpos[o + 3] = pos[j * 3]; cpos[o + 4] = pos[j * 3 + 1]; cpos[o + 5] = pos[j * 3 + 2];
+                                    ccol[o] = 0.31 * w; ccol[o + 1] = 0.49 * w; ccol[o + 2] = 1 * w;
+                                    ccol[o + 3] = 0.31 * w; ccol[o + 4] = 0.49 * w; ccol[o + 5] = 1 * w;
+                                    k++;
+                                }
+                            }
+                        }
+                        connGeo.setDrawRange(0, k * 2);
+                        connGeo.attributes.position.needsUpdate = true;
+                        connGeo.attributes.color.needsUpdate = true;
+                    }
+
+                    renderer.render(scene, camera);
+                }
+
+                function frame() { renderer.setAnimationLoop(update); }
+                function stop() { renderer.setAnimationLoop(null); }
+
+                resize(); rebuild();
+                if (reduced) { renderer.render(scene, camera); return; }
+
+                var mp = document.getElementById('mainPage');
+                if (mp) {
+                    new MutationObserver(function () {
+                        if (mp.classList.contains('show')) frame(); else stop();
+                    }).observe(mp, { attributes: true, attributeFilter: ['class'] });
+                    if (mp.classList.contains('show')) frame();
+                }
+                window.addEventListener('resize', function () {
+                    var wasMobile = isMobile();
+                    resize();
+                    if (wasMobile !== isMobile()) rebuild();
+                });
+
+                document.addEventListener('visibilitychange', function () {
+                    if (document.hidden) stop();
+                    else if (mp && mp.classList.contains('show')) frame();
+                });
+            }
+
+            initStart();
+            initHero();
+        })();
+
+    </script>
 </body>
 
 </html>
