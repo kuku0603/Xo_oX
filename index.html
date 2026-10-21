@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 
 <head>
@@ -899,20 +899,20 @@
         }
 
         .gal-dot {
-            width: 16px;
-            height: 3px;
-            border-radius: 2px;
-            background: rgba(255, 255, 255, 0.55);
+            width: 20px;
+            height: 5px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.92);
             border: none;
             cursor: pointer;
             padding: 0;
-            box-shadow: 0 1px 4px rgba(30, 42, 71, 0.2);
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
             transition: background var(--dur-fast) ease, width var(--dur-med) var(--ease-out);
         }
 
         .gal-dot.active {
             background: var(--accent);
-            width: 26px;
+            width: 36px;
         }
 
         .tilt-card .p-card-img::after {
@@ -1662,12 +1662,18 @@
             overflow: hidden;
             border-bottom: 1px solid var(--glass-border);
             position: relative;
+            touch-action: pan-y; /* 横滑交给 JS 切图，纵滑仍可滚动 */
+            cursor: grab;
         }
+        .modal-img:active { cursor: grabbing; }
 
         .modal-img img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            -webkit-user-drag: none;
+            user-select: none;
+            pointer-events: none; /* 拖拽/点击都交给容器，避免浏览器原生图片拖拽 */
         }
 
         .modal-body {
@@ -1938,35 +1944,6 @@
             <div class="scroll-cue">Scroll</div>
         </section>
 
-        <section class="marquee-section" aria-label="技术栈与工具">
-            <div class="marquee-viewport">
-                <div class="marquee-group">
-                    <span class="marquee-item">Blender</span><span class="marquee-sep">◆</span>
-                    <span class="marquee-item"><em>Three.js</em></span><span class="marquee-sep">◆</span>
-                    <span class="marquee-item">WebGPU</span><span class="marquee-sep">◆</span>
-                    <span class="marquee-item"><em>ComfyUI</em></span><span class="marquee-sep">◆</span>
-                    <span class="marquee-item">PBR Pipeline</span><span class="marquee-sep">◆</span>
-                    <span class="marquee-item">AIGC Workflow</span><span class="marquee-sep">◆</span>
-                    <span class="marquee-item">Unity</span><span class="marquee-sep">◆</span>
-                    <span class="marquee-item">ZBrush</span><span class="marquee-sep">◆</span>
-                    <span class="marquee-item">C4D</span><span class="marquee-sep">◆</span>
-                    <span class="marquee-item"><em>16+ Years</em></span><span class="marquee-sep">◆</span>
-                </div>
-                <div class="marquee-group" aria-hidden="true">
-                    <span class="marquee-item">Blender</span><span class="marquee-sep">◆</span>
-                    <span class="marquee-item"><em>Three.js</em></span><span class="marquee-sep">◆</span>
-                    <span class="marquee-item">WebGPU</span><span class="marquee-sep">◆</span>
-                    <span class="marquee-item"><em>ComfyUI</em></span><span class="marquee-sep">◆</span>
-                    <span class="marquee-item">PBR Pipeline</span><span class="marquee-sep">◆</span>
-                    <span class="marquee-item">AIGC Workflow</span><span class="marquee-sep">◆</span>
-                    <span class="marquee-item">Unity</span><span class="marquee-sep">◆</span>
-                    <span class="marquee-item">ZBrush</span><span class="marquee-sep">◆</span>
-                    <span class="marquee-item">C4D</span><span class="marquee-sep">◆</span>
-                    <span class="marquee-item"><em>16+ Years</em></span><span class="marquee-sep">◆</span>
-                </div>
-            </div>
-        </section>
-
         <section class="carousel-section">
             <div class="carousel-label reveal-line">Selected Works — Drag to Explore</div>
             <div class="carousel-viewport" id="carouselViewport">
@@ -2190,6 +2167,27 @@
                     dots[j].addEventListener('click', function (e) { e.stopPropagation(); go(j); start(); });
                 })(j);
             }
+            // 左右滑动 / 鼠标拖拽切图：自动轮播照常跑，手动切完重置计时，
+            // 不会出现刚滑完下一张、立刻又被自动轮播切走
+            var sx = 0, sy = 0, dragging = false;
+            function dragStart(x, y) { sx = x; sy = y; dragging = true; }
+            function dragEnd(x, y) {
+                if (!dragging) return; dragging = false;
+                var dx = x - sx, dy = y - sy;
+                if (Math.abs(dx) > 24 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+                    go(idx + (dx < 0 ? 1 : -1));
+                    start();
+                }
+            }
+            holder.addEventListener('touchstart', function (e) {
+                dragStart(e.touches[0].clientX, e.touches[0].clientY);
+            }, { passive: true });
+            holder.addEventListener('touchend', function (e) {
+                dragEnd(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
+            }, { passive: true });
+            holder.addEventListener('mousedown', function (e) { e.preventDefault(); dragStart(e.clientX, e.clientY); });
+            window.addEventListener('mouseup', function (e) { if (dragging) dragEnd(e.clientX, e.clientY); });
+
             start();
             return { start: start, stop: stop, go: go };
         }
@@ -2865,7 +2863,7 @@
     </script>
 
     <script type="importmap">
-{ "imports": { "three": "https://unpkg.com/three@0.164.1/build/three.module.js" } }
+{ "imports": { "imports": { "three": "https://unpkg.com/three@0.164.1/build/three.module.js" } } }
 </script>
     <script type="module">
         /* ============================================================
@@ -2876,10 +2874,39 @@
         (function () {
             var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             var mouseNDC = { x: 0, y: 0 };
+            // camTarget：镜头跟随目标，只在指针真正在屏幕内时更新。
+            // mouseNDC 会被设到离屏 (999,999) 来禁用排斥，但镜头不能跟着飞出去。
+            var camTarget = { x: 0, y: 0 };
+            var touchActive = false, touchMoved = 0, lastTX = 0, lastTY = 0;
+            var isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
             window.addEventListener('pointermove', function (e) {
+                // 触屏设备上忽略浏览器合成的 mouse 事件（微信/移动端点按会模拟 mousemove，
+                // 之前导致点一下就把几何体弹飞）
+                if (isTouchDevice && e.pointerType === 'mouse') return;
+                if (e.pointerType === 'touch') {
+                    if (!touchActive) return; // 没按下时不响应
+                    var dxm = e.clientX - lastTX, dym = e.clientY - lastTY;
+                    touchMoved += Math.sqrt(dxm * dxm + dym * dym);
+                    lastTX = e.clientX; lastTY = e.clientY;
+                    if (touchMoved < 12) { // 手指滑动超过 12px 才开始排斥，轻点屏幕不弹飞
+                        mouseNDC.x = 999; mouseNDC.y = 999; return;
+                    }
+                }
                 mouseNDC.x = (e.clientX / window.innerWidth) * 2 - 1;
                 mouseNDC.y = -(e.clientY / window.innerHeight) * 2 + 1;
+                // 镜头只跟真正在屏幕内的指针
+                camTarget.x = mouseNDC.x;
+                camTarget.y = mouseNDC.y;
             }, { passive: true });
+            window.addEventListener('pointerdown', function (e) {
+                if (e.pointerType !== 'touch') return;
+                touchActive = true; touchMoved = 0;
+                lastTX = e.clientX; lastTY = e.clientY;
+                mouseNDC.x = 999; mouseNDC.y = 999;
+            }, { passive: true });
+            function endTouch() { touchActive = false; mouseNDC.x = 999; mouseNDC.y = 999; }
+            window.addEventListener('pointerup', endTouch, { passive: true });
+            window.addEventListener('pointercancel', endTouch, { passive: true });
 
             function isMobile() { return window.innerWidth < 768; }
 
