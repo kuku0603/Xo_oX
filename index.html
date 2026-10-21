@@ -3035,7 +3035,7 @@
                 window.__updateOuterBox = function (halfW, halfH) {
                     var w = halfW * 0.9, h = halfH * 0.85;
                     var p = outerBox.geometry.attributes.position;
-                    var coords = [[-w,-h],[w,-h],[w,-h],[w,h],[w,h],[-w,h],[-w,h],[-w,-h]];
+                    var coords = [[-w, -h], [w, -h], [w, -h], [w, h], [w, h], [-w, h], [-w, h], [-w, -h]];
                     for (var i = 0; i < 8; i++) { p.setXYZ(i, coords[i][0], coords[i][1], 0); }
                     p.needsUpdate = true;
                 };
@@ -3087,7 +3087,7 @@
                 function scatter() {
                     shapes.forEach(function (s) { scene.remove(s.obj); s.obj.geometry.dispose(); s.obj.material.dispose(); });
                     shapes = [];
-                    var N = isMobile() ? 8 : 16;
+                    var N = isMobile() ? 11 : 21;
                     for (var i = 0; i < N; i++) {
                         var geo = builders[i % builders.length](1);
                         // thresholdAngle=8°：只显示棱线夹角大于 8° 的边，
