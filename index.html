@@ -454,6 +454,26 @@
             letter-spacing: -0.045em;
             line-height: 1;
             color: var(--text-1);
+            /* 入场动画：标题字从下方淡入 + 字距微开 */
+            animation: startNameIn 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+        }
+        .start-role { animation: startFadeIn 0.9s ease 0.55s both; }
+        .start-enter { animation: startFadeIn 0.9s ease 0.8s both; }
+        .start-hint { animation: startHintIn 1.2s ease 1.2s both; }
+        @keyframes startHintIn {
+            0%   { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        @keyframes startNameIn {
+            0%   { opacity: 0; transform: translateY(28px); letter-spacing: 0.12em; filter: blur(6px); }
+            100% { opacity: 1; transform: translateY(0);    letter-spacing: -0.045em; filter: blur(0); }
+        }
+        @keyframes startFadeIn {
+            0%   { opacity: 0; transform: translateY(14px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .start-name, .start-role, .start-enter, .start-hint { animation: none; }
         }
 
         .start-role {
@@ -2954,10 +2974,8 @@
                             if (ok) for (var j = 0; j < i; j++) {
                                 var o = shapes[j];
                                 var ddx = s.px - o.px, ddy = s.py - o.py;
-                                // 线框视觉占位半径 + 14 间距余量
-                                var minD = s.radius + o.radius + 14;
-                                // 不再区分深度差：屏幕上看到的就是二维投影，
-                                // 只要投影重叠就算重叠，从根上消除抱团
+                                // 线框视觉占位半径 + 8 间距余量；不管深度差，投影重叠就算重叠
+                                var minD = s.radius + o.radius + 8;
                                 if (ddx * ddx + ddy * ddy < minD * minD) { ok = false; break; }
                             }
                             if (ok) placed = true;
@@ -3040,6 +3058,20 @@
                         if (s.wx > clx) { s.wx = clx; s.vx = -Math.abs(s.vx) * 0.4; }
                         if (s.wy < -cly) { s.wy = -cly; s.vy = Math.abs(s.vy) * 0.4; }
                         if (s.wy > cly) { s.wy = cly; s.vy = -Math.abs(s.vy) * 0.4; }
+
+                        // 中心刚体：标题+按钮那块是个不可进入的矩形，形状被漂移带进去就沿最近边弹出去
+                        var boxW = 13, boxH = 9;
+                        if (Math.abs(s.wx) < boxW && Math.abs(s.wy) < boxH) {
+                            var pushLeft   = (s.wx + boxW);
+                            var pushRight  = (boxW - s.wx);
+                            var pushTop    = (s.wy + boxH);
+                            var pushBottom = (boxH - s.wy);
+                            var minPush = Math.min(pushLeft, pushRight, pushTop, pushBottom);
+                            if (minPush === pushLeft)        { s.wx = -boxW; s.vx = -Math.abs(s.vx) - 0.3; }
+                            else if (minPush === pushRight)  { s.wx =  boxW; s.vx =  Math.abs(s.vx) + 0.3; }
+                            else if (minPush === pushTop)    { s.wy = -boxH; s.vy = -Math.abs(s.vy) - 0.3; }
+                            else                             { s.wy =  boxH; s.vy =  Math.abs(s.vy) + 0.3; }
+                        }
 
                         s.obj.position.set(s.wx, s.wy, s.depth);
                         s.obj.rotation.set(s.rx, s.ry, s.rz);
