@@ -3114,10 +3114,10 @@
                                 o.wx -= nx * push * depthJ * tanFov * camera.aspect;
                                 o.wy -= ny * push * depthJ * tanFov;
                                 // 碰撞时给一个明显的旋转冲量
-                                s.rx += ny * overlap * 8;
-                                s.ry += nx * overlap * 8;
-                                o.rx -= ny * overlap * 8;
-                                o.ry -= nx * overlap * 8;
+                                s.rx += ny * overlap * 1.6;
+                                s.ry += nx * overlap * 1.6;
+                                o.rx -= ny * overlap * 1.6;
+                                o.ry -= nx * overlap * 1.6;
                             }
                         }
                     }
