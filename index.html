@@ -3065,17 +3065,17 @@
 
                 function layout() {
                     var N = shapes.length;
-                    // 沿环形均匀分布，避开中心标题/按钮区
+                    // 双环随机分布：内圈+外圈各一半，带角度抖动，看起来自然不刻意
                     var angleOffset = Math.random() * Math.PI * 2;
                     for (var i = 0; i < N; i++) {
                         var s = shapes[i];
-                        var a = angleOffset + (i / N) * Math.PI * 2;
-                        // 椭圆半径：横向略宽、纵向略高，避开中心禁区
-                        var rx = halfW * 0.72;
-                        var ry = halfH * 0.68;
+                        var ring = (i % 2 === 0) ? 0.55 : 0.85; // 内圈/外圈比例
+                        var a = angleOffset + (i / N) * Math.PI * 2 + (Math.random() - 0.5) * 0.6; // 角度抖动
+                        var rx = halfW * ring;
+                        var ry = halfH * ring;
                         s.depth = 0;
-                        s.px = Math.cos(a) * rx;
-                        s.py = Math.sin(a) * ry;
+                        s.px = Math.cos(a) * rx * (0.9 + Math.random() * 0.2);
+                        s.py = Math.sin(a) * ry * (0.9 + Math.random() * 0.2);
                         s.wx = s.px; s.wy = s.py; s.wz = s.depth;
                         s.vx = 0; s.vy = 0;
                         s.obj.position.set(s.px, s.py, s.depth);
