@@ -2949,7 +2949,9 @@
                             s.px = (Math.random() * 2 - 1) * halfW * 0.55;
                             s.py = (Math.random() * 2 - 1) * halfH * 0.55;
                             var ok = true;
-                            for (var j = 0; j < i; j++) {
+                            // 中心禁区：标题/ENTER 按钮那块不放几何体
+                            if (Math.abs(s.px) < 13 && Math.abs(s.py) < 9) { ok = false; }
+                            if (ok) for (var j = 0; j < i; j++) {
                                 var o = shapes[j];
                                 var ddx = s.px - o.px, ddy = s.py - o.py;
                                 // 线框视觉占位半径 + 14 间距余量
