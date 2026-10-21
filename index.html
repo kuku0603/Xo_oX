@@ -2996,6 +2996,8 @@
                 var canvas = document.getElementById('startCanvas');
                 if (!canvas) return;
                 var renderer, scene, camera, shapes = [];
+                var collisionEnabled = false;
+                setTimeout(function () { collisionEnabled = true; }, 1500); // 初始1.5秒不碰撞，让形状稳定下来
                 try { renderer = makeRenderer(canvas, true); }
                 catch (e) { canvas.style.display = 'none'; return; }
                 scene = new THREE.Scene();
@@ -3087,7 +3089,7 @@
                 function scatter() {
                     shapes.forEach(function (s) { scene.remove(s.obj); s.obj.geometry.dispose(); s.obj.material.dispose(); });
                     shapes = [];
-                    var N = isMobile() ? 1 : 21;
+                    var N = isMobile() ? 11 : 21;
                     for (var i = 0; i < N; i++) {
                         var geo = builders[i % builders.length](1);
                         // thresholdAngle=8°：只显示棱线夹角大于 8° 的边，
@@ -3197,7 +3199,7 @@
                     }
 
                     // 世界坐标圆碰撞：和红圈完全一致，两个红圈刚相切就推开
-                    for (var i = 0; i < shapes.length; i++) {
+                    if (collisionEnabled) for (var i = 0; i < shapes.length; i++) {
                         for (var j = i + 1; j < shapes.length; j++) {
                             var s = shapes[i], o = shapes[j];
                             var sdx = s.wx - o.wx, sdy = s.wy - o.wy;
@@ -3206,7 +3208,7 @@
                             if (sd < minD && sd > 0.0001) {
                                 var overlap = minD - sd;
                                 if (overlap < 0.5) continue; // 死区：轻微重叠不推不转，避免抖动
-                                var push = overlap * 0.9; // 一帧内基本完全分开，避免反复撞
+                                var push = overlap * 0.3;
                                 var nx = sdx / sd, ny = sdy / sd;
                                 s.wx += nx * push; s.wy += ny * push;
                                 o.wx -= nx * push; o.wy -= ny * push;
