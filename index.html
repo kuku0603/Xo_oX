@@ -3198,8 +3198,8 @@
                         s.mat.opacity = s.aBase;
                     }
 
-                    // 世界坐标圆碰撞：和红圈完全一致，两个红圈刚相切就推开
-                    if (collisionEnabled) for (var i = 0; i < shapes.length; i++) {
+                    // 世界坐标圆碰撞：已关闭（环形排布间距够，避免抖动）
+                    if (false && collisionEnabled) for (var i = 0; i < shapes.length; i++) {
                         for (var j = i + 1; j < shapes.length; j++) {
                             var s = shapes[i], o = shapes[j];
                             var sdx = s.wx - o.wx, sdy = s.wy - o.wy;
