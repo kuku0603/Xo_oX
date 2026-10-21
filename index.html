@@ -3013,7 +3013,7 @@
                         new THREE.Vector3(-w, h, 0), new THREE.Vector3(-w, -h, 0)
                     ];
                     var g = new THREE.BufferGeometry().setFromPoints(pts);
-                    var m = new THREE.LineBasicMaterial({ color: 0xff4444, transparent: true, opacity: 0.6 });
+                    var m = new THREE.LineBasicMaterial({ color: 0xff4444, transparent: true, opacity: 0 });
                     scene.add(new THREE.LineSegments(g, m));
                 })();
 
@@ -3028,7 +3028,7 @@
                         new THREE.Vector3(-w, h, 0), new THREE.Vector3(-w, -h, 0)
                     ];
                     var g = new THREE.BufferGeometry().setFromPoints(pts);
-                    var m = new THREE.LineBasicMaterial({ color: 0x44ff44, transparent: true, opacity: 0.6 });
+                    var m = new THREE.LineBasicMaterial({ color: 0x44ff44, transparent: true, opacity: 0 });
                     outerBox = new THREE.LineSegments(g, m);
                     scene.add(outerBox);
                 })();
@@ -3113,7 +3113,7 @@
                             pts.push(new THREE.Vector3(Math.cos(a) * 1.1, Math.sin(a) * 1.1, 0));
                         }
                         var ringGeo = new THREE.BufferGeometry().setFromPoints(pts);
-                        var ringMat = new THREE.LineBasicMaterial({ color: 0xff4444, transparent: true, opacity: 0.6, depthWrite: false });
+                        var ringMat = new THREE.LineBasicMaterial({ color: 0xff4444, transparent: true, opacity: 0, depthWrite: false });
                         var ring = new THREE.LineLoop(ringGeo, ringMat);
                         ring.scale.setScalar(sc);
                         ring.frustumCulled = false;
