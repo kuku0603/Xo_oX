@@ -2973,8 +2973,8 @@
                         var placed = false;
                         for (var attempt = 0; attempt < 60 && !placed; attempt++) {
                             s.depth = (Math.random() * 2 - 1) * 14;
-                            s.px = (Math.random() * 2 - 1) * halfW * 0.8;
-                            s.py = (Math.random() * 2 - 1) * halfH * 0.8;
+                            s.px = (Math.random() * 2 - 1) * halfW * 0.7;
+                            s.py = (Math.random() * 2 - 1) * halfH * 0.7;
                             var ok = true;
                             for (var j = 0; j < i; j++) {
                                 var o = shapes[j];
@@ -3034,8 +3034,7 @@
                     var dt = Math.min((now - lastT) / 16.67, 3); lastT = now;
                     var t = now;
 
-                    camera.position.x += (camTarget.x * 4 - camera.position.x) * 0.04;
-                    camera.position.y += (camTarget.y * 4 - camera.position.y) * 0.04;
+                    camera.position.set(0, 0, 70);
                     camera.lookAt(0, 0, 0);
 
                     // 1. 运动 + 光标排斥（手机端 touchActive=false 时 mouseNDC 在屏幕外，不触发）
@@ -3066,7 +3065,7 @@
                         s.vx *= 0.92; s.vy *= 0.92;
                         s.wx += (s.px + fx - s.wx) * 0.02 + s.vx;
                         s.wy += (s.py + fy - s.wy) * 0.02 + s.vy;
-                        var clx = halfW * 0.8, cly = halfH * 0.8;
+                        var clx = halfW * 0.7, cly = halfH * 0.7;
                         if (s.wx < -clx) { s.wx = -clx; s.vx = Math.abs(s.vx) * 0.4; }
                         if (s.wx > clx) { s.wx = clx; s.vx = -Math.abs(s.vx) * 0.4; }
                         if (s.wy < -cly) { s.wy = -cly; s.vy = Math.abs(s.vy) * 0.4; }
