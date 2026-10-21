@@ -2970,7 +2970,7 @@
                 function scatter() {
                     shapes.forEach(function (s) { scene.remove(s.obj); s.obj.geometry.dispose(); s.obj.material.dispose(); });
                     shapes = [];
-                    var N = isMobile() ? 10 : 18; // 略微增加数量
+                    var N = isMobile() ? 6 : 18;
                     for (var i = 0; i < N; i++) {
                         var geo = builders[i % builders.length](1);
                         // thresholdAngle=8°：只显示棱线夹角大于 8° 的边，
@@ -3005,22 +3005,8 @@
                     camera.position.y += (mouseNDC.y * 4 - camera.position.y) * 0.04;
                     camera.lookAt(0, 0, 0);
 
-                    // 形状间实时轻推：投影一旦重叠就互相推开一点，
-                    // 彻底消除抱团（18 个形状只有 153 对，性能开销可忽略）
-                    for (var a = 0; a < shapes.length; a++) {
-                        for (var b = a + 1; b < shapes.length; b++) {
-                            var A = shapes[a], B = shapes[b];
-                            var rdx = B.wx - A.wx, rdy = B.wy - A.wy;
-                            var minD = (A.radius + B.radius) * 0.9;
-                            var r2 = rdx * rdx + rdy * rdy;
-                            if (r2 < minD * minD && r2 > 0.0001) {
-                                var rd = Math.sqrt(r2);
-                                var push = (minD - rd) * 0.02;
-                                A.vx -= (rdx / rd) * push; A.vy -= (rdy / rd) * push;
-                                B.vx += (rdx / rd) * push; B.vy += (rdy / rd) * push;
-                            }
-                        }
-                    }
+                    // 形状间互斥：layout() 已保证初始不重叠，且漂移幅度很小，
+                    // 不再在帧循环里累积速度互推（手机小屏会导致几何体一直在抖动）
 
                     for (var i = 0; i < shapes.length; i++) {
                         var s = shapes[i];
