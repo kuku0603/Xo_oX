@@ -2874,7 +2874,9 @@
         (function () {
             var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             var mouseNDC = { x: 0, y: 0 };
+            var pointerIsTouch = false;
             window.addEventListener('pointermove', function (e) {
+                pointerIsTouch = (e.pointerType === 'touch');
                 mouseNDC.x = (e.clientX / window.innerWidth) * 2 - 1;
                 mouseNDC.y = -(e.clientY / window.innerHeight) * 2 + 1;
             }, { passive: true });
@@ -2925,10 +2927,7 @@
                     function (s) { return new THREE.IcosahedronGeometry(s * 0.95, 0); },                 // 正二十面体
                     function (s) { return new THREE.DodecahedronGeometry(s * 0.95, 0); },               // 正十二面体
                     function (s) { return new THREE.ConeGeometry(s * 0.8, s * 1.5, 6); },               // 六棱锥
-                    function (s) { return new THREE.CylinderGeometry(s * 0.7, s * 0.7, s * 1.5, 8); },  // 八棱柱
-                    function (s) { return new THREE.TorusGeometry(s * 0.66, s * 0.28, 6, 14); },         // 圆环
-                    function (s) { return new THREE.TorusKnotGeometry(s * 0.5, s * 0.18, 36, 6); },      // 环面纽结
-                    function (s) { return new THREE.SphereGeometry(s * 0.9, 10, 7); }                    // 经纬线框球
+                    function (s) { return new THREE.CylinderGeometry(s * 0.7, s * 0.7, s * 1.5, 8); }   // 八棱柱
                 ];
 
                 var halfH = 34, halfW = 34;
@@ -3037,7 +3036,7 @@
 
                         var INTERACT_R = 0.10; // 交互半径：按你的要求调小，鼠标靠近才会推开几何体
                         if (dist < INTERACT_R && dist > 0.0001) {
-                            var force = (1 - dist / INTERACT_R) * 0.22; // 力度
+                            var force = (1 - dist / INTERACT_R) * 0.22 * (pointerIsTouch ? 0.5 : 1.0); // 力度：手机端减半
                             var depth = camera.position.z - s.depth;
                             var worldPerNdcy = depth * Math.tan(camera.fov * Math.PI / 360);
                             var worldPerNdcx = worldPerNdcy / camera.aspect;
