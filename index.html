@@ -3005,7 +3005,7 @@
 
                 // 调试：中心刚体区域红框（测试用，确认后透明度改 0）
                 (function () {
-                    var w = 9, h = 6;
+                    var w = 9, h = 6.5;
                     var pts = [
                         new THREE.Vector3(-w, -h, 0), new THREE.Vector3(w, -h, 0),
                         new THREE.Vector3(w, -h, 0), new THREE.Vector3(w, h, 0),
@@ -3152,18 +3152,25 @@
                         if (s.wy < -cly) { s.wy = -cly; s.vy = Math.abs(s.vy) * 0.4; }
                         if (s.wy > cly) { s.wy = cly; s.vy = -Math.abs(s.vy) * 0.4; }
 
-                        // 中心刚体：标题+按钮那块是个不可进入的矩形，形状被漂移带进去就沿最近边弹出去
-                        var boxW = 9, boxH = 6;
-                        if (Math.abs(s.wx) < boxW && Math.abs(s.wy) < boxH) {
-                            var pushLeft = (s.wx + boxW);
-                            var pushRight = (boxW - s.wx);
-                            var pushTop = (s.wy + boxH);
-                            var pushBottom = (boxH - s.wy);
-                            var minPush = Math.min(pushLeft, pushRight, pushTop, pushBottom);
-                            if (minPush === pushLeft) { s.wx = -boxW; s.vx = -Math.abs(s.vx) - 0.3; }
-                            else if (minPush === pushRight) { s.wx = boxW; s.vx = Math.abs(s.vx) + 0.3; }
-                            else if (minPush === pushTop) { s.wy = -boxH; s.vy = -Math.abs(s.vy) - 0.3; }
-                            else { s.wy = boxH; s.vy = Math.abs(s.vy) + 0.3; }
+                        // 中心刚体：标题+按钮那块是个不可进入的矩形，形状的圆边碰到矩形边就弹出去
+                        var boxW = 9, boxH = 6.5;
+                        // 圆 vs AABB：圆中心离矩形边 < 半径 就算碰撞
+                        var nearestX = Math.max(-boxW, Math.min(s.wx, boxW));
+                        var nearestY = Math.max(-boxH, Math.min(s.wy, boxH));
+                        var dxBox = s.wx - nearestX, dyBox = s.wy - nearestY;
+                        var distToBox = Math.sqrt(dxBox * dxBox + dyBox * dyBox);
+                        if (distToBox < s.radius) {
+                            // 把圆心沿从矩形中心指向圆心的方向推出圆边外
+                            var cx = s.wx, cy = s.wy;
+                            if (Math.abs(cx) < 0.01) cx = 0.01;
+                            if (Math.abs(cy) < 0.01) cy = 0.01;
+                            // 用矩形最近点向外推开
+                            var pushOut = s.radius - distToBox + 0.1;
+                            var nx = dxBox / (distToBox || 0.001), ny = dyBox / (distToBox || 0.001);
+                            if (distToBox < 0.001) { nx = 1; ny = 0; }
+                            s.wx += nx * pushOut;
+                            s.wy += ny * pushOut;
+                            s.vx += nx * 0.3; s.vy += ny * 0.3;
                         }
 
                         s.obj.position.set(s.wx, s.wy, s.depth);
