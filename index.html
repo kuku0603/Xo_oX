@@ -3033,7 +3033,7 @@
                     scene.add(outerBox);
                 })();
                 window.__updateOuterBox = function (halfW, halfH) {
-                    var w = halfW * 0.55, h = halfH * 0.55;
+                    var w = halfW * 0.9, h = halfH * 0.85;
                     var p = outerBox.geometry.attributes.position;
                     var coords = [[-w,-h],[w,-h],[w,-h],[w,h],[w,h],[-w,h],[-w,h],[-w,-h]];
                     for (var i = 0; i < 8; i++) { p.setXYZ(i, coords[i][0], coords[i][1], 0); }
@@ -3070,16 +3070,15 @@
                         // 增大随机尝试次数，铺开范围也加大，避免几何体挤在中间
                         for (var attempt = 0; attempt < 150 && !placed; attempt++) {
                             s.depth = 0;
-                            s.px = (Math.random() * 2 - 1) * halfW * 0.55;
-                            s.py = (Math.random() * 2 - 1) * halfH * 0.55;
+                            s.px = (Math.random() * 2 - 1) * halfW * 0.9;
+                            s.py = (Math.random() * 2 - 1) * halfH * 0.85;
                             var ok = true;
                             // 中心禁区：标题/ENTER 按钮那块不放几何体
-                            if (Math.abs(s.px) < 13 && Math.abs(s.py) < 9) { ok = false; }
+                            if (Math.abs(s.px) < 10 && Math.abs(s.py) < 7.5) { ok = false; }
                             if (ok) for (var j = 0; j < i; j++) {
                                 var o = shapes[j];
                                 var ddx = s.px - o.px, ddy = s.py - o.py;
-                                // 线框视觉占位半径 + 18 间距余量；不管深度差，投影重叠就算重叠
-                                var minD = s.radius + o.radius + 18;
+                                var minD = s.radius + o.radius + 2;
                                 if (ddx * ddx + ddy * ddy < minD * minD) { ok = false; break; }
                             }
                             if (ok) placed = true;
@@ -3170,7 +3169,7 @@
                         s.vx *= 0.92; s.vy *= 0.92;
                         s.wx += (s.px + fx - s.wx) * 0.02 + s.vx;
                         s.wy += (s.py + fy - s.wy) * 0.02 + s.vy;
-                        var clx = halfW * 0.55, cly = halfH * 0.55;
+                        var clx = halfW * 0.9, cly = halfH * 0.85;
                         if (s.wx < -clx) { s.wx = -clx; s.vx = Math.abs(s.vx) * 0.4; }
                         if (s.wx > clx) { s.wx = clx; s.vx = -Math.abs(s.vx) * 0.4; }
                         if (s.wy < -cly) { s.wy = -cly; s.vy = Math.abs(s.vy) * 0.4; }
