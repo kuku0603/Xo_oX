@@ -2874,6 +2874,9 @@
         (function () {
             var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             var mouseNDC = { x: 0, y: 0 };
+            // camTarget：镜头跟随目标，只在指针真正在屏幕内时更新。
+            // mouseNDC 会被设到离屏 (999,999) 来禁用排斥，但镜头不能跟着飞出去。
+            var camTarget = { x: 0, y: 0 };
             var touchActive = false, touchMoved = 0, lastTX = 0, lastTY = 0;
             var isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
             window.addEventListener('pointermove', function (e) {
@@ -2891,6 +2894,9 @@
                 }
                 mouseNDC.x = (e.clientX / window.innerWidth) * 2 - 1;
                 mouseNDC.y = -(e.clientY / window.innerHeight) * 2 + 1;
+                // 镜头只跟真正在屏幕内的指针
+                camTarget.x = mouseNDC.x;
+                camTarget.y = mouseNDC.y;
             }, { passive: true });
             window.addEventListener('pointerdown', function (e) {
                 if (e.pointerType !== 'touch') return;
@@ -3028,8 +3034,8 @@
                     var dt = Math.min((now - lastT) / 16.67, 3); lastT = now;
                     var t = now;
 
-                    camera.position.x += (mouseNDC.x * 4 - camera.position.x) * 0.04;
-                    camera.position.y += (mouseNDC.y * 4 - camera.position.y) * 0.04;
+                    camera.position.x += (camTarget.x * 4 - camera.position.x) * 0.04;
+                    camera.position.y += (camTarget.y * 4 - camera.position.y) * 0.04;
                     camera.lookAt(0, 0, 0);
 
                     // 1. 运动 + 光标排斥（手机端 touchActive=false 时 mouseNDC 在屏幕外，不触发）
