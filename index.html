@@ -2874,39 +2874,10 @@
         (function () {
             var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             var mouseNDC = { x: 0, y: 0 };
-            // camTarget：镜头跟随目标，只在指针真正在屏幕内时更新。
-            // mouseNDC 会被设到离屏 (999,999) 来禁用排斥，但镜头不能跟着飞出去。
-            var camTarget = { x: 0, y: 0 };
-            var touchActive = false, touchMoved = 0, lastTX = 0, lastTY = 0;
-            var isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
             window.addEventListener('pointermove', function (e) {
-                // 触屏设备上忽略浏览器合成的 mouse 事件（微信/移动端点按会模拟 mousemove，
-                // 之前导致点一下就把几何体弹飞）
-                if (isTouchDevice && e.pointerType === 'mouse') return;
-                if (e.pointerType === 'touch') {
-                    if (!touchActive) return; // 没按下时不响应
-                    var dxm = e.clientX - lastTX, dym = e.clientY - lastTY;
-                    touchMoved += Math.sqrt(dxm * dxm + dym * dym);
-                    lastTX = e.clientX; lastTY = e.clientY;
-                    if (touchMoved < 12) { // 手指滑动超过 12px 才开始排斥，轻点屏幕不弹飞
-                        mouseNDC.x = 999; mouseNDC.y = 999; return;
-                    }
-                }
                 mouseNDC.x = (e.clientX / window.innerWidth) * 2 - 1;
                 mouseNDC.y = -(e.clientY / window.innerHeight) * 2 + 1;
-                // 镜头只跟真正在屏幕内的指针
-                camTarget.x = mouseNDC.x;
-                camTarget.y = mouseNDC.y;
             }, { passive: true });
-            window.addEventListener('pointerdown', function (e) {
-                if (e.pointerType !== 'touch') return;
-                touchActive = true; touchMoved = 0;
-                lastTX = e.clientX; lastTY = e.clientY;
-                mouseNDC.x = 999; mouseNDC.y = 999;
-            }, { passive: true });
-            function endTouch() { touchActive = false; mouseNDC.x = 999; mouseNDC.y = 999; }
-            window.addEventListener('pointerup', endTouch, { passive: true });
-            window.addEventListener('pointercancel', endTouch, { passive: true });
 
             function isMobile() { return window.innerWidth < 768; }
 
