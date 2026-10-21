@@ -2985,13 +2985,17 @@
                 function scatter() {
                     shapes.forEach(function (s) { scene.remove(s.obj); s.obj.geometry.dispose(); s.obj.material.dispose(); });
                     shapes = [];
-                    var N = isMobile() ? 10 : 16;
+                    // 按屏幕面积决定数量：大屏多放、小屏少放（8~20 个之间）
+                    var area = (canvas.offsetWidth || window.innerWidth) * (canvas.offsetHeight || window.innerHeight);
+                    var N = Math.max(8, Math.min(20, Math.round(area / 180000)));
+                    // 小屏形状整体缩小一点，避免挤
+                    var sizeScale = (window.innerWidth < 768) ? 0.8 : 1.0;
                     for (var i = 0; i < N; i++) {
                         var geo = builders[i % builders.length](1);
                         var edges = new THREE.EdgesGeometry(geo, 8); geo.dispose();
                         var mat = new THREE.LineBasicMaterial({ color: COLORS[i % COLORS.length], transparent: true, opacity: 0.65, depthWrite: false });
                         var line = new THREE.LineSegments(edges, mat); edges.dispose();
-                        var sc = 1.8 + Math.random() * 1.5;
+                        var sc = (1.8 + Math.random() * 1.5) * sizeScale;
                         line.scale.setScalar(sc);
                         line.frustumCulled = false;
                         scene.add(line);
@@ -3005,6 +3009,12 @@
                         });
                     }
                     layout();
+                    // layout 已经把 s.wx 直接设到 s.px，不从中心飞散；
+                    // 再把位置直接同步到 obj，首帧就停在随机点上
+                    for (var i = 0; i < shapes.length; i++) {
+                        var s = shapes[i];
+                        s.obj.position.set(s.wx, s.wy, s.depth);
+                    }
                 }
 
                 var tmp = new THREE.Vector3(), lastT = 0;
