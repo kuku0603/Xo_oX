@@ -3104,14 +3104,20 @@
                             var tanFov = Math.tan(camera.fov * Math.PI / 360);
                             var rI = (s.radius / (depthI * tanFov)) / camera.aspect;
                             var rJ = (o.radius / (depthJ * tanFov)) / camera.aspect;
-                            var minS = rI + rJ + 0.01; // 留一点点余量
+                            var minS = rI + rJ + 0.02; // 留一点余量，接近相切才推
                             if (sd < minS && sd > 0.0001) {
-                                var push = (minS - sd) * 0.5;
+                                var overlap = minS - sd;
+                                var push = overlap * 0.15; // 轻推，推开后自然停下不抖
                                 var nx = sdx / sd, ny = sdy / sd;
                                 s.wx += nx * push * depthI * tanFov * camera.aspect;
                                 s.wy += ny * push * depthI * tanFov;
                                 o.wx -= nx * push * depthJ * tanFov * camera.aspect;
                                 o.wy -= ny * push * depthJ * tanFov;
+                                // 碰撞时给一个明显的旋转冲量
+                                s.rx += ny * overlap * 8;
+                                s.ry += nx * overlap * 8;
+                                o.rx -= ny * overlap * 8;
+                                o.ry -= nx * overlap * 8;
                             }
                         }
                     }
