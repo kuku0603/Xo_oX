@@ -2875,7 +2875,11 @@
             var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             var mouseNDC = { x: 0, y: 0 };
             var touchActive = false, touchMoved = 0, lastTX = 0, lastTY = 0;
+            var isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
             window.addEventListener('pointermove', function (e) {
+                // 触屏设备上忽略浏览器合成的 mouse 事件（微信/移动端点按会模拟 mousemove，
+                // 之前导致点一下就把几何体弹飞）
+                if (isTouchDevice && e.pointerType === 'mouse') return;
                 if (e.pointerType === 'touch') {
                     if (!touchActive) return; // 没按下时不响应
                     var dxm = e.clientX - lastTX, dym = e.clientY - lastTY;
