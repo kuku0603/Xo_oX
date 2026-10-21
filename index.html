@@ -2873,7 +2873,7 @@
 
         (function () {
             var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            var mouseNDC = { x: 999, y: 999 }; // 默认离屏，手机点按不碰几何体
+            var mouseNDC = { x: 0, y: 0 };
             var touchActive = false, touchMoved = 0, lastTX = 0, lastTY = 0;
             window.addEventListener('pointermove', function (e) {
                 if (e.pointerType === 'touch') {
