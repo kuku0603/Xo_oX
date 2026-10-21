@@ -3031,7 +3031,7 @@
                         var placed = false;
                         // 增大随机尝试次数，铺开范围也加大，避免几何体挤在中间
                         for (var attempt = 0; attempt < 150 && !placed; attempt++) {
-                            s.depth = (Math.random() * 2 - 1) * 14;
+                            s.depth = 0;
                             s.px = (Math.random() * 2 - 1) * halfW * 0.55;
                             s.py = (Math.random() * 2 - 1) * halfH * 0.55;
                             var ok = true;
