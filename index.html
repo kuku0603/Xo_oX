@@ -899,20 +899,20 @@
         }
 
         .gal-dot {
-            width: 20px;
-            height: 5px;
-            border-radius: 3px;
-            background: rgba(255, 255, 255, 0.92);
+            width: 16px;
+            height: 3px;
+            border-radius: 2px;
+            background: rgba(255, 255, 255, 0.55);
             border: none;
             cursor: pointer;
             padding: 0;
-            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 1px 4px rgba(30, 42, 71, 0.2);
             transition: background var(--dur-fast) ease, width var(--dur-med) var(--ease-out);
         }
 
         .gal-dot.active {
             background: var(--accent);
-            width: 36px;
+            width: 26px;
         }
 
         .tilt-card .p-card-img::after {
@@ -1662,18 +1662,12 @@
             overflow: hidden;
             border-bottom: 1px solid var(--glass-border);
             position: relative;
-            touch-action: pan-y; /* 横滑交给 JS 切图，纵滑仍可滚动 */
-            cursor: grab;
         }
-        .modal-img:active { cursor: grabbing; }
 
         .modal-img img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            -webkit-user-drag: none;
-            user-select: none;
-            pointer-events: none; /* 拖拽/点击都交给容器，避免浏览器原生图片拖拽 */
         }
 
         .modal-body {
@@ -1944,6 +1938,35 @@
             <div class="scroll-cue">Scroll</div>
         </section>
 
+        <section class="marquee-section" aria-label="技术栈与工具">
+            <div class="marquee-viewport">
+                <div class="marquee-group">
+                    <span class="marquee-item">Blender</span><span class="marquee-sep">◆</span>
+                    <span class="marquee-item"><em>Three.js</em></span><span class="marquee-sep">◆</span>
+                    <span class="marquee-item">WebGPU</span><span class="marquee-sep">◆</span>
+                    <span class="marquee-item"><em>ComfyUI</em></span><span class="marquee-sep">◆</span>
+                    <span class="marquee-item">PBR Pipeline</span><span class="marquee-sep">◆</span>
+                    <span class="marquee-item">AIGC Workflow</span><span class="marquee-sep">◆</span>
+                    <span class="marquee-item">Unity</span><span class="marquee-sep">◆</span>
+                    <span class="marquee-item">ZBrush</span><span class="marquee-sep">◆</span>
+                    <span class="marquee-item">C4D</span><span class="marquee-sep">◆</span>
+                    <span class="marquee-item"><em>16+ Years</em></span><span class="marquee-sep">◆</span>
+                </div>
+                <div class="marquee-group" aria-hidden="true">
+                    <span class="marquee-item">Blender</span><span class="marquee-sep">◆</span>
+                    <span class="marquee-item"><em>Three.js</em></span><span class="marquee-sep">◆</span>
+                    <span class="marquee-item">WebGPU</span><span class="marquee-sep">◆</span>
+                    <span class="marquee-item"><em>ComfyUI</em></span><span class="marquee-sep">◆</span>
+                    <span class="marquee-item">PBR Pipeline</span><span class="marquee-sep">◆</span>
+                    <span class="marquee-item">AIGC Workflow</span><span class="marquee-sep">◆</span>
+                    <span class="marquee-item">Unity</span><span class="marquee-sep">◆</span>
+                    <span class="marquee-item">ZBrush</span><span class="marquee-sep">◆</span>
+                    <span class="marquee-item">C4D</span><span class="marquee-sep">◆</span>
+                    <span class="marquee-item"><em>16+ Years</em></span><span class="marquee-sep">◆</span>
+                </div>
+            </div>
+        </section>
+
         <section class="carousel-section">
             <div class="carousel-label reveal-line">Selected Works — Drag to Explore</div>
             <div class="carousel-viewport" id="carouselViewport">
@@ -2167,27 +2190,6 @@
                     dots[j].addEventListener('click', function (e) { e.stopPropagation(); go(j); start(); });
                 })(j);
             }
-            // 左右滑动 / 鼠标拖拽切图：自动轮播照常跑，手动切完重置计时，
-            // 不会出现刚滑完下一张、立刻又被自动轮播切走
-            var sx = 0, sy = 0, dragging = false;
-            function dragStart(x, y) { sx = x; sy = y; dragging = true; }
-            function dragEnd(x, y) {
-                if (!dragging) return; dragging = false;
-                var dx = x - sx, dy = y - sy;
-                if (Math.abs(dx) > 24 && Math.abs(dx) > Math.abs(dy) * 1.2) {
-                    go(idx + (dx < 0 ? 1 : -1));
-                    start();
-                }
-            }
-            holder.addEventListener('touchstart', function (e) {
-                dragStart(e.touches[0].clientX, e.touches[0].clientY);
-            }, { passive: true });
-            holder.addEventListener('touchend', function (e) {
-                dragEnd(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
-            }, { passive: true });
-            holder.addEventListener('mousedown', function (e) { e.preventDefault(); dragStart(e.clientX, e.clientY); });
-            window.addEventListener('mouseup', function (e) { if (dragging) dragEnd(e.clientX, e.clientY); });
-
             start();
             return { start: start, stop: stop, go: go };
         }
@@ -2863,7 +2865,7 @@
     </script>
 
     <script type="importmap">
-{ "imports": { "three": "./three.module.js" } }
+{ "imports": { "three": "https://unpkg.com/three@0.164.1/build/three.module.js" } }
 </script>
     <script type="module">
         /* ============================================================
@@ -2874,39 +2876,10 @@
         (function () {
             var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             var mouseNDC = { x: 0, y: 0 };
-            // camTarget：镜头跟随目标，只在指针真正在屏幕内时更新。
-            // mouseNDC 会被设到离屏 (999,999) 来禁用排斥，但镜头不能跟着飞出去。
-            var camTarget = { x: 0, y: 0 };
-            var touchActive = false, touchMoved = 0, lastTX = 0, lastTY = 0;
-            var isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
             window.addEventListener('pointermove', function (e) {
-                // 触屏设备上忽略浏览器合成的 mouse 事件（微信/移动端点按会模拟 mousemove，
-                // 之前导致点一下就把几何体弹飞）
-                if (isTouchDevice && e.pointerType === 'mouse') return;
-                if (e.pointerType === 'touch') {
-                    if (!touchActive) return; // 没按下时不响应
-                    var dxm = e.clientX - lastTX, dym = e.clientY - lastTY;
-                    touchMoved += Math.sqrt(dxm * dxm + dym * dym);
-                    lastTX = e.clientX; lastTY = e.clientY;
-                    if (touchMoved < 12) { // 手指滑动超过 12px 才开始排斥，轻点屏幕不弹飞
-                        mouseNDC.x = 999; mouseNDC.y = 999; return;
-                    }
-                }
                 mouseNDC.x = (e.clientX / window.innerWidth) * 2 - 1;
                 mouseNDC.y = -(e.clientY / window.innerHeight) * 2 + 1;
-                // 镜头只跟真正在屏幕内的指针
-                camTarget.x = mouseNDC.x;
-                camTarget.y = mouseNDC.y;
             }, { passive: true });
-            window.addEventListener('pointerdown', function (e) {
-                if (e.pointerType !== 'touch') return;
-                touchActive = true; touchMoved = 0;
-                lastTX = e.clientX; lastTY = e.clientY;
-                mouseNDC.x = 999; mouseNDC.y = 999;
-            }, { passive: true });
-            function endTouch() { touchActive = false; mouseNDC.x = 999; mouseNDC.y = 999; }
-            window.addEventListener('pointerup', endTouch, { passive: true });
-            window.addEventListener('pointercancel', endTouch, { passive: true });
 
             function isMobile() { return window.innerWidth < 768; }
 
@@ -2946,15 +2919,17 @@
 
                 var COLORS = [0x4f7cff, 0x2ecfab, 0x9b8cff];
                 // 几何体工厂：s 为单位尺寸，每个工厂返回一种线框造型
+                // 正多面体 / 锥 / 柱 / 环 / 环面纽结 / 经纬球，统一线框视觉语言
                 var builders = [
                     function (s) { return new THREE.BoxGeometry(s, s, s); },                            // 立方体
-                    function (s) { return new THREE.TetrahedronGeometry(s, 0); },                      // 正四面体
-                    function (s) { return new THREE.OctahedronGeometry(s, 0); },                        // 正八面体
-                    function (s) { return new THREE.IcosahedronGeometry(s, 0); },                       // 正二十面体
-                    function (s) { return new THREE.DodecahedronGeometry(s, 0); },                     // 正十二面体
-                    function (s) { return new THREE.ConeGeometry(s * 0.8, s * 1.4, 6); },               // 六棱锥
-                    function (s) { return new THREE.CylinderGeometry(s * 0.7, s * 0.7, s * 1.4, 8); },  // 八棱柱
-                    function (s) { return new THREE.TorusGeometry(s * 0.6, s * 0.28, 6, 14); },         // 圆环
+                    function (s) { return new THREE.TetrahedronGeometry(s * 1.05, 0); },                 // 正四面体
+                    function (s) { return new THREE.OctahedronGeometry(s * 1.05, 0); },                 // 正八面体
+                    function (s) { return new THREE.IcosahedronGeometry(s * 0.95, 0); },                 // 正二十面体
+                    function (s) { return new THREE.DodecahedronGeometry(s * 0.95, 0); },               // 正十二面体
+                    function (s) { return new THREE.ConeGeometry(s * 0.8, s * 1.5, 6); },               // 六棱锥
+                    function (s) { return new THREE.CylinderGeometry(s * 0.7, s * 0.7, s * 1.5, 8); },  // 八棱柱
+                    function (s) { return new THREE.TorusGeometry(s * 0.66, s * 0.28, 6, 14); },         // 圆环
+                    function (s) { return new THREE.TorusKnotGeometry(s * 0.5, s * 0.18, 36, 6); },      // 环面纽结
                     function (s) { return new THREE.SphereGeometry(s * 0.9, 10, 7); }                    // 经纬线框球
                 ];
 
@@ -2971,17 +2946,20 @@
                     for (var i = 0; i < shapes.length; i++) {
                         var s = shapes[i];
                         var placed = false;
-                        for (var attempt = 0; attempt < 60 && !placed; attempt++) {
+                        // 增大随机尝试次数，铺开范围也加大，避免几何体挤在中间
+                        for (var attempt = 0; attempt < 150 && !placed; attempt++) {
                             s.depth = (Math.random() * 2 - 1) * 14;
-                            s.px = (Math.random() * 2 - 1) * halfW * 0.7;
-                            s.py = (Math.random() * 2 - 1) * halfH * 0.7;
+                            s.px = (Math.random() * 2 - 1) * halfW * 0.72;
+                            s.py = (Math.random() * 2 - 1) * halfH * 0.72;
                             var ok = true;
                             for (var j = 0; j < i; j++) {
                                 var o = shapes[j];
                                 var ddx = s.px - o.px, ddy = s.py - o.py;
-                                var minD = s.radius + o.radius + 6;
-                                // 深度差够大时允许屏幕投影重叠（3D 里前后分开不算穿模）
-                                if (Math.abs(s.depth - o.depth) < 8 && ddx * ddx + ddy * ddy < minD * minD) { ok = false; break; }
+                                // 线框视觉占位半径 + 14 间距余量
+                                var minD = s.radius + o.radius + 14;
+                                // 不再区分深度差：屏幕上看到的就是二维投影，
+                                // 只要投影重叠就算重叠，从根上消除抱团
+                                if (ddx * ddx + ddy * ddy < minD * minD) { ok = false; break; }
                             }
                             if (ok) placed = true;
                         }
@@ -2995,17 +2973,15 @@
                 function scatter() {
                     shapes.forEach(function (s) { scene.remove(s.obj); s.obj.geometry.dispose(); s.obj.material.dispose(); });
                     shapes = [];
-                    // 按屏幕面积决定数量：大屏多放、小屏少放（8~20 个之间）
-                    var area = (canvas.offsetWidth || window.innerWidth) * (canvas.offsetHeight || window.innerHeight);
-                    var N = Math.max(8, Math.min(20, Math.round(area / 180000)));
-                    // 小屏形状整体缩小一点，避免挤
-                    var sizeScale = (window.innerWidth < 768) ? 0.8 : 1.0;
+                    var N = isMobile() ? 10 : 18; // 略微增加数量
                     for (var i = 0; i < N; i++) {
                         var geo = builders[i % builders.length](1);
+                        // thresholdAngle=8°：只显示棱线夹角大于 8° 的边，
+                        // 球/环/纽结不会退化成密密麻麻的经纬线，保持线框简洁
                         var edges = new THREE.EdgesGeometry(geo, 8); geo.dispose();
                         var mat = new THREE.LineBasicMaterial({ color: COLORS[i % COLORS.length], transparent: true, opacity: 0.65, depthWrite: false });
                         var line = new THREE.LineSegments(edges, mat); edges.dispose();
-                        var sc = (1.8 + Math.random() * 1.5) * sizeScale;
+                        var sc = 2.2 + Math.random() * 2.2;
                         line.scale.setScalar(sc);
                         line.frustumCulled = false;
                         scene.add(line);
@@ -3019,12 +2995,6 @@
                         });
                     }
                     layout();
-                    // layout 已经把 s.wx 直接设到 s.px，不从中心飞散；
-                    // 再把位置直接同步到 obj，首帧就停在随机点上
-                    for (var i = 0; i < shapes.length; i++) {
-                        var s = shapes[i];
-                        s.obj.position.set(s.wx, s.wy, s.depth);
-                    }
                 }
 
                 var tmp = new THREE.Vector3(), lastT = 0;
@@ -3034,11 +3004,27 @@
                     var dt = Math.min((now - lastT) / 16.67, 3); lastT = now;
                     var t = now;
 
-                    camera.position.set(0, 0, 70);
+                    camera.position.x += (mouseNDC.x * 4 - camera.position.x) * 0.04;
+                    camera.position.y += (mouseNDC.y * 4 - camera.position.y) * 0.04;
                     camera.lookAt(0, 0, 0);
 
-                    // 1. 运动 + 光标排斥（手机端 touchActive=false 时 mouseNDC 在屏幕外，不触发）
-                    var INTERACT_R = 0.05; // NDC 排斥半径
+                    // 形状间实时轻推：投影一旦重叠就互相推开一点，
+                    // 彻底消除抱团（18 个形状只有 153 对，性能开销可忽略）
+                    for (var a = 0; a < shapes.length; a++) {
+                        for (var b = a + 1; b < shapes.length; b++) {
+                            var A = shapes[a], B = shapes[b];
+                            var rdx = B.wx - A.wx, rdy = B.wy - A.wy;
+                            var minD = (A.radius + B.radius) * 0.9;
+                            var r2 = rdx * rdx + rdy * rdy;
+                            if (r2 < minD * minD && r2 > 0.0001) {
+                                var rd = Math.sqrt(r2);
+                                var push = (minD - rd) * 0.02;
+                                A.vx -= (rdx / rd) * push; A.vy -= (rdy / rd) * push;
+                                B.vx += (rdx / rd) * push; B.vy += (rdy / rd) * push;
+                            }
+                        }
+                    }
+
                     for (var i = 0; i < shapes.length; i++) {
                         var s = shapes[i];
                         var fx = Math.sin(t * 0.001 * s.fs + s.phase) * s.fr * 0.35;
@@ -3046,65 +3032,30 @@
 
                         s.rx += s.rsx * dt; s.ry += s.rsy * dt; s.rz += s.rsz * dt;
 
+                        // 使用正确的世界坐标计算排斥
                         tmp.set(s.wx, s.wy, s.depth).project(camera);
                         var dx = tmp.x - mouseNDC.x, dy = tmp.y - mouseNDC.y;
                         var dist = Math.sqrt(dx * dx + dy * dy);
 
+                        var INTERACT_R = 0.10; // 交互半径：按你的要求调小，鼠标靠近才会推开几何体
                         if (dist < INTERACT_R && dist > 0.0001) {
-                            var force = (1 - dist / INTERACT_R) * 0.15;
+                            var force = (1 - dist / INTERACT_R) * 0.22; // 力度
                             var depth = camera.position.z - s.depth;
                             var worldPerNdcy = depth * Math.tan(camera.fov * Math.PI / 360);
                             var worldPerNdcx = worldPerNdcy / camera.aspect;
                             s.vx += (dx / dist) * force * worldPerNdcx;
                             s.vy += (dy / dist) * force * worldPerNdcy;
-                            // 碰撞时边推开边自转
-                            s.rx += (dy / dist) * force * 0.2;
-                            s.ry += (dx / dist) * force * 0.2;
                         }
 
                         s.vx *= 0.92; s.vy *= 0.92;
                         s.wx += (s.px + fx - s.wx) * 0.02 + s.vx;
                         s.wy += (s.py + fy - s.wy) * 0.02 + s.vy;
-                        var clx = halfW * 0.7, cly = halfH * 0.7;
+                        var clx = halfW * 0.8, cly = halfH * 0.8;
                         if (s.wx < -clx) { s.wx = -clx; s.vx = Math.abs(s.vx) * 0.4; }
                         if (s.wx > clx) { s.wx = clx; s.vx = -Math.abs(s.vx) * 0.4; }
                         if (s.wy < -cly) { s.wy = -cly; s.vy = Math.abs(s.vy) * 0.4; }
                         if (s.wy > cly) { s.wy = cly; s.vy = -Math.abs(s.vy) * 0.4; }
-                    }
 
-                    // 2. 屏幕空间自碰撞：只在投影几乎重叠时轻轻拨开，不累积速度，不会把形状弹飞
-                    var screens = [];
-                    for (var i = 0; i < shapes.length; i++) {
-                        tmp.set(shapes[i].wx, shapes[i].wy, shapes[i].depth).project(camera);
-                        screens.push({ x: tmp.x, y: tmp.y });
-                    }
-                    for (var i = 0; i < shapes.length; i++) {
-                        var s = shapes[i];
-                        for (var j = i + 1; j < shapes.length; j++) {
-                            var o = shapes[j];
-                            var sdx = screens[i].x - screens[j].x;
-                            var sdy = screens[i].y - screens[j].y;
-                            var sdist = Math.sqrt(sdx * sdx + sdy * sdy);
-                            var depthI = camera.position.z - s.depth;
-                            var depthJ = camera.position.z - o.depth;
-                            var tanHalfFov = Math.tan(camera.fov * Math.PI / 360);
-                            var rI = (s.radius / (depthI * tanHalfFov)) / camera.aspect;
-                            var rJ = (o.radius / (depthJ * tanHalfFov)) / camera.aspect;
-                            var minS = rI + rJ + 0.003;
-                            if (sdist < minS && sdist > 0.0001) {
-                                var push = (minS - sdist) * 0.6;
-                                var nx = sdx / sdist, ny = sdy / sdist;
-                                s.wx += nx * push * depthI * tanHalfFov * camera.aspect;
-                                s.wy += ny * push * depthI * tanHalfFov;
-                                o.wx -= nx * push * depthJ * tanHalfFov * camera.aspect;
-                                o.wy -= ny * push * depthJ * tanHalfFov;
-                            }
-                        }
-                    }
-
-                    // 3. 写回位置
-                    for (var i = 0; i < shapes.length; i++) {
-                        var s = shapes[i];
                         s.obj.position.set(s.wx, s.wy, s.depth);
                         s.obj.rotation.set(s.rx, s.ry, s.rz);
                         s.mat.opacity = s.aBase;
