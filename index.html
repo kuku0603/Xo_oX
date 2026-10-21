@@ -3198,8 +3198,8 @@
                         s.mat.opacity = s.aBase;
                     }
 
-                    // 世界坐标圆碰撞：已关闭（环形排布间距够，避免抖动）
-                    if (false && collisionEnabled) for (var i = 0; i < shapes.length; i++) {
+                    // 世界坐标圆碰撞：只在明显重叠（>1.5）时才推，轻推不抖
+                    for (var i = 0; i < shapes.length; i++) {
                         for (var j = i + 1; j < shapes.length; j++) {
                             var s = shapes[i], o = shapes[j];
                             var sdx = s.wx - o.wx, sdy = s.wy - o.wy;
@@ -3207,19 +3207,11 @@
                             var minD = s.radius + o.radius;
                             if (sd < minD && sd > 0.0001) {
                                 var overlap = minD - sd;
-                                if (overlap < 0.5) continue; // 死区：轻微重叠不推不转，避免抖动
-                                var push = overlap * 0.3;
+                                if (overlap < 1.5) continue; // 死区：只有明显重叠才推
+                                var push = overlap * 0.4;
                                 var nx = sdx / sd, ny = sdy / sd;
                                 s.wx += nx * push; s.wy += ny * push;
                                 o.wx -= nx * push; o.wy -= ny * push;
-                                // 只有明显重叠时才给旋转冲量
-                                if (overlap > 1.0) {
-                                    var rotKick = pointerIsTouch ? 0.02 : 1.0;
-                                    s.rx += ny * overlap * rotKick;
-                                    s.ry += nx * overlap * rotKick;
-                                    o.rx -= ny * overlap * rotKick;
-                                    o.ry -= nx * overlap * rotKick;
-                                }
                             }
                         }
                     }
