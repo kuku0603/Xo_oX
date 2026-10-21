@@ -110,7 +110,6 @@
                 linear-gradient(160deg, #e6edfb 0%, #dbe6f7 45%, #e4f2f0 100%);
             filter: blur(20px);
             pointer-events: none;
-            /* 移除动画以提升性能，改为静态渐变 */
         }
 
         body::before {
@@ -121,9 +120,6 @@
             pointer-events: none;
             z-index: -1;
             opacity: 0.18;
-            /* 性能：去掉 mix-blend-mode: overlay——它会把整页拉进一个合成组，
-               每次滚动/重绘都强制整页重算混合，是桌面端卡顿主因之一；
-               改为普通低透明度噪点，质感损失极小 */
         }
 
         ::selection {
@@ -455,9 +451,7 @@
             line-height: 1;
             color: var(--text-1);
             cursor: default;
-            /* 入场动画：标题字从下方淡入 + 字距微开 */
             animation: startNameIn 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
-            /* 悬停动效：字距拉开 + 光晕 + 轻微放大，平滑过渡 */
             transition: letter-spacing 0.6s cubic-bezier(0.22, 1, 0.36, 1),
                 text-shadow 0.6s ease,
                 transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
@@ -718,7 +712,6 @@
             -webkit-backdrop-filter: blur(16px) saturate(1.6);
         }
 
-        /* 优化：使用 GPU 渲染，去除 will-change: transform 的频繁重绘 */
         .marquee-viewport {
             display: flex;
             width: max-content;
@@ -786,7 +779,6 @@
             margin-bottom: var(--sp-6);
         }
 
-        /* 优化：去掉 padding，确保居中计算准确 */
         .carousel-viewport {
             width: 100%;
             overflow: hidden;
@@ -799,7 +791,6 @@
             cursor: grabbing;
         }
 
-        /* 优化：使用 GPU 渲染 */
         .carousel-track {
             display: flex;
             gap: var(--sp-6);
@@ -1736,7 +1727,6 @@
             border-bottom: 1px solid var(--glass-border);
             position: relative;
             touch-action: pan-y;
-            /* 横滑交给 JS 切图，纵滑仍可滚动 */
             cursor: grab;
         }
 
@@ -1751,7 +1741,6 @@
             -webkit-user-drag: none;
             user-select: none;
             pointer-events: none;
-            /* 拖拽/点击都交给容器，避免浏览器原生图片拖拽 */
         }
 
         .modal-body {
@@ -2184,11 +2173,6 @@
     <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
 
     <script>
-        // ================================================================
-        // DATA
-        // ================================================================
-        // captions：与 imgs 一一对应，点开弹窗后随图片轮播逐张替换标题/描述；
-        // 单图项目（B / E）无需填写，弹窗显示项目默认文案。以下逐图文案为草稿，可直接改。
         var PROJECTS = [
             {
                 id: 'proj-a', letter: 'A', title: 'ComfyUI 工作流搭建', date: '2023.12 — Now', desc: '搭建全套 AI 美术流程：文生图、图生图、风格迁移、LoRA 训练。输出标准化 AI 模板，赋能项目生产效率提升。', tags: ['ComfyUI', 'AIGC', 'Pipeline'], imgs: ['https://picsum.photos/seed/comfyui/600/400', 'https://picsum.photos/seed/comfyui-2/600/400'], captions: [
@@ -2219,8 +2203,6 @@
             }
         ];
 
-        // onSlide(i)：可选回调，切图时（自动轮播或点 dot）把当前图索引告诉调用方，
-        // 用于让弹窗文字随图片一起切换
         function buildGallery(holder, imgs, onSlide) {
             var list = (imgs && imgs.length) ? imgs.slice() : [];
             if (list.length === 0) { holder.innerHTML = ''; return null; }
@@ -2253,8 +2235,6 @@
                     dots[j].addEventListener('click', function (e) { e.stopPropagation(); go(j); start(); });
                 })(j);
             }
-            // 左右滑动 / 鼠标拖拽切图：自动轮播照常跑，手动切完重置计时，
-            // 不会出现刚滑完下一张、立刻又被自动轮播切走
             var sx = 0, sy = 0, dragging = false;
             function dragStart(x, y) { sx = x; sy = y; dragging = true; }
             function dragEnd(x, y) {
@@ -2278,9 +2258,6 @@
             return { start: start, stop: stop, go: go };
         }
 
-        // ================================================================
-        // PAGE TRANSITIONS
-        // ================================================================
         document.getElementById('enterBtn').addEventListener('click', function () {
             document.getElementById('startPage').classList.add('hidden');
             setTimeout(function () { document.getElementById('mainPage').classList.add('show'); }, 100);
@@ -2294,19 +2271,15 @@
             }, 100);
         });
 
-        // ================================================================
-        // CAROUSEL（已修复动态宽度计算和居中问题）
-        // ================================================================
         (function () {
             var track = document.getElementById('carouselTrack');
             var vp = document.getElementById('carouselViewport');
             var len = PROJECTS.length, CLONE = len, idx = CLONE;
             var autoTimer = null, paused = false, dragging = false, startX = 0, dragOff = 0, hasDragged = false, resetLock = false, gals = [];
 
-            // 修复：动态读取 DOM 真实宽度，不再是硬编码
             function unit() {
                 var card = track.querySelector('.p-card');
-                var cw = card ? card.getBoundingClientRect().width : 360; // fallback 360
+                var cw = card ? card.getBoundingClientRect().width : 360;
                 var style = window.getComputedStyle(track);
                 var gap = parseFloat(style.gap) || 24;
                 return { cw: cw, g: gap, u: cw + gap };
@@ -2343,12 +2316,8 @@
                 });
             }
 
-            // 修复：使用 getBoundingClientRect().width 确保在滚动条出现时计算准确
             var trackPadL = 0;
             function measureTrackPad() {
-                // 读取轨道自身的左 padding（桌面 32px / 手机 24px）：
-                // 不扣除它，激活卡片会被 padding 整体向右顶偏，
-                // 手机端表现为左右留白不均、卡片不居中视口
                 trackPadL = parseFloat(window.getComputedStyle(track).paddingLeft) || 0;
             }
             function offset(i, drag) {
@@ -2359,7 +2328,7 @@
 
             function setPos(i, anim) {
                 track.style.transition = anim ? 'transform 0.5s cubic-bezier(0.16,1,0.3,1)' : 'none';
-                track.style.transform = 'translate3d(' + offset(i, dragOff) + 'px, 0, 0)'; // 使用 translate3d 触发 GPU 加速
+                track.style.transform = 'translate3d(' + offset(i, dragOff) + 'px, 0, 0)';
                 var dots = document.querySelectorAll('.carousel-dot');
                 var realIdx = ((i - CLONE) % len + len) % len;
                 dots.forEach(function (d, di) { d.classList.toggle('active', di === realIdx); });
@@ -2375,7 +2344,6 @@
                     dot.setAttribute('aria-label', 'Go to project ' + (i + 1));
                     (function (targetIdx) {
                         dot.addEventListener('click', function () {
-                            // 修复：直接基于 CLONE 计算目标位置，不修改外层 idx 变量
                             var target = CLONE + targetIdx;
                             setPos(target, true);
                         });
@@ -2390,7 +2358,6 @@
                 for (var i = 0; i < len; i++)track.appendChild(makeCard(PROJECTS[i], false));
                 for (var i = 0; i < CLONE; i++)track.appendChild(makeCard(PROJECTS[i], true));
                 initDots();
-                // 等 DOM 渲染完再测量 padding 并设置位置
                 requestAnimationFrame(function () { measureTrackPad(); setPos(idx, false); });
             }
 
@@ -2423,7 +2390,6 @@
                 }
             });
 
-            // 修复：resize 时重新测量 padding 并计算位置
             window.addEventListener('resize', function () { measureTrackPad(); idx = Math.max(CLONE, Math.min(idx, CLONE + len - 1)); dragOff = 0; setPos(idx, false); });
 
             document.addEventListener('keydown', function (e) {
@@ -2439,9 +2405,6 @@
             renderDetail();
         })();
 
-        // ================================================================
-        // SCROLL PROGRESS + NAV
-        // ================================================================
         (function () {
             var bar = document.getElementById('progressBar');
             var nav = document.getElementById('mainNav');
@@ -2485,9 +2448,6 @@
             document.getElementById('mobileNav').classList.toggle('open');
         });
 
-        // ================================================================
-        // REVEAL OBSERVER
-        // ================================================================
         (function () {
             var obs = new IntersectionObserver(function (entries) {
                 entries.forEach(function (e) { if (e.isIntersecting) e.target.classList.add('visible'); });
@@ -2501,9 +2461,6 @@
             }).observe(document.getElementById('mainPage'), { attributes: true, attributeFilter: ['class'] });
         })();
 
-        // ================================================================
-        // FUNCTIONAL CURSOR
-        // ================================================================
         (function () {
             if (!window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;
 
@@ -2698,8 +2655,6 @@
 
                 ctx.restore();
 
-                // 性能：鼠标静止超过 1.4s 且没有残余烟雾/涟漪时，暂停整屏 canvas 绘制循环；
-                // 鼠标一动立即唤醒，避免桌面端后台空跑占满一整颗 CPU 核心
                 var idleFor = now - lastMoveAt;
                 if (idleFor > 1400 && smoke.length === 0 && ripples.length === 0) {
                     cursorRunning = false;
@@ -2739,9 +2694,6 @@
             requestAnimationFrame(draw);
         })();
 
-        // ================================================================
-        // PROJECT MODAL
-        // ================================================================
         (function () {
             var modal = document.getElementById('projectModal');
             var overlay = document.getElementById('modalOverlay');
@@ -2754,7 +2706,6 @@
             function openModal(pid) {
                 var p = PROJECTS.find(function (x) { return x.id === pid; });
                 if (!p) return;
-                // 随图片轮播切换下方文字：有 captions 用逐图文案，没有则回退项目默认标题/描述
                 function applySlide(i) {
                     var c = p.captions && p.captions[i];
                     titleEl.textContent = c ? c.title : p.title;
@@ -2788,9 +2739,6 @@
             });
         })();
 
-        // ================================================================
-        // BACK TO TOP
-        // ================================================================
         (function () {
             var btn = document.getElementById('backToTop');
             if (!btn) return;
@@ -2809,9 +2757,6 @@
             });
         })();
 
-        // ================================================================
-        // STAT NUMBER COUNTER
-        // ================================================================
         (function () {
             var nums = document.querySelectorAll('.hero-stat-num');
             if (!nums.length) return;
@@ -2850,9 +2795,6 @@
     </script>
 
     <script>
-        /* ============================================================
-           统一 rAF 循环：视差 / 卡片倾斜（性能优化版）
-           ============================================================ */
         (function () {
             var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
@@ -2878,11 +2820,10 @@
                 scrollY = sy;
             }, { passive: true });
 
-            // 优化：使用节流，减少极高频率的 DOM 写入
             var lastMoveTime = 0;
             function onPointerMove(e) {
                 var now = performance.now();
-                if (now - lastMoveTime < 16) return; // 约 60fps
+                if (now - lastMoveTime < 16) return;
                 lastMoveTime = now;
 
                 var cx = e.clientX, cy = e.clientY;
@@ -2905,7 +2846,6 @@
             function follow(v, t, k, dtSec) { return v + (t - v) * (1 - Math.exp(-k * dtSec)); }
 
             var running = false, last = 0;
-            // 性能：标题列表是静态的，启动时查询一次即可，不要每帧 querySelectorAll
             var sectionTitles = document.querySelectorAll('.section-title');
             function tick(now) {
                 var dtSec = Math.min(0.05, (now - (last || now)) / 1000);
@@ -2916,7 +2856,6 @@
 
                 var skewT = Math.max(-2, Math.min(2, scrollVel * 0.05));
                 skew = follow(skew, skewT, 8, dtSec);
-                // 倾斜量稳定在阈值内时跳过 DOM 写入
                 if (Math.abs(skew) > 0.05) {
                     var skewCss = 'skewY(' + skew.toFixed(2) + 'deg)';
                     sectionTitles.forEach(function (t) { t.style.transform = skewCss; });
@@ -2929,7 +2868,6 @@
                     tiltCards.forEach(function (t) {
                         t.rx = follow(t.rx, t.rxT, TILT_K, dtSec);
                         t.ry = follow(t.ry, t.ryT, TILT_K, dtSec);
-                        // 只在实际有倾斜时重绘
                         if (Math.abs(t.rx) > 0.05 || Math.abs(t.ry) > 0.05) {
                             t.el.style.transform = 'perspective(900px) rotateX(' + t.rx.toFixed(2) + 'deg) rotateY(' + t.ry.toFixed(2) + 'deg)';
                         } else if (t.el.style.transform !== '') {
@@ -2952,19 +2890,17 @@
 { "imports": { "three": "https://unpkg.com/three@0.164.1/build/three.module.js" } }
 </script>
     <script type="module">
-        /* ============================================================
-           THREE.JS — 启动页多样化几何体 + Hero 粒子星座
-           ============================================================ */
         import * as THREE from 'three';
 
         (function () {
             var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            var mouseNDC = { x: 0, y: 0 };
+            var mouseScreen = { x: 0, y: 0 };
             var pointerIsTouch = false;
+
             window.addEventListener('pointermove', function (e) {
                 pointerIsTouch = (e.pointerType === 'touch');
-                mouseNDC.x = (e.clientX / window.innerWidth) * 2 - 1;
-                mouseNDC.y = -(e.clientY / window.innerHeight) * 2 + 1;
+                mouseScreen.x = e.clientX;
+                mouseScreen.y = e.clientY;
             }, { passive: true });
 
             function isMobile() { return window.innerWidth < 768; }
@@ -2985,8 +2921,6 @@
                 var r = new THREE.WebGLRenderer({ canvas: canvas, alpha: !opaque, antialias: true, powerPreference: 'high-performance' });
                 if (opaque) r.setClearColor(new THREE.Color('#eaf1fd'), 1);
                 else r.setClearColor(0x000000, 0);
-                // 性能：高分屏 dpr=2/3 时全屏 WebGL 按 1.25 上限渲染即可，
-                // 粒子/线框视觉几乎无损，GPU 填充率压力大降
                 r.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.25));
                 return r;
             }
@@ -2996,8 +2930,6 @@
                 var canvas = document.getElementById('startCanvas');
                 if (!canvas) return;
                 var renderer, scene, camera, shapes = [];
-                var collisionEnabled = false;
-                setTimeout(function () { collisionEnabled = true; }, 1500); // 初始1.5秒不碰撞，让形状稳定下来
                 try { renderer = makeRenderer(canvas, true); }
                 catch (e) { canvas.style.display = 'none'; return; }
                 scene = new THREE.Scene();
@@ -3005,74 +2937,39 @@
                 camera.position.set(0, 0, 70);
                 camera.lookAt(0, 0, 0);
 
-                // 调试：中心刚体区域红框（测试用，确认后透明度改 0）
-                (function () {
-                    var w = 9, h = 6.5;
-                    var pts = [
-                        new THREE.Vector3(-w, -h, 0), new THREE.Vector3(w, -h, 0),
-                        new THREE.Vector3(w, -h, 0), new THREE.Vector3(w, h, 0),
-                        new THREE.Vector3(w, h, 0), new THREE.Vector3(-w, h, 0),
-                        new THREE.Vector3(-w, h, 0), new THREE.Vector3(-w, -h, 0)
-                    ];
-                    var g = new THREE.BufferGeometry().setFromPoints(pts);
-                    var m = new THREE.LineBasicMaterial({ color: 0xff4444, transparent: true, opacity: 0 });
-                    scene.add(new THREE.LineSegments(g, m));
-                })();
-
-                // 调试：外边界矩形（几何体活动范围，绿色）
-                var outerBox = null;
-                (function () {
-                    var w = 30, h = 30;
-                    var pts = [
-                        new THREE.Vector3(-w, -h, 0), new THREE.Vector3(w, -h, 0),
-                        new THREE.Vector3(w, -h, 0), new THREE.Vector3(w, h, 0),
-                        new THREE.Vector3(w, h, 0), new THREE.Vector3(-w, h, 0),
-                        new THREE.Vector3(-w, h, 0), new THREE.Vector3(-w, -h, 0)
-                    ];
-                    var g = new THREE.BufferGeometry().setFromPoints(pts);
-                    var m = new THREE.LineBasicMaterial({ color: 0x44ff44, transparent: true, opacity: 0 });
-                    outerBox = new THREE.LineSegments(g, m);
-                    scene.add(outerBox);
-                })();
-                window.__updateOuterBox = function (halfW, halfH) {
-                    var w = halfW * 0.9, h = halfH * 0.85;
-                    var p = outerBox.geometry.attributes.position;
-                    var coords = [[-w, -h], [w, -h], [w, -h], [w, h], [w, h], [-w, h], [-w, h], [-w, -h]];
-                    for (var i = 0; i < 8; i++) { p.setXYZ(i, coords[i][0], coords[i][1], 0); }
-                    p.needsUpdate = true;
-                };
-
                 var COLORS = [0x4f7cff, 0x2ecfab, 0x9b8cff];
-                // 几何体工厂：s 为单位尺寸，每个工厂返回一种线框造型
-                // 正多面体 / 锥 / 柱 / 环 / 环面纽结 / 经纬球，统一线框视觉语言
                 var builders = [
-                    function (s) { return new THREE.BoxGeometry(s, s, s); },                            // 立方体
-                    function (s) { return new THREE.TetrahedronGeometry(s * 1.05, 0); },                 // 正四面体
-                    function (s) { return new THREE.OctahedronGeometry(s * 1.05, 0); },                 // 正八面体
-                    function (s) { return new THREE.IcosahedronGeometry(s * 0.95, 0); },                 // 正二十面体
-                    function (s) { return new THREE.DodecahedronGeometry(s * 0.95, 0); },               // 正十二面体
-                    function (s) { return new THREE.ConeGeometry(s * 0.8, s * 1.5, 6); },               // 六棱锥
-                    function (s) { return new THREE.CylinderGeometry(s * 0.7, s * 0.7, s * 1.5, 8); }   // 八棱柱
+                    function (s) { return new THREE.BoxGeometry(s, s, s); },
+                    function (s) { return new THREE.TetrahedronGeometry(s * 1.05, 0); },
+                    function (s) { return new THREE.OctahedronGeometry(s * 1.05, 0); },
+                    function (s) { return new THREE.IcosahedronGeometry(s * 0.95, 0); },
+                    function (s) { return new THREE.DodecahedronGeometry(s * 0.95, 0); },
+                    function (s) { return new THREE.ConeGeometry(s * 0.8, s * 1.5, 6); },
+                    function (s) { return new THREE.CylinderGeometry(s * 0.7, s * 0.7, s * 1.5, 8); }
                 ];
 
                 var halfH = 34, halfW = 34;
+                var frustumHeight = 0; // 用于坐标转换
 
                 function resize() {
                     var w = canvas.offsetWidth || 1, h = canvas.offsetHeight || 1;
                     camera.aspect = w / h; camera.updateProjectionMatrix();
                     renderer.setSize(w, h, false);
                     halfW = halfH * (w / h);
-                    if (window.__updateOuterBox) window.__updateOuterBox(halfW, halfH);
+
+                    // 计算 z=0 平面的视锥高度（用于像素到世界坐标的转换）
+                    var vFOV = camera.fov * Math.PI / 180;
+                    var dist = camera.position.z;
+                    frustumHeight = 2 * Math.tan(vFOV / 2) * dist;
                 }
 
                 function layout() {
                     var N = shapes.length;
-                    // 双环随机分布：内圈+外圈各一半，带角度抖动，看起来自然不刻意
                     var angleOffset = Math.random() * Math.PI * 2;
                     for (var i = 0; i < N; i++) {
                         var s = shapes[i];
-                        var ring = (i % 2 === 0) ? 0.55 : 0.85; // 内圈/外圈比例
-                        var a = angleOffset + (i / N) * Math.PI * 2 + (Math.random() - 0.5) * 0.6; // 角度抖动
+                        var ring = (i % 2 === 0) ? 0.55 : 0.85;
+                        var a = angleOffset + (i / N) * Math.PI * 2 + (Math.random() - 0.5) * 0.6;
                         var rx = halfW * ring;
                         var ry = halfH * ring;
                         s.depth = 0;
@@ -3081,8 +2978,6 @@
                         s.wx = s.px; s.wy = s.py; s.wz = s.depth;
                         s.vx = 0; s.vy = 0;
                         s.obj.position.set(s.px, s.py, s.depth);
-                        if (s.ring) s.ring.position.set(s.px, s.py, s.depth);
-                        s.mat.opacity = s.aBase;
                     }
                 }
 
@@ -3092,8 +2987,6 @@
                     var N = isMobile() ? 11 : 21;
                     for (var i = 0; i < N; i++) {
                         var geo = builders[i % builders.length](1);
-                        // thresholdAngle=8°：只显示棱线夹角大于 8° 的边，
-                        // 球/环/纽结不会退化成密密麻麻的经纬线，保持线框简洁
                         var edges = new THREE.EdgesGeometry(geo, 8); geo.dispose();
                         var mat = new THREE.LineBasicMaterial({ color: COLORS[i % COLORS.length], transparent: true, opacity: 0.65, depthWrite: false });
                         var line = new THREE.LineSegments(edges, mat); edges.dispose();
@@ -3102,20 +2995,9 @@
                         line.scale.setScalar(sc);
                         line.frustumCulled = false;
                         scene.add(line);
-                        // 调试圈：显示该几何体的碰撞半径（红圈）
-                        var pts = [];
-                        for (var k = 0; k < 32; k++) {
-                            var a = k / 32 * Math.PI * 2;
-                            pts.push(new THREE.Vector3(Math.cos(a) * 1.1, Math.sin(a) * 1.1, 0));
-                        }
-                        var ringGeo = new THREE.BufferGeometry().setFromPoints(pts);
-                        var ringMat = new THREE.LineBasicMaterial({ color: 0xff4444, transparent: true, opacity: 0, depthWrite: false });
-                        var ring = new THREE.LineLoop(ringGeo, ringMat);
-                        ring.scale.setScalar(sc);
-                        ring.frustumCulled = false;
-                        scene.add(ring);
+
                         shapes.push({
-                            obj: line, ring: ring, mat: mat, wx: 0, wy: 0, wz: 0, px: 0, py: 0, depth: 0, vx: 0, vy: 0,
+                            obj: line, mat: mat, wx: 0, wy: 0, wz: 0, px: 0, py: 0, depth: 0, vx: 0, vy: 0,
                             aBase: 0.35 + Math.random() * 0.25,
                             rx: Math.random() * Math.PI * 2, ry: Math.random() * Math.PI * 2, rz: Math.random() * Math.PI * 2,
                             rsx: (Math.random() - 0.5) * 0.008, rsy: (Math.random() - 0.5) * 0.010, rsz: (Math.random() - 0.5) * 0.006,
@@ -3126,19 +3008,21 @@
                     layout();
                 }
 
-                var tmp = new THREE.Vector3(), lastT = 0;
+                var lastT = 0;
 
                 function update(now) {
                     if (lastT === 0) lastT = now;
                     var dt = Math.min((now - lastT) / 16.67, 3); lastT = now;
                     var t = now;
 
-                    camera.position.x += (mouseNDC.x * 4 - camera.position.x) * 0.04;
-                    camera.position.y += (mouseNDC.y * 4 - camera.position.y) * 0.04;
+                    // 相机微动
+                    camera.position.x += (mouseScreen.x / window.innerWidth * 2 - 1) * 4 * 0.04 - camera.position.x * 0.04;
+                    camera.position.y += (-(mouseScreen.y / window.innerHeight * 2 - 1)) * 4 * 0.04 - camera.position.y * 0.04;
                     camera.lookAt(0, 0, 0);
 
-                    // 形状间互斥：layout() 已保证初始不重叠，且漂移幅度很小，
-                    // 不再在帧循环里累积速度互推（手机小屏会导致几何体一直在抖动）
+                    // 将鼠标屏幕坐标转换为 z=0 平面上的世界坐标
+                    var mouseWx = (mouseScreen.x / window.innerWidth - 0.5) * frustumHeight * camera.aspect;
+                    var mouseWy = -(mouseScreen.y / window.innerHeight - 0.5) * frustumHeight;
 
                     for (var i = 0; i < shapes.length; i++) {
                         var s = shapes[i];
@@ -3147,71 +3031,98 @@
 
                         s.rx += s.rsx * dt; s.ry += s.rsy * dt; s.rz += s.rsz * dt;
 
-                        // 使用正确的世界坐标计算排斥
-                        tmp.set(s.wx, s.wy, s.depth).project(camera);
-                        var dx = tmp.x - mouseNDC.x, dy = tmp.y - mouseNDC.y;
-                        var dist = Math.sqrt(dx * dx + dy * dy);
+                        // --- 光标排斥（基于真实世界坐标，精准且柔和） ---
+                        var mdx = s.wx - mouseWx;
+                        var mdy = s.wy - mouseWy;
+                        var mDist = Math.sqrt(mdx * mdx + mdy * mdy);
+                        // 将鼠标视为半径 1.0 的圆
+                        var minDist = s.radius + 1.0;
 
-                        var INTERACT_R = 0.10; // 交互半径：按你的要求调小，鼠标靠近才会推开几何体
-                        if (dist < INTERACT_R && dist > 0.0001) {
-                            var force = (1 - dist / INTERACT_R) * 0.22 * (pointerIsTouch ? 0.25 : 1.0); // 力度：手机端减到1/4
-                            var depth = camera.position.z - s.depth;
-                            var worldPerNdcy = depth * Math.tan(camera.fov * Math.PI / 360);
-                            var worldPerNdcx = worldPerNdcy / camera.aspect;
-                            s.vx += (dx / dist) * force * worldPerNdcx;
-                            s.vy += (dy / dist) * force * worldPerNdcy;
+                        if (mDist < minDist && mDist > 0.001) {
+                            var overlap = minDist - mDist;
+                            // 极低力度的推力系数，保证缓慢平滑推开
+                            var force = overlap * 0.25 * (pointerIsTouch ? 0.3 : 1.0);
+                            var nx = mdx / mDist;
+                            var ny = mdy / mDist;
+                            s.vx += nx * force;
+                            s.vy += ny * force;
                         }
 
-                        s.vx *= 0.92; s.vy *= 0.92;
-                        s.wx += (s.px + fx - s.wx) * 0.02 + s.vx;
-                        s.wy += (s.py + fy - s.wy) * 0.02 + s.vy;
+                        // 阻尼
+                        var damp = Math.pow(0.90, dt);
+                        s.vx *= damp;
+                        s.vy *= damp;
+
+                        // 限制最大速度
+                        var MAX_V = 3;
+                        s.vx = Math.max(-MAX_V, Math.min(MAX_V, s.vx));
+                        s.vy = Math.max(-MAX_V, Math.min(MAX_V, s.vy));
+
+                        // 位置更新
+                        s.wx += (s.px + fx - s.wx) * 0.005 * dt + s.vx * dt;
+                        s.wy += (s.py + fy - s.wy) * 0.005 * dt + s.vy * dt;
+
+                        // 边界限制
                         var clx = halfW * 0.9, cly = halfH * 0.85;
                         if (s.wx < -clx) { s.wx = -clx; s.vx = Math.abs(s.vx) * 0.4; }
                         if (s.wx > clx) { s.wx = clx; s.vx = -Math.abs(s.vx) * 0.4; }
                         if (s.wy < -cly) { s.wy = -cly; s.vy = Math.abs(s.vy) * 0.4; }
                         if (s.wy > cly) { s.wy = cly; s.vy = -Math.abs(s.vy) * 0.4; }
 
-                        // 中心刚体：标题+按钮那块是个不可进入的矩形，形状的圆边碰到矩形边就弹出去
+                        // 中心文字避让（只加力，不改位置）
                         var boxW = 9, boxH = 6.5;
-                        // 圆 vs AABB：圆中心离矩形边 < 半径 就算碰撞
                         var nearestX = Math.max(-boxW, Math.min(s.wx, boxW));
                         var nearestY = Math.max(-boxH, Math.min(s.wy, boxH));
                         var dxBox = s.wx - nearestX, dyBox = s.wy - nearestY;
                         var distToBox = Math.sqrt(dxBox * dxBox + dyBox * dyBox);
                         if (distToBox < s.radius) {
-                            // 把圆心沿从矩形中心指向圆心的方向推出圆边外
-                            var cx = s.wx, cy = s.wy;
-                            if (Math.abs(cx) < 0.01) cx = 0.01;
-                            if (Math.abs(cy) < 0.01) cy = 0.01;
-                            // 用矩形最近点向外推开
-                            var pushOut = s.radius - distToBox + 0.1;
-                            var nx = dxBox / (distToBox || 0.001), ny = dyBox / (distToBox || 0.001);
-                            if (distToBox < 0.001) { nx = 1; ny = 0; }
-                            s.wx += nx * pushOut;
-                            s.wy += ny * pushOut;
-                            s.vx += nx * 0.3; s.vy += ny * 0.3;
+                            var nx2, ny2;
+                            if (distToBox > 0.001) {
+                                nx2 = dxBox / distToBox; ny2 = dyBox / distToBox;
+                            } else {
+                                var cdx = s.wx, cdy = s.wy;
+                                var cl = Math.sqrt(cdx * cdx + cdy * cdy) || 1;
+                                nx2 = cdx / cl; ny2 = cdy / cl;
+                            }
+                            var overlap = s.radius - distToBox;
+                            var push = Math.min(overlap * 0.15, 0.5);
+                            s.vx += nx2 * push;
+                            s.vy += ny2 * push;
                         }
 
                         s.obj.position.set(s.wx, s.wy, s.depth);
                         s.obj.rotation.set(s.rx, s.ry, s.rz);
-                        if (s.ring) s.ring.position.set(s.wx, s.wy, s.depth);
-                        s.mat.opacity = s.aBase;
                     }
 
-                    // 世界坐标圆碰撞：只在明显重叠（>1.5）时才推，轻推不抖
+                    // --- 几何体之间的自然碰撞 ---
                     for (var i = 0; i < shapes.length; i++) {
                         for (var j = i + 1; j < shapes.length; j++) {
                             var s = shapes[i], o = shapes[j];
                             var sdx = s.wx - o.wx, sdy = s.wy - o.wy;
                             var sd = Math.sqrt(sdx * sdx + sdy * sdy);
                             var minD = s.radius + o.radius;
+
                             if (sd < minD && sd > 0.0001) {
                                 var overlap = minD - sd;
-                                if (overlap < 1.5) continue; // 死区：只有明显重叠才推
-                                var push = overlap * 0.4;
                                 var nx = sdx / sd, ny = sdy / sd;
-                                s.wx += nx * push; s.wy += ny * push;
-                                o.wx -= nx * push; o.wy -= ny * push;
+
+                                // 位置修正
+                                var correction = overlap * 0.2;
+                                s.wx += nx * correction;
+                                s.wy += ny * correction;
+                                o.wx -= nx * correction;
+                                o.wy -= ny * correction;
+
+                                // 速度反弹
+                                var relVx = s.vx - o.vx, relVy = s.vy - o.vy;
+                                var vn = relVx * nx + relVy * ny;
+
+                                if (vn < 0) {
+                                    var restitution = 0.8;
+                                    var imp = -(1 + restitution) * vn * 0.5;
+                                    s.vx += nx * imp; s.vy += ny * imp;
+                                    o.vx -= nx * imp; o.vy -= ny * imp;
+                                }
                             }
                         }
                     }
@@ -3240,7 +3151,7 @@
                 });
             }
 
-            /* ============ 场景 B — Hero 粒子星座（浅色适配） ============ */
+            /* ============ 场景 B — Hero 粒子星座 ============ */
             function initHero() {
                 var canvas = document.getElementById('heroCanvas');
                 if (!canvas) return;
@@ -3304,8 +3215,11 @@
                 }
 
                 function update(now) {
-                    camera.position.x += (mouseNDC.x * 1.5 - camera.position.x) * 0.04;
-                    camera.position.y += (mouseNDC.y * 1.0 - camera.position.y) * 0.04;
+                    var mouseNX = (mouseScreen.x / window.innerWidth) * 2 - 1;
+                    var mouseNY = -(mouseScreen.y / window.innerHeight) * 2 + 1;
+
+                    camera.position.x += (mouseNX * 1.5 - camera.position.x) * 0.04;
+                    camera.position.y += (mouseNY * 1.0 - camera.position.y) * 0.04;
                     camera.lookAt(0, 0, 0);
 
                     var pa = ptsGeo.attributes.position;
