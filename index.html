@@ -3158,32 +3158,19 @@
                         s.mat.opacity = s.aBase;
                     }
 
-                    // 屏幕空间轻分离：投影一旦重叠就直接把两个形状的世界坐标拨开一点（不累积速度，不会抖动）
-                    var proj = [];
-                    for (var i = 0; i < shapes.length; i++) {
-                        tmp.set(shapes[i].wx, shapes[i].wy, shapes[i].depth).project(camera);
-                        proj.push({ x: tmp.x, y: tmp.y });
-                    }
+                    // 世界坐标圆碰撞：和红圈完全一致，两个红圈刚相切就推开
                     for (var i = 0; i < shapes.length; i++) {
                         for (var j = i + 1; j < shapes.length; j++) {
                             var s = shapes[i], o = shapes[j];
-                            var sdx = proj[i].x - proj[j].x, sdy = proj[i].y - proj[j].y;
+                            var sdx = s.wx - o.wx, sdy = s.wy - o.wy;
                             var sd = Math.sqrt(sdx * sdx + sdy * sdy);
-                            var depthI = camera.position.z - s.depth;
-                            var depthJ = camera.position.z - o.depth;
-                            var tanFov = Math.tan(camera.fov * Math.PI / 360);
-                            var rI = (s.radius / (depthI * tanFov)) / camera.aspect;
-                            var rJ = (o.radius / (depthJ * tanFov)) / camera.aspect;
-                            var minS = rI + rJ + 0.02; // 留一点余量，接近相切才推
-                            if (sd < minS && sd > 0.0001) {
-                                var overlap = minS - sd;
-                                var push = overlap * 0.15; // 轻推，推开后自然停下不抖
+                            var minD = s.radius + o.radius;
+                            if (sd < minD && sd > 0.0001) {
+                                var overlap = minD - sd;
+                                var push = overlap * 0.3;
                                 var nx = sdx / sd, ny = sdy / sd;
-                                s.wx += nx * push * depthI * tanFov * camera.aspect;
-                                s.wy += ny * push * depthI * tanFov;
-                                o.wx -= nx * push * depthJ * tanFov * camera.aspect;
-                                o.wy -= ny * push * depthJ * tanFov;
-                                // 碰撞时给一个明显的旋转冲量
+                                s.wx += nx * push; s.wy += ny * push;
+                                o.wx -= nx * push; o.wy -= ny * push;
                                 var rotKick = pointerIsTouch ? 0.02 : 1.0;
                                 s.rx += ny * overlap * rotKick;
                                 s.ry += nx * overlap * rotKick;
