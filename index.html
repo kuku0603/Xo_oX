@@ -3003,6 +3003,20 @@
                 camera.position.set(0, 0, 70);
                 camera.lookAt(0, 0, 0);
 
+                // 调试：中心刚体区域红框（测试用，确认后透明度改 0）
+                (function () {
+                    var w = 9, h = 6;
+                    var pts = [
+                        new THREE.Vector3(-w, -h, 0), new THREE.Vector3(w, -h, 0),
+                        new THREE.Vector3(w, -h, 0), new THREE.Vector3(w, h, 0),
+                        new THREE.Vector3(w, h, 0), new THREE.Vector3(-w, h, 0),
+                        new THREE.Vector3(-w, h, 0), new THREE.Vector3(-w, -h, 0)
+                    ];
+                    var g = new THREE.BufferGeometry().setFromPoints(pts);
+                    var m = new THREE.LineBasicMaterial({ color: 0xff4444, transparent: true, opacity: 0.6 });
+                    scene.add(new THREE.LineSegments(g, m));
+                })();
+
                 var COLORS = [0x4f7cff, 0x2ecfab, 0x9b8cff];
                 // 几何体工厂：s 为单位尺寸，每个工厂返回一种线框造型
                 // 正多面体 / 锥 / 柱 / 环 / 环面纽结 / 经纬球，统一线框视觉语言
@@ -3167,15 +3181,19 @@
                             var minD = s.radius + o.radius;
                             if (sd < minD && sd > 0.0001) {
                                 var overlap = minD - sd;
+                                if (overlap < 0.5) continue; // 死区：轻微重叠不推不转，避免抖动
                                 var push = overlap * 0.3;
                                 var nx = sdx / sd, ny = sdy / sd;
                                 s.wx += nx * push; s.wy += ny * push;
                                 o.wx -= nx * push; o.wy -= ny * push;
-                                var rotKick = pointerIsTouch ? 0.02 : 1.0;
-                                s.rx += ny * overlap * rotKick;
-                                s.ry += nx * overlap * rotKick;
-                                o.rx -= ny * overlap * rotKick;
-                                o.ry -= nx * overlap * rotKick;
+                                // 只有明显重叠时才给旋转冲量
+                                if (overlap > 1.0) {
+                                    var rotKick = pointerIsTouch ? 0.02 : 1.0;
+                                    s.rx += ny * overlap * rotKick;
+                                    s.ry += nx * overlap * rotKick;
+                                    o.rx -= ny * overlap * rotKick;
+                                    o.ry -= nx * overlap * rotKick;
+                                }
                             }
                         }
                     }
