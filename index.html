@@ -459,31 +459,74 @@
             animation: startNameIn 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
             /* 悬停动效：字距拉开 + 光晕 + 轻微放大，平滑过渡 */
             transition: letter-spacing 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-                        text-shadow 0.6s ease,
-                        transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+                text-shadow 0.6s ease,
+                transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
         }
+
         .start-name:hover {
             letter-spacing: -0.01em;
             text-shadow: 0 0 32px rgba(79, 124, 255, 0.45);
             transform: scale(1.03);
         }
-        .start-role { animation: startFadeIn 0.9s ease 0.55s both; }
-        .start-enter { animation: startFadeIn 0.9s ease 0.8s both; }
-        .start-hint { animation: startHintIn 1.2s ease 1.2s both; }
+
+        .start-role {
+            animation: startFadeIn 0.9s ease 0.55s both;
+        }
+
+        .start-enter {
+            animation: startFadeIn 0.9s ease 0.8s both;
+        }
+
+        .start-hint {
+            animation: startHintIn 1.2s ease 1.2s both;
+        }
+
         @keyframes startHintIn {
-            0%   { opacity: 0; }
-            100% { opacity: 1; }
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
         }
+
         @keyframes startNameIn {
-            0%   { opacity: 0; transform: translateY(28px); letter-spacing: 0.12em; filter: blur(6px); }
-            100% { opacity: 1; transform: translateY(0);    letter-spacing: -0.045em; filter: blur(0); }
+            0% {
+                opacity: 0;
+                transform: translateY(28px);
+                letter-spacing: 0.12em;
+                filter: blur(6px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+                letter-spacing: -0.045em;
+                filter: blur(0);
+            }
         }
+
         @keyframes startFadeIn {
-            0%   { opacity: 0; transform: translateY(14px); }
-            100% { opacity: 1; transform: translateY(0); }
+            0% {
+                opacity: 0;
+                transform: translateY(14px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+
         @media (prefers-reduced-motion: reduce) {
-            .start-name, .start-role, .start-enter, .start-hint { animation: none; }
+
+            .start-name,
+            .start-role,
+            .start-enter,
+            .start-hint {
+                animation: none;
+            }
         }
 
         .start-role {
@@ -1692,10 +1735,14 @@
             overflow: hidden;
             border-bottom: 1px solid var(--glass-border);
             position: relative;
-            touch-action: pan-y; /* 横滑交给 JS 切图，纵滑仍可滚动 */
+            touch-action: pan-y;
+            /* 横滑交给 JS 切图，纵滑仍可滚动 */
             cursor: grab;
         }
-        .modal-img:active { cursor: grabbing; }
+
+        .modal-img:active {
+            cursor: grabbing;
+        }
 
         .modal-img img {
             width: 100%;
@@ -1703,7 +1750,8 @@
             object-fit: cover;
             -webkit-user-drag: none;
             user-select: none;
-            pointer-events: none; /* 拖拽/点击都交给容器，避免浏览器原生图片拖拽 */
+            pointer-events: none;
+            /* 拖拽/点击都交给容器，避免浏览器原生图片拖拽 */
         }
 
         .modal-body {
@@ -2142,25 +2190,33 @@
         // captions：与 imgs 一一对应，点开弹窗后随图片轮播逐张替换标题/描述；
         // 单图项目（B / E）无需填写，弹窗显示项目默认文案。以下逐图文案为草稿，可直接改。
         var PROJECTS = [
-            { id: 'proj-a', letter: 'A', title: 'ComfyUI 工作流搭建', date: '2023.12 — Now', desc: '搭建全套 AI 美术流程：文生图、图生图、风格迁移、LoRA 训练。输出标准化 AI 模板，赋能项目生产效率提升。', tags: ['ComfyUI', 'AIGC', 'Pipeline'], imgs: ['https://picsum.photos/seed/comfyui/600/400', 'https://picsum.photos/seed/comfyui-2/600/400'], captions: [
-                { title: '文生图 / 图生图主流程', desc: '节点化工作流：提示词编排、采样器切换、高清修复，一天完成整组海报批量出图。' },
-                { title: 'LoRA 训练与风格迁移', desc: '自建角色 / 风格 LoRA 训练管线，配合 ControlNet 锁定构图与结构，风格一致性显著提升。' }
-            ] },
+            {
+                id: 'proj-a', letter: 'A', title: 'ComfyUI 工作流搭建', date: '2023.12 — Now', desc: '搭建全套 AI 美术流程：文生图、图生图、风格迁移、LoRA 训练。输出标准化 AI 模板，赋能项目生产效率提升。', tags: ['ComfyUI', 'AIGC', 'Pipeline'], imgs: ['https://picsum.photos/seed/comfyui/600/400', 'https://picsum.photos/seed/comfyui-2/600/400'], captions: [
+                    { title: '文生图 / 图生图主流程', desc: '节点化工作流：提示词编排、采样器切换、高清修复，一天完成整组海报批量出图。' },
+                    { title: 'LoRA 训练与风格迁移', desc: '自建角色 / 风格 LoRA 训练管线，配合 ControlNet 锁定构图与结构，风格一致性显著提升。' }
+                ]
+            },
             { id: 'proj-b', letter: 'B', title: 'VPS 导航系统', date: '2022.03 — 2024.09', desc: '构建 PBR 4K 贴图标准，建立 200+ 模型资源库。统一资产规范，外包管理标准化，大幅降低返工率与制作周期。', tags: ['Unity', 'PBR', 'Assets'], imgs: ['https://picsum.photos/seed/vps-nav/600/400'] },
-            { id: 'proj-c', letter: 'C', title: '3D 会员卡 / 捏人 IP', date: '2022.03 — 2023.10', desc: '设计 30+ 体型参数系统，实现角色换装与自定义捏脸。服饰自动匹配系统降低适配成本，移动端面数严格控制。', tags: ['Blender', 'Mobile', 'IP'], imgs: ['https://picsum.photos/seed/avatar-ip/600/400', 'https://picsum.photos/seed/avatar-ip-2/600/400', 'https://picsum.photos/seed/avatar-ip-3/600/400'], captions: [
-                { title: '30+ 体型参数系统', desc: '可调体型参数实时驱动骨骼与网格，换型即时预览，省去手工刷权重。' },
-                { title: '换装与服饰自动匹配', desc: '多套服饰共享同一套骨骼权重，自动解算贴附，新服装接入成本大幅下降。' },
-                { title: '移动端性能预算', desc: '端上面数与贴图尺寸严格分级，中低端机型也能流畅实时捏脸。' }
-            ] },
-            { id: 'proj-d', letter: 'D', title: '虚拟房地产手机端', date: '2022.08 — 2023.09', desc: '室内高精度场景建模贴图，NPC 骨骼绑定动画，Unity 引擎集成调试，确保移动端流畅运行与视觉品质平衡。', tags: ['Unity', 'Rigging', 'Hi-Poly'], imgs: ['https://picsum.photos/seed/vr-house/600/400', 'https://picsum.photos/seed/vr-house-2/600/400'], captions: [
-                { title: '高精度室内场景', desc: 'PBR 材质 + 烘焙光照，小屏上仍能看清木纹、大理石等材质细节。' },
-                { title: 'NPC 骨骼绑定与交互', desc: 'NPC 行为树驱动漫游与讲解，点击热点触发剧情与户型交互。' }
-            ] },
+            {
+                id: 'proj-c', letter: 'C', title: '3D 会员卡 / 捏人 IP', date: '2022.03 — 2023.10', desc: '设计 30+ 体型参数系统，实现角色换装与自定义捏脸。服饰自动匹配系统降低适配成本，移动端面数严格控制。', tags: ['Blender', 'Mobile', 'IP'], imgs: ['https://picsum.photos/seed/avatar-ip/600/400', 'https://picsum.photos/seed/avatar-ip-2/600/400', 'https://picsum.photos/seed/avatar-ip-3/600/400'], captions: [
+                    { title: '30+ 体型参数系统', desc: '可调体型参数实时驱动骨骼与网格，换型即时预览，省去手工刷权重。' },
+                    { title: '换装与服饰自动匹配', desc: '多套服饰共享同一套骨骼权重，自动解算贴附，新服装接入成本大幅下降。' },
+                    { title: '移动端性能预算', desc: '端上面数与贴图尺寸严格分级，中低端机型也能流畅实时捏脸。' }
+                ]
+            },
+            {
+                id: 'proj-d', letter: 'D', title: '虚拟房地产手机端', date: '2022.08 — 2023.09', desc: '室内高精度场景建模贴图，NPC 骨骼绑定动画，Unity 引擎集成调试，确保移动端流畅运行与视觉品质平衡。', tags: ['Unity', 'Rigging', 'Hi-Poly'], imgs: ['https://picsum.photos/seed/vr-house/600/400', 'https://picsum.photos/seed/vr-house-2/600/400'], captions: [
+                    { title: '高精度室内场景', desc: 'PBR 材质 + 烘焙光照，小屏上仍能看清木纹、大理石等材质细节。' },
+                    { title: 'NPC 骨骼绑定与交互', desc: 'NPC 行为树驱动漫游与讲解，点击热点触发剧情与户型交互。' }
+                ]
+            },
             { id: 'proj-e', letter: 'E', title: 'Web 端元宇宙', date: '2022.12 — 2023.05', desc: '基于 Three.js 自研引擎构建 Web 端元宇宙场景，大场景 PBR 材质，WebGL 性能严格控制，多浏览器兼容。', tags: ['Three.js', 'WebGL', 'Perf'], imgs: ['https://picsum.photos/seed/metaverse/600/400'] },
-            { id: 'proj-f', letter: 'F', title: '金小地 IP 形象', date: '2017.03 — 2022.03', desc: 'IP 全流程雕刻，8 套风格服饰设计，角色绑定表情动画，造型迭代复用率提升 60%，打造企业级 IP 资产体系。', tags: ['ZBrush', 'C4D', 'Character'], imgs: ['https://picsum.photos/seed/jinxiaodi/600/400', 'https://picsum.photos/seed/jinxiaodi-2/600/400'], captions: [
-                { title: 'IP 全流程雕刻', desc: 'ZBrush 高模雕刻 → 拓扑 → UV → 贴图全流程独立完成，多轮造型迭代定型企业级 IP。' },
-                { title: '8 套服饰与表情绑定', desc: '表情系统 + 8 套风格服饰复用同一套绑定，造型迭代复用率提升 60%。' }
-            ] }
+            {
+                id: 'proj-f', letter: 'F', title: '金小地 IP 形象', date: '2017.03 — 2022.03', desc: 'IP 全流程雕刻，8 套风格服饰设计，角色绑定表情动画，造型迭代复用率提升 60%，打造企业级 IP 资产体系。', tags: ['ZBrush', 'C4D', 'Character'], imgs: ['https://picsum.photos/seed/jinxiaodi/600/400', 'https://picsum.photos/seed/jinxiaodi-2/600/400'], captions: [
+                    { title: 'IP 全流程雕刻', desc: 'ZBrush 高模雕刻 → 拓扑 → UV → 贴图全流程独立完成，多轮造型迭代定型企业级 IP。' },
+                    { title: '8 套服饰与表情绑定', desc: '表情系统 + 8 套风格服饰复用同一套绑定，造型迭代复用率提升 60%。' }
+                ]
+            }
         ];
 
         // onSlide(i)：可选回调，切图时（自动轮播或点 dot）把当前图索引告诉调用方，
@@ -3008,12 +3064,25 @@
                         var edges = new THREE.EdgesGeometry(geo, 8); geo.dispose();
                         var mat = new THREE.LineBasicMaterial({ color: COLORS[i % COLORS.length], transparent: true, opacity: 0.65, depthWrite: false });
                         var line = new THREE.LineSegments(edges, mat); edges.dispose();
-                        var sc = 2.2 + Math.random() * 2.2;
+                        var sizeScale = isMobile() ? 0.55 : 1.0;
+                        var sc = (1.8 + Math.random() * 1.5) * sizeScale;
                         line.scale.setScalar(sc);
                         line.frustumCulled = false;
                         scene.add(line);
+                        // 调试圈：显示该几何体的碰撞半径（红圈）
+                        var pts = [];
+                        for (var k = 0; k < 32; k++) {
+                            var a = k / 32 * Math.PI * 2;
+                            pts.push(new THREE.Vector3(Math.cos(a) * 2.2, Math.sin(a) * 2.2, 0));
+                        }
+                        var ringGeo = new THREE.BufferGeometry().setFromPoints(pts);
+                        var ringMat = new THREE.LineBasicMaterial({ color: 0xff4444, transparent: true, opacity: 0.6, depthWrite: false });
+                        var ring = new THREE.LineLoop(ringGeo, ringMat);
+                        ring.scale.setScalar(sc);
+                        ring.frustumCulled = false;
+                        scene.add(ring);
                         shapes.push({
-                            obj: line, mat: mat, wx: 0, wy: 0, wz: 0, px: 0, py: 0, depth: 0, vx: 0, vy: 0,
+                            obj: line, ring: ring, mat: mat, wx: 0, wy: 0, wz: 0, px: 0, py: 0, depth: 0, vx: 0, vy: 0,
                             aBase: 0.35 + Math.random() * 0.25,
                             rx: Math.random() * Math.PI * 2, ry: Math.random() * Math.PI * 2, rz: Math.random() * Math.PI * 2,
                             rsx: (Math.random() - 0.5) * 0.008, rsy: (Math.random() - 0.5) * 0.010, rsz: (Math.random() - 0.5) * 0.006,
@@ -3070,21 +3139,22 @@
                         if (s.wy > cly) { s.wy = cly; s.vy = -Math.abs(s.vy) * 0.4; }
 
                         // 中心刚体：标题+按钮那块是个不可进入的矩形，形状被漂移带进去就沿最近边弹出去
-                        var boxW = 13, boxH = 9;
+                        var boxW = 9, boxH = 6;
                         if (Math.abs(s.wx) < boxW && Math.abs(s.wy) < boxH) {
-                            var pushLeft   = (s.wx + boxW);
-                            var pushRight  = (boxW - s.wx);
-                            var pushTop    = (s.wy + boxH);
+                            var pushLeft = (s.wx + boxW);
+                            var pushRight = (boxW - s.wx);
+                            var pushTop = (s.wy + boxH);
                             var pushBottom = (boxH - s.wy);
                             var minPush = Math.min(pushLeft, pushRight, pushTop, pushBottom);
-                            if (minPush === pushLeft)        { s.wx = -boxW; s.vx = -Math.abs(s.vx) - 0.3; }
-                            else if (minPush === pushRight)  { s.wx =  boxW; s.vx =  Math.abs(s.vx) + 0.3; }
-                            else if (minPush === pushTop)    { s.wy = -boxH; s.vy = -Math.abs(s.vy) - 0.3; }
-                            else                             { s.wy =  boxH; s.vy =  Math.abs(s.vy) + 0.3; }
+                            if (minPush === pushLeft) { s.wx = -boxW; s.vx = -Math.abs(s.vx) - 0.3; }
+                            else if (minPush === pushRight) { s.wx = boxW; s.vx = Math.abs(s.vx) + 0.3; }
+                            else if (minPush === pushTop) { s.wy = -boxH; s.vy = -Math.abs(s.vy) - 0.3; }
+                            else { s.wy = boxH; s.vy = Math.abs(s.vy) + 0.3; }
                         }
 
                         s.obj.position.set(s.wx, s.wy, s.depth);
                         s.obj.rotation.set(s.rx, s.ry, s.rz);
+                        if (s.ring) s.ring.position.set(s.wx, s.wy, s.depth);
                         s.mat.opacity = s.aBase;
                     }
 
@@ -3114,7 +3184,7 @@
                                 o.wx -= nx * push * depthJ * tanFov * camera.aspect;
                                 o.wy -= ny * push * depthJ * tanFov;
                                 // 碰撞时给一个明显的旋转冲量
-                                var rotKick = pointerIsTouch ? 0.5 : 1.6;
+                                var rotKick = pointerIsTouch ? 0.02 : 1.0;
                                 s.rx += ny * overlap * rotKick;
                                 s.ry += nx * overlap * rotKick;
                                 o.rx -= ny * overlap * rotKick;
